@@ -1,0 +1,80 @@
+<!--@
+report.paper.margins.setMargins(1.5,2,1.5,2,"cm");
+
+report.importExtension("sql");
+var db;
+if (report.isEditing) {
+    db = sql.addDatabase("QSQLITE", "music");
+    db.databaseName = "music.db";
+    db.open();
+} else {
+    db = sql.database("music");
+}
+/*
+ * Prueba
+ * algo más
+ */
+if(report.isDebbuging) {
+    print(db.tables("AllTables"));
+    var record = db.record("songs");
+    for (var i = 0; i < record.count; i++) {
+        print(record.fieldName(i));
+    }
+}
+-->
+
+<!--:header-->
+<center><b>Music Report</b></center>
+
+<!--:footer-->
+<center>${report.page}/${report.pageCount}</center>
+
+<!--:content-->
+
+<!--@
+var query = db.query("SELECT * FROM songs order by artist, title");
+-->
+
+<h1><center>Music Report</center></h1>
+<br>
+<!--@
+var artist = query.record().indexOf("artist");
+var title = query.record().indexOf("title");
+var length = query.record().indexOf("length");
+var year = query.record().indexOf("year");
+-->
+<table width="100%" cellspacing="-1" cellpadding="2" border="1" style="border-style:solid;border-color:black;" >
+    <thead>
+        <tr>
+            <td><b>Artist</b></td>
+            <td><b>Title</b></td>
+            <td><b>Lenght</b></td>
+            <td><b>Year</b></td>
+        </tr>
+    </thead>
+    <tbody>
+    <!--@
+    for (var n=0; n < 10; n++) {
+        while (query.next()) {
+    -->
+            <tr>
+                <td>${query.value(artist)}</td>
+                <td>${query.value(title)}</td>
+                <td>${query.value(length)}</td>
+                <td>${query.value(year)}</td>
+            </tr>
+    <!--@
+        }
+        query.first();
+    }
+    -->
+    </tbody>
+</table>
+
+
+
+<!--@
+if (report.isDebbuging) {
+    print("end");
+}
+-->

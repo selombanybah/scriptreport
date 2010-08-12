@@ -1,0 +1,45 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/book.png</file>
+        <file>images/copy.png</file>
+        <file>images/cut.png</file>
+        <file>images/find.png</file>
+        <file>images/fit-page.png</file>
+        <file>images/fit-width.png</file>
+        <file>images/generated-code.png</file>
+        <file>images/go-first.png</file>
+        <file>images/go-last.png</file>
+        <file>images/go-next.png</file>
+        <file>images/go-previous.png</file>
+        <file>images/icon.png</file>
+        <file>images/layout-landscape.png</file>
+        <file>images/layout-portrait.png</file>
+        <file>images/new.png</file>
+        <file>images/open.png</file>
+        <file>images/page-setup.png</file>
+        <file>images/paste.png</file>
+        <file>images/print.png</file>
+        <file>images/print-preview.png</file>
+        <file>images/redo.png</file>
+        <file>images/save.png</file>
+        <file>images/source-code.png</file>
+        <file>images/source-code-preview.png</file>
+        <file>images/undo.png</file>
+        <file>images/view-page-multi.png</file>
+        <file>images/view-page-one.png</file>
+        <file>images/view-page-sided.png</file>
+        <file>images/zoom.png</file>
+        <file>images/zoom-in.png</file>
+        <file>images/zoom-out.png</file>
+        <file>images/html-subset.png</file>
+        <file>images/js-functions.png</file>
+        <file>images/dialog-close.png</file>
+        <file>images/search-next.png</file>
+        <file>images/search-prev.png</file>
+        <file>images/wrap.png</file>
+        <file>images/print-source.png</file>
+        <file>images/debug.png</file>
+        <file>images/run.png</file>
+        <file>images/validate.png</file>
+    </qresource>
+</RCC>
