@@ -1,0 +1,109 @@
+<!--@
+print(report.paper.size.size);
+//report.paper.size.size = "Letter";
+//report.paper.margins.setMargins(4, 4, 4, 4, "cm");
+-->
+<!--:header-->
+header ${report.page} / ${report.pageCount}
+<!--:content-->
+<h1>Holas</h1>
+<!--@ print ("foo"); -->
+<!--@ if ( 1 < 2 ) { -->
+is greater
+<!--@ } else { -->
+is less
+<!--@ } -->
+a<br>${report.page} / ${report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${report.page} / ${report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${report.page} / ${report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${report.page} / ${report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${report.page} / ${report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${report.page} / ${report.pageCount}
+<!--:footer-->
+footer ${report.page} / ${report.pageCount}

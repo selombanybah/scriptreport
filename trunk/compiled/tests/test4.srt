@@ -1,0 +1,7 @@
+<!--@
+print(report.availableExtensions);
+report.importExtension("foo");
+print(report.importedExtensions);
+print(foo.add(1,2));
+print("end");
+-->
