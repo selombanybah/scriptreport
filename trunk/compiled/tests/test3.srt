@@ -6,7 +6,7 @@ print(report.paper.size.size);
 <!--:header-->
 header ${report.page} / ${report.pageCount}
 <!--:content-->
-<h1>Holas</h1>
+<h1>Hello</h1>
 <!--@ print ("foo"); -->
 <!--@ if ( 1 < 2 ) { -->
 is greater

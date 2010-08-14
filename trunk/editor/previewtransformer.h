@@ -25,8 +25,8 @@ private:
     void write(const QString &s);
 
 
-    void readHtml();
-    void readChangeContext();
+    void readHtml(QTextStream *header, QTextStream *content, QTextStream *footer);
+    void readChangeContext(QTextStream *header, QTextStream *content, QTextStream *footer);
     void readComment();
 
 private:
@@ -34,6 +34,7 @@ private:
     QChar next;
     QTextStream *in;
     QTextStream *out;
+    QTextStream *currentStream;
 };
 
 

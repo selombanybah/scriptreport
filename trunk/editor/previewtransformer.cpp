@@ -24,29 +24,54 @@ void PreviewTransformer::setOutputStream(QTextStream *outputStream) {
 bool PreviewTransformer::transform() {
     const QString startHtml = QString::fromLatin1("<html>");
     const QString endHtml = QString::fromLatin1("</html>");
+    const QString separator = QString::fromLatin1("<hr>");
 
     if (!in || !out) {
         return false;
     }
 
-    write(startHtml);
-    consume();
-    if (next.isNull()) {
-        write(endHtml);
-        out->flush();
-        return true;
-    }
-    consume();
-    if (next.isNull()) {
-        *out << current;
-        write(endHtml);
-        out->flush();
-        return true;
-    }
-    readHtml();
-    write(endHtml);
-    out->flush();
+    QString headerText;
+    QTextStream header(&headerText, QIODevice::WriteOnly);
+    QString contentText;
+    QTextStream content(&contentText, QIODevice::WriteOnly);
+    QString footerText;
+    QTextStream footer(&footerText, QIODevice::WriteOnly);
 
+    currentStream = &content;
+
+    consume();
+    if (!next.isNull()) {
+        consume();
+        if (next.isNull()) {
+            write(current);
+        } else {
+            readHtml(&header, &content, &footer);
+        }
+    }
+
+    header.flush();
+    content.flush();
+    footer.flush();
+
+    currentStream = out;
+
+    write(startHtml);
+    if (!headerText.isEmpty()) {
+        write(headerText);
+        write(separator);
+    } else if (!footerText.isEmpty()) {
+        write(separator);
+    }
+    write(contentText);
+    if (!footerText.isEmpty()) {
+        write(separator);
+        write(footerText);
+    } else if (!headerText.isEmpty()) {
+        write(separator);
+    }
+    write(endHtml);
+
+    out->flush();
     return true;
 }
 
@@ -61,23 +86,23 @@ void PreviewTransformer::prepare() {
 }
 
 void PreviewTransformer::writeAndConsume() {
-    *out << current;
+    *currentStream << current;
     consume();
 }
 
 void PreviewTransformer::write(const QChar &c) {
-    *out << c;
+    *currentStream << c;
 }
 
 void PreviewTransformer::write(const QChar &c1, const QChar &c2) {
-    *out << c1 << c2;
+    *currentStream << c1 << c2;
 }
 
 void PreviewTransformer::write(const QString &s) {
-    *out << s;
+    *currentStream << s;
 }
 
-void PreviewTransformer::readHtml() {
+void PreviewTransformer::readHtml(QTextStream *header, QTextStream *content, QTextStream *footer) {
     const QChar s1  = QChar::fromLatin1('<');
     const QChar s2  = QChar::fromLatin1('!');
     const QChar s3  = QChar::fromLatin1('-');
@@ -109,7 +134,7 @@ void PreviewTransformer::readHtml() {
 
         consume();
         if (next == s5a) {
-            readChangeContext();
+            readChangeContext(header, content, footer);
             continue;
         }
 
@@ -117,7 +142,15 @@ void PreviewTransformer::readHtml() {
     }
 }
 
-void PreviewTransformer::readChangeContext() {
+void PreviewTransformer::readChangeContext(QTextStream *header, QTextStream *content, QTextStream *footer) {
+    // header
+    const QChar h1 = QChar::fromLatin1('h');
+    const QChar h2 = QChar::fromLatin1('e');
+    const QChar h3 = QChar::fromLatin1('a');
+    const QChar h4 = QChar::fromLatin1('d');
+    const QChar h5 = QChar::fromLatin1('e');
+    const QChar h6 = QChar::fromLatin1('r');
+
     // content
     const QChar c1 = QChar::fromLatin1('c');
     const QChar c2 = QChar::fromLatin1('o');
@@ -126,7 +159,6 @@ void PreviewTransformer::readChangeContext() {
     const QChar c5 = QChar::fromLatin1('e');
     const QChar c6 = QChar::fromLatin1('n');
     const QChar c7 = QChar::fromLatin1('t');
-    const QString content = QString::fromLatin1("<hr>");
 
     // footer
     const QChar f1 = QChar::fromLatin1('f');
@@ -135,10 +167,35 @@ void PreviewTransformer::readChangeContext() {
     const QChar f4 = QChar::fromLatin1('t');
     const QChar f5 = QChar::fromLatin1('e');
     const QChar f6 = QChar::fromLatin1('r');
-    const QString footer = QString::fromLatin1("<hr>");
 
     prepare();
-    if (current == c1) {
+    if (current == h1) {
+        if (next != h2) {
+            goto end;
+        }
+
+        consume();
+        if (next != h3) {
+            goto end;
+        }
+
+        consume();
+        if (next != h4) {
+            goto end;
+        }
+
+        consume();
+        if (next != h5) {
+            goto end;
+        }
+
+        consume();
+        if (next != h6) {
+            goto end;
+        }
+
+        currentStream = header;
+    } else if (current == c1) {
         if (next != c2) {
             goto end;
         }
@@ -168,7 +225,7 @@ void PreviewTransformer::readChangeContext() {
             goto end;
         }
 
-        write(content);
+        currentStream = content;
     } else if (current == f1) {
         if (next != f2) {
             goto end;
@@ -194,7 +251,7 @@ void PreviewTransformer::readChangeContext() {
             goto end;
         }
 
-        write(footer);
+        currentStream = footer;
     }
 
  end:
