@@ -9,8 +9,17 @@
 #include "scriptableerror.h"
 #include "scriptablerecord.h"
 
-ScriptableQuery::ScriptableQuery(QSqlQuery &query, QObject *parent) :
-    QObject(parent), QScriptable()
+void ScriptableQuery::throwError() const {
+    if (m_autoThrow) {
+        QSqlError error = m_query->lastError();
+        if (error.isValid()) {
+            context()->throwError(error.text());
+        }
+    }
+}
+
+ScriptableQuery::ScriptableQuery(QSqlQuery &query, bool autoThrow, QObject *parent) :
+    QObject(parent), QScriptable(), m_autoThrow(autoThrow)
 {
     m_query = new QSqlQuery(query);
 }
@@ -25,6 +34,10 @@ bool ScriptableQuery::isValid() const {
 
 bool ScriptableQuery::isActive() const {
     return m_query->isActive();
+}
+
+bool ScriptableQuery::isNull(const QString& field) const {
+    return m_query->record().isNull(field);
 }
 
 bool ScriptableQuery::isNull(int field) const {
@@ -70,43 +83,84 @@ void ScriptableQuery::setForwardOnly(bool forward) {
 
 ScriptableRecord* ScriptableQuery::record() const {
     QSqlRecord record = m_query->record();
-    return new ScriptableRecord(record, engine());
+    return new ScriptableRecord(record, m_autoThrow, engine());
 }
 
 bool ScriptableQuery::exec(const QString& query) {
-    return m_query->exec(query);
+    bool result = m_query->exec(query);
+    throwError();
+    return result;
+}
+
+QVariant ScriptableQuery::value(const QString& field) const {
+    QVariant result = m_query->record().value(field);
+    throwError();
+    if (m_autoThrow) {
+        QSqlError error = m_query->lastError();
+        if (error.isValid()) {
+            context()->throwError(error.text());
+        }
+        if (!result.isValid()) {
+            context()->throwError(tr("Invalid field of name: '%1'").arg(field));
+        }
+    }
+    return result;
 }
 
 QVariant ScriptableQuery::value(int i) const {
-    return m_query->value(i);
+    QVariant result = m_query->value(i);
+    throwError();
+    if (m_autoThrow) {
+        QSqlError error = m_query->lastError();
+        if (error.isValid()) {
+            context()->throwError(error.text());
+        }
+        if (!result.isValid()) {
+            context()->throwError(tr("Invalid field of index: '%1'").arg(i));
+        }
+    }
+    return result;
 }
 
 bool ScriptableQuery::seek(int i, bool relative) {
-    return m_query->seek(i, relative);
+    bool result = m_query->seek(i, relative);
+    throwError();
+    return result;
 }
 
 bool ScriptableQuery::next() {
-    return m_query->next();
+    bool result = m_query->next();
+    throwError();
+    return result;
 }
 
 bool ScriptableQuery::previous() {
-    return m_query->previous();
+    bool result = m_query->previous();
+    throwError();
+    return result;
 }
 
 bool ScriptableQuery::first() {
-    return m_query->first();
+    bool result = m_query->first();
+    throwError();
+    return result;
 }
 
 bool ScriptableQuery::last() {
-    return m_query->last();
+    bool result = m_query->last();
+    throwError();
+    return result;
 }
 
 void ScriptableQuery::clear() {
-    return m_query->clear();
+    m_query->clear();
+    throwError();
 }
 
 bool ScriptableQuery::exec() {
-    return m_query->exec();
+    bool result = m_query->exec();
+    throwError();
+    return result;
 }
 
 bool ScriptableQuery::execBatch(QString mode) {
@@ -120,36 +174,49 @@ bool ScriptableQuery::execBatch(QString mode) {
         return false;
     }
 
-    return m_query->execBatch(executionMode);
+    bool result = m_query->execBatch(executionMode);
+    throwError();
+    return result;
 }
 
 
 bool ScriptableQuery::prepare(const QString& query) {
-    return m_query->prepare(query);
+    bool result = m_query->prepare(query);
+    throwError();
+    return result;
 }
 
 void ScriptableQuery::bindValue(const QString& placeholder, const QVariant& val) {
     m_query->bindValue(placeholder, val);
+    throwError();
 }
 
 void ScriptableQuery::bindValue(int pos, const QVariant& val) {
     m_query->bindValue(pos, val);
+    throwError();
 }
 
 void ScriptableQuery::addBindValue(const QVariant& val) {
     m_query->addBindValue(val);
+    throwError();
 }
 
 QVariant ScriptableQuery::boundValue(const QString& placeholder) const {
-    return m_query->boundValue(placeholder);
+    QVariant result = m_query->boundValue(placeholder);
+    throwError();
+    return result;
 }
 
 QVariant ScriptableQuery::boundValue(int pos) const {
-    return m_query->boundValue(pos);
+    QVariant result = m_query->boundValue(pos);
+    throwError();
+    return result;
 }
 
 QMap<QString, QVariant> ScriptableQuery::boundValues() const {
-    return m_query->boundValues();
+    QMap<QString, QVariant> result = m_query->boundValues();
+    throwError();
+    return result;
 }
 
 QString ScriptableQuery::executedQuery() const {
@@ -157,13 +224,26 @@ QString ScriptableQuery::executedQuery() const {
 }
 
 QVariant ScriptableQuery::lastInsertId() const {
-    return m_query->lastInsertId();
+    QVariant result = m_query->lastInsertId();
+    throwError();
+    return result;
 }
 
 void ScriptableQuery::finish() {
     m_query->finish();
+    throwError();
 }
 
 bool ScriptableQuery::nextResult() {
-    return m_query->nextResult();
+    bool result = m_query->nextResult();
+    throwError();
+    return result;
+}
+
+bool ScriptableQuery::autoThrow() const {
+    return m_autoThrow;
+}
+
+void ScriptableQuery::setAutoThrow(bool autoThrow) {
+    m_autoThrow = autoThrow;
 }

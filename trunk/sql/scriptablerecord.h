@@ -14,9 +14,10 @@ class ScriptableRecord : public QObject, public QScriptable
     Q_OBJECT
     Q_PROPERTY(bool isEmpty READ isEmpty)
     Q_PROPERTY(int count READ count)
+    Q_PROPERTY(bool autoThrow READ autoThrow WRITE setAutoThrow)
 
 public:
-    explicit ScriptableRecord(QSqlRecord &record, QObject *parent = 0);
+    explicit ScriptableRecord(QSqlRecord &record, bool autoThrow, QObject *parent = 0);
     ~ScriptableRecord();
 
     Q_INVOKABLE QVariant value(int i) const;
@@ -38,8 +39,12 @@ public:
     Q_INVOKABLE bool contains(const QString& name) const;
     int count() const;
 
+    bool autoThrow() const;
+    void setAutoThrow(bool autoThrow);
+
 private:
     QSqlRecord *m_record;
+    bool m_autoThrow;
 };
 
 Q_DECLARE_METATYPE(ScriptableRecord*)
