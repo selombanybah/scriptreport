@@ -279,8 +279,16 @@ void MainWindow::run() {
     }
 
     ui->reportResultTextEdit->setPlainText(message);
-    QString printSource = scriptReportEngine->output()->text();
+
+    QString header = scriptReportEngine->outputHeader()->text();
+    QString content = scriptReportEngine->output()->text();
+    QString footer = scriptReportEngine->outputFooter()->text();
+
+    QString printSource = QString("<!-- header -->\n%1\n<!-- content -->\n%2\n<!-- footer -->\n%3")
+            .arg(header).arg(content).arg(footer);
+
     ui->printSourceTextEdit->setPlainText(printSource);
+
     isRunRequired = false;
     isPrintPreviewUpdateRequired = true;
 }
