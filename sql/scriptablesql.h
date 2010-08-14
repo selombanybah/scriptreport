@@ -14,6 +14,7 @@ class ScriptableSql : public QObject, public QScriptable
     Q_OBJECT
     Q_PROPERTY(QStringList connectionNames READ connectionNames)
     Q_PROPERTY(QStringList drivers READ drivers)
+    Q_PROPERTY(bool autoThrow READ autoThrow WRITE setAutoThrow)
 
 public:
     explicit ScriptableSql(QObject *parent = 0);
@@ -21,6 +22,9 @@ public:
 
     QStringList connectionNames();
     QStringList drivers();
+
+    bool autoThrow() const;
+    void setAutoThrow(bool autoThrow);
 
     Q_INVOKABLE bool contains(const QString &connectionName = QString());
     Q_INVOKABLE bool isDriverAvailable(const QString &name);
@@ -33,6 +37,7 @@ public:
 private:
     QT_STATIC_CONST char *defaultConnection;
     QMap<QString, ScriptableDatabase*> m_connections;
+    bool m_autoThrow;
 };
 
 #endif // SCRIPTABLESQL_H

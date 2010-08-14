@@ -9,7 +9,7 @@
 QT_STATIC_CONST_IMPL char *ScriptableSql::defaultConnection = "qt_sql_default_connection";
 
 ScriptableSql::ScriptableSql(QObject *parent) :
-    QObject(parent), QScriptable()
+    QObject(parent), QScriptable(), m_autoThrow(true)
 {
 }
 
@@ -19,11 +19,11 @@ ScriptableSql::~ScriptableSql() {
         i.next();
         if (!i.value()->isReadOnly()) {
             QString name = i.value()->connectionName();
-            delete i.value(); // don't worry, m_connections will be deleted too
-                              // this prevent a message fron qt where the database is in use
+            delete i.value(); // this prevent a message fron qt where the database is in use
             QSqlDatabase::removeDatabase(name);
         }
     }
+    m_connections.clear();
 }
 
 QStringList ScriptableSql::connectionNames() {
@@ -32,6 +32,14 @@ QStringList ScriptableSql::connectionNames() {
 
 QStringList ScriptableSql::drivers() {
     return QSqlDatabase::drivers();
+}
+
+bool ScriptableSql::autoThrow() const {
+    return m_autoThrow;
+}
+
+void ScriptableSql::setAutoThrow(bool autoThrow) {
+    m_autoThrow = autoThrow;
 }
 
 bool ScriptableSql::contains(const QString &connectionName) {
@@ -59,16 +67,20 @@ ScriptableDatabase* ScriptableSql::addDatabase(const QString &type, const QStrin
         if (!old->isReadOnly()) {
             delete old;
         } else {
-            context()->throwError(tr("The connection '%1' already exists and can not be replaced").arg(connectionName));
+            if (m_autoThrow) {
+                context()->throwError(tr("The connection '%1' already exists and can not be replaced").arg(connectionName));
+            }
             return 0;
         }
     } else if (QSqlDatabase::contains(connectionName)) {
-        context()->throwError(tr("The connection '%1' already exists and can not be replaced").arg(connectionName));
+        if (m_autoThrow) {
+            context()->throwError(tr("The connection '%1' already exists and can not be replaced").arg(connectionName));
+        }
         return 0;
     }
 
     QSqlDatabase db = QSqlDatabase::addDatabase(type, connectionName);
-    ScriptableDatabase *result = new ScriptableDatabase(db, false, this);
+    ScriptableDatabase *result = new ScriptableDatabase(db, false, m_autoThrow, this);
     m_connections.insert(connectionName, result);
     return result;
 }
@@ -79,17 +91,21 @@ ScriptableDatabase* ScriptableSql::cloneDatabase(const ScriptableDatabase &other
         if (!old->isReadOnly()) {
             delete old;
         } else {
-            context()->throwError(tr("The connection '%1' already exists and can not be replaced").arg(connectionName));
+            if (m_autoThrow) {
+                context()->throwError(tr("The connection '%1' already exists and can not be replaced").arg(connectionName));
+            }
             return 0;
         }
     } else if (QSqlDatabase::contains(connectionName)) {
-        context()->throwError(tr("The connection '%1' already exists and can not be replaced").arg(connectionName));
+        if (m_autoThrow) {
+            context()->throwError(tr("The connection '%1' already exists and can not be replaced").arg(connectionName));
+        }
         return 0;
     }
 
     QSqlDatabase *db1 = other.db();
     QSqlDatabase db2 = QSqlDatabase::cloneDatabase(*db1, connectionName);
-    ScriptableDatabase* result = new ScriptableDatabase(db2, false, this);
+    ScriptableDatabase* result = new ScriptableDatabase(db2, false, other.autoThrow(), this);
     m_connections.insert(connectionName, result);
     return result;
 }
@@ -101,7 +117,7 @@ ScriptableDatabase* ScriptableSql::database(const QString &connectionName, bool 
     }
 
     QSqlDatabase db = QSqlDatabase::database(connectionName, open);
-    result = new ScriptableDatabase(db, true, this);
+    result = new ScriptableDatabase(db, true, m_autoThrow, this);
     m_connections.insert(connectionName, result);
     return result;
 }

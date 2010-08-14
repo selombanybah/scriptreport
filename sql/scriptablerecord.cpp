@@ -1,9 +1,11 @@
 #include "scriptablerecord.h"
 
 #include <QtSql/QSqlRecord>
+#include <QtSql/QSqlError>
+#include <QtScript/QScriptEngine>
 
-ScriptableRecord::ScriptableRecord(QSqlRecord &record, QObject *parent) :
-    QObject(parent), QScriptable()
+ScriptableRecord::ScriptableRecord(QSqlRecord &record, bool autoThrow, QObject *parent) :
+    QObject(parent), QScriptable(), m_autoThrow(autoThrow)
 {
     m_record = new QSqlRecord(record);
 }
@@ -13,11 +15,23 @@ ScriptableRecord::~ScriptableRecord() {
 }
 
 QVariant ScriptableRecord::value(int i) const {
-    return m_record->value(i);
+    QVariant result = m_record->value(i);
+    if (m_autoThrow) {
+        if (!result.isValid()) {
+            context()->throwError(tr("Invalid field of index: '%1'").arg(i));
+        }
+    }
+    return result;
 }
 
 QVariant ScriptableRecord::value(const QString& name) const {
-    return m_record->value(name);
+    QVariant result = m_record->value(name);
+    if (m_autoThrow) {
+        if (!result.isValid()) {
+            context()->throwError(tr("Invalid field of name: '%1'").arg(name));
+        }
+    }
+    return result;
 }
 
 bool ScriptableRecord::isNull(int i) const {
@@ -29,11 +43,23 @@ bool ScriptableRecord::isNull(const QString& name) const {
 }
 
 int ScriptableRecord::indexOf(const QString &name) const {
-    return m_record->indexOf(name);
+    int result = m_record->indexOf(name);
+    if (m_autoThrow) {
+        if (result == -1) {
+            context()->throwError(tr("Invalid field of name: '%1'").arg(name));
+        }
+    }
+    return result;
 }
 
 QString ScriptableRecord::fieldName(int i) const {
-    return m_record->fieldName(i);
+    QString result = m_record->fieldName(i);
+    if (m_autoThrow) {
+        if (result.isEmpty()) {
+            context()->throwError(tr("Invalid field of index: '%1'").arg(i));
+        }
+    }
+    return result;
 }
 
 bool ScriptableRecord::isGenerated(int i) const {
@@ -54,4 +80,12 @@ bool ScriptableRecord::contains(const QString& name) const {
 
 int ScriptableRecord::count() const {
     return m_record->count();
+}
+
+bool ScriptableRecord::autoThrow() const {
+    return m_autoThrow;
+}
+
+void ScriptableRecord::setAutoThrow(bool autoThrow) {
+    m_autoThrow = autoThrow;
 }

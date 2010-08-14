@@ -27,6 +27,9 @@ bool SourceTransformer::transform() {
     inColumn  = 0;
     outLine   = 0;
     outColumn = 0;
+    current = QChar::fromLatin1(' ');
+    next = QChar::fromLatin1(' ');
+    startHtmlWrited = false;
 
     if (!in || !out) {
         return false;
@@ -450,8 +453,14 @@ void SourceTransformer::ajust() {
     const QChar n = QChar::fromLatin1('\n');
     const QChar sp = QChar::fromLatin1(' ');
 
-    while (outLine < inLine) {
-        write(n);
+    if (current == n) {
+        while (outLine < inLine - 1) {
+            write(n);
+        }
+    } else {
+        while (outLine < inLine) {
+            write(n);
+        }
     }
 
     while (outColumn < inColumn - 1) {

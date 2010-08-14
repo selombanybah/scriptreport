@@ -27,9 +27,10 @@ class ScriptableDatabase : public QObject, public QScriptable
     Q_PROPERTY(int port READ port WRITE setPort)
     Q_PROPERTY(QString connectOptions READ connectOptions WRITE setConnectOptions)
     Q_PROPERTY(QString connectionName READ connectionName)
+    Q_PROPERTY(bool autoThrow READ autoThrow WRITE setAutoThrow)
 
 public:
-    ScriptableDatabase(QSqlDatabase &database, bool readonly, QObject *parent = 0);
+    ScriptableDatabase(QSqlDatabase &database, bool readonly, bool autoThrow, QObject *parent = 0);
     ~ScriptableDatabase();
 
     QSqlDatabase *db() const;
@@ -70,11 +71,18 @@ public:
 //    void setNumericalPrecisionPolicy(QSql::NumericalPrecisionPolicy precisionPolicy);
 //    QSql::NumericalPrecisionPolicy numericalPrecisionPolicy() const;
 
+    bool autoThrow() const;
+    void setAutoThrow(bool autoThrow);
+
     Q_INVOKABLE QString toString();
+
+private:
+    inline void throwError() const;
 
 private:
     QSqlDatabase* m_db;
     bool m_readonly;
+    bool m_autoThrow;
 };
 
 Q_DECLARE_METATYPE(ScriptableDatabase*)

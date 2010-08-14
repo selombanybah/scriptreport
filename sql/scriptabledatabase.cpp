@@ -10,11 +10,19 @@
 #include "scriptablequery.h"
 #include "scriptablerecord.h"
 
-ScriptableDatabase::ScriptableDatabase(QSqlDatabase &database, bool readonly, QObject *parent) :
-    QObject(parent), QScriptable()
+void ScriptableDatabase::throwError() const {
+    if (m_autoThrow) {
+        QSqlError error = m_db->lastError();
+        if (error.isValid()) {
+            context()->throwError(error.text());
+        }
+    }
+}
+
+ScriptableDatabase::ScriptableDatabase(QSqlDatabase &database, bool readonly, bool autoThrow, QObject *parent) :
+    QObject(parent), QScriptable(), m_readonly(readonly), m_autoThrow(autoThrow)
 {
     m_db = new QSqlDatabase(database);
-    m_readonly = readonly;
 }
 
 
@@ -32,23 +40,32 @@ bool ScriptableDatabase::isReadOnly() const {
 }
 
 bool ScriptableDatabase::open() {
-    return m_db->open();
+    bool result = m_db->open();
+    throwError();
+    return result;
 }
 
 bool ScriptableDatabase::open(const QString &user, const QString &password) {
     if (m_readonly) {
-        context()->throwError(tr("Unable to change the user name and password for the connection '%1'").arg(m_db->connectionName()));
+        if (m_autoThrow) {
+            context()->throwError(tr("Unable to change the user name and password for the connection '%1'").arg(m_db->connectionName()));
+        }
         return false;
     }
-    return m_db->open(user, password);
+    bool result = m_db->open(user, password);
+    throwError();
+    return result;
 }
 
 void ScriptableDatabase::close() {
     if (m_readonly) {
-        context()->throwError(tr("Unable to close the connection '%1'").arg(m_db->connectionName()));
+        if (m_autoThrow) {
+            context()->throwError(tr("Unable to close the connection '%1'").arg(m_db->connectionName()));
+        }
         return;
     }
     m_db->close();
+    throwError();
 }
 
 bool ScriptableDatabase::isOpen() const {
@@ -84,43 +101,63 @@ QStringList ScriptableDatabase::tables(QString type) const {
     } else if (type == QLatin1String("AllTables")) {
         tableType = QSql::AllTables;
     } else {
-        context()->throwError(tr("%1 is not a valid table type.").arg(type));
+        if (m_autoThrow) {
+            context()->throwError(tr("%1 is not a valid table type.").arg(type));
+        }
         return QStringList();
     }
 
-    return m_db->tables(tableType);
+    QStringList result = m_db->tables(tableType);
+    throwError();
+    return result;
 }
 
 ScriptableRecord* ScriptableDatabase::record(const QString& tablename) const {
     QSqlRecord record = m_db->record(tablename);
-    return new ScriptableRecord(record, engine());
+    throwError();
+    return new ScriptableRecord(record, m_autoThrow, engine());
 }
 
 ScriptableQuery* ScriptableDatabase::exec(const QString& query) const {
     QSqlQuery q = m_db->exec(query);
-    return new ScriptableQuery(q, engine());
+    if (m_autoThrow) {
+        QSqlError error = m_db->lastError();
+        if (error.isValid()) {
+            context()->throwError(error.text());
+        }
+    }
+    throwError();
+    return new ScriptableQuery(q, m_autoThrow, engine());
 }
 
 ScriptableQuery* ScriptableDatabase::query(const QString& query) const {
     QSqlQuery q(query, *m_db);
-    return new ScriptableQuery(q, engine());
+    return new ScriptableQuery(q, m_autoThrow, engine());
 }
 
 bool ScriptableDatabase::transaction() {
-    return m_db->transaction();
+    bool result = m_db->transaction();
+    throwError();
+    return result;
 }
 
 bool ScriptableDatabase::commit() {
-    return m_db->commit();
+    bool result = m_db->commit();
+    throwError();
+    return result;
 }
 
 bool ScriptableDatabase::rollback() {
-    return m_db->rollback();
+    bool result = m_db->rollback();
+    throwError();
+    return result;
 }
 
 void ScriptableDatabase::setDatabaseName(const QString &name) {
     if (m_readonly) {
-        context()->throwError(tr("Unable to change the database name for the connection '%1'").arg(m_db->connectionName()));
+        if (m_autoThrow) {
+            context()->throwError(tr("Unable to change the database name for the connection '%1'").arg(m_db->connectionName()));
+        }
         return;
     }
     m_db->setDatabaseName(name);
@@ -128,7 +165,9 @@ void ScriptableDatabase::setDatabaseName(const QString &name) {
 
 void ScriptableDatabase::setUserName(const QString &name) {
     if (m_readonly) {
-        context()->throwError(tr("Unable to change the user name for the connection '%1'").arg(m_db->connectionName()));
+        if (m_autoThrow) {
+            context()->throwError(tr("Unable to change the user name for the connection '%1'").arg(m_db->connectionName()));
+        }
         return;
     }
     m_db->setUserName(name);
@@ -136,7 +175,9 @@ void ScriptableDatabase::setUserName(const QString &name) {
 
 void ScriptableDatabase::setPassword(const QString &password) {
     if (m_readonly) {
-        context()->throwError(tr("Unable to change the password for the connection '%1'").arg(m_db->connectionName()));
+        if (m_autoThrow) {
+            context()->throwError(tr("Unable to change the password for the connection '%1'").arg(m_db->connectionName()));
+        }
         return;
     }
     m_db->setPassword(password);
@@ -144,7 +185,9 @@ void ScriptableDatabase::setPassword(const QString &password) {
 
 void ScriptableDatabase::setHostName(const QString &host) {
     if (m_readonly) {
-        context()->throwError(tr("Unable to change the host name for the connection '%1'").arg(m_db->connectionName()));
+        if (m_autoThrow) {
+            context()->throwError(tr("Unable to change the host name for the connection '%1'").arg(m_db->connectionName()));
+        }
         return;
     }
     m_db->setHostName(host);
@@ -152,7 +195,9 @@ void ScriptableDatabase::setHostName(const QString &host) {
 
 void ScriptableDatabase::setPort(int p) {
     if (m_readonly) {
-        context()->throwError(tr("Unable to change the port for the connection '%1'").arg(m_db->connectionName()));
+        if (m_autoThrow) {
+            context()->throwError(tr("Unable to change the port for the connection '%1'").arg(m_db->connectionName()));
+        }
         return;
     }
     m_db->setPort(p);
@@ -160,7 +205,9 @@ void ScriptableDatabase::setPort(int p) {
 
 void ScriptableDatabase::setConnectOptions(const QString &options) {
     if (m_readonly) {
-        context()->throwError(tr("Unable to change the connect options for the connection '%1'").arg(m_db->connectionName()));
+        if (m_autoThrow) {
+            context()->throwError(tr("Unable to change the connect options for the connection '%1'").arg(m_db->connectionName()));
+        }
         return;
     }
     return m_db->setConnectOptions(options);
@@ -199,6 +246,14 @@ QString ScriptableDatabase::connectOptions() const {
 
 QString ScriptableDatabase::connectionName() const {
     return m_db->connectionName();
+}
+
+bool ScriptableDatabase::autoThrow() const {
+    return m_autoThrow;
+}
+
+void ScriptableDatabase::setAutoThrow(bool autoThrow) {
+    m_autoThrow = autoThrow;
 }
 
 QString ScriptableDatabase::toString() {
