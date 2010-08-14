@@ -11,8 +11,8 @@ if (report.isEditing) {
     db = sql.database("music");
 }
 /*
- * Prueba
- * algo más
+ * Test
+ * something else
  */
 if(report.isDebbuging) {
     print(db.tables("AllTables"));
