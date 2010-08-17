@@ -28,6 +28,10 @@ private:
     void readHtml(QTextStream *header, QTextStream *content, QTextStream *footer);
     void readChangeContext(QTextStream *header, QTextStream *content, QTextStream *footer);
     void readComment();
+    void readConditional();
+    void readConditionalText();
+    void readInlineConditional();
+    void readInlineConditionalText();
 
 private:
     QChar current;
