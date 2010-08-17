@@ -156,21 +156,33 @@ void SourceTransformer::readHtml() {
     const QChar s5  = QChar::fromLatin1('@');
     const QChar s5b = QChar::fromLatin1('$');
     const QChar s5c = QChar::fromLatin1(':');
+    const QChar s5d = QChar::fromLatin1('?');
 
-    const QChar as1 = QChar::fromLatin1('$');
-    const QChar as2 = QChar::fromLatin1('{');
+    const QChar as1  = QChar::fromLatin1('$');
+    const QChar as1b = QChar::fromLatin1('?');
+    const QChar as2  = QChar::fromLatin1('{');
 
     const QString astart = QString::fromLatin1("_(");
     const QString aend   = QString::fromLatin1(");");
 
     startHtmlWrited = false;
-
     while (!current.isNull()) {
         if (current == as1) {
             if (next == as2) {
                 writeEndHtml();
                 write(astart);
                 readInLineScript();
+                write(aend);
+                continue;
+            } else {
+                writeHtmlAndConsume();
+                continue;
+            }
+        } else if (current == as1b) {
+            if (next == as2) {
+                writeEndHtml();
+                write(astart);
+                readInlineConditional();
                 write(aend);
                 continue;
             } else {
@@ -218,6 +230,13 @@ void SourceTransformer::readHtml() {
             // <!--:
             writeEndHtml();
             readChangeContext();
+        } else if (next == s5d) {
+            // <!--?
+            writeEndHtml();
+            write(astart);
+            readConditional();
+            write(aend);
+            continue;
         } else {
             // <!--Comment
             readHtmlComment();
@@ -447,6 +466,123 @@ void SourceTransformer::readHtmlComment() {
         prepare();
         break;
     }
+}
+
+void SourceTransformer::readConditional() {
+    const QChar a1 = QChar::fromLatin1(':');
+    const QChar a2 = QChar::fromLatin1(':');
+
+    const QChar e1 = QChar::fromLatin1('-');
+    const QChar e2 = QChar::fromLatin1('-');
+    const QChar e3 = QChar::fromLatin1('>');
+
+    prepare();
+    ajust();
+    while (!current.isNull()) {
+
+        if (current == a1) {
+            if (next == a2) {
+                readConditionalText();
+                break;
+            }
+        }
+
+        if (current != e1) {
+            writeAndConsume();
+            continue;
+        }
+
+        if (next != e2) {
+            writeAndConsume();
+            continue;
+        }
+
+        consume();
+        if (next != e3) {
+            write(e1);
+            writeAndConsume();
+            continue;
+        }
+
+        prepare();
+        break;
+    }
+
+}
+
+void SourceTransformer::readConditionalText() {
+    const QChar e1 = QChar::fromLatin1('-');
+    const QChar e2 = QChar::fromLatin1('-');
+    const QChar e3 = QChar::fromLatin1('>');
+
+    prepare();
+    while (!current.isNull()) {
+
+        if (current != e1) {
+            consume();
+            continue;
+        }
+
+        if (next != e2) {
+            consume();
+            continue;
+        }
+
+        consume();
+        if (next != e3) {
+            write(e1);
+            continue;
+        }
+
+        prepare();
+        break;
+    }
+
+}
+
+void SourceTransformer::readInlineConditional() {
+    const QChar a1 = QChar::fromLatin1(':');
+    const QChar a2 = QChar::fromLatin1(':');
+
+    const QChar e1 = QChar::fromLatin1('}');
+
+    prepare();
+    ajust();
+    while (!current.isNull()) {
+
+        if (current == a1) {
+            if (next == a2) {
+                readInlineConditionalText();
+                break;
+            }
+        }
+
+        if (current != e1) {
+            writeAndConsume();
+            continue;
+        }
+
+        consume();
+        break;
+    }
+
+}
+
+void SourceTransformer::readInlineConditionalText() {
+    const QChar e1 = QChar::fromLatin1('}');
+
+    prepare();
+    while (!current.isNull()) {
+
+        if (current != e1) {
+            consume();
+            continue;
+        }
+
+        consume();
+        break;
+    }
+
 }
 
 void SourceTransformer::ajust() {

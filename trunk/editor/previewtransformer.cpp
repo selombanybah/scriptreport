@@ -108,8 +108,19 @@ void PreviewTransformer::readHtml(QTextStream *header, QTextStream *content, QTe
     const QChar s3  = QChar::fromLatin1('-');
     const QChar s4  = QChar::fromLatin1('-');
     const QChar s5a = QChar::fromLatin1(':');
+    const QChar s5b = QChar::fromLatin1('?');
+
+    const QChar i1 = QChar::fromLatin1('?');
+    const QChar i2 = QChar::fromLatin1('{');
 
     while (!current.isNull()) {
+
+        if (current == i1) {
+            if (next == i2) {
+                readInlineConditional();
+            }
+        }
+
         if (current != s1) {
             writeAndConsume();
             continue;
@@ -135,6 +146,9 @@ void PreviewTransformer::readHtml(QTextStream *header, QTextStream *content, QTe
         consume();
         if (next == s5a) {
             readChangeContext(header, content, footer);
+            continue;
+        } else if (next == s5b) {
+            readConditional();
             continue;
         }
 
@@ -308,3 +322,118 @@ void PreviewTransformer::readComment() {
         break;
     }
 }
+
+void PreviewTransformer::readConditional() {
+    const QChar a1 = QChar::fromLatin1(':');
+    const QChar a2 = QChar::fromLatin1(':');
+
+    const QChar e1 = QChar::fromLatin1('-');
+    const QChar e2 = QChar::fromLatin1('-');
+    const QChar e3 = QChar::fromLatin1('>');
+
+    prepare();
+    while (!current.isNull()) {
+
+        if (current == a1) {
+            if (next == a2) {
+                readConditionalText();
+                break;
+            }
+        }
+
+        if (current != e1) {
+            consume();
+            continue;
+        }
+
+        if (next != e2) {
+            consume();
+            continue;
+        }
+
+        consume();
+        if (next != e3) {
+            consume();
+            continue;
+        }
+
+        prepare();
+        break;
+    }
+
+}
+
+void PreviewTransformer::readConditionalText() {
+    const QChar e1 = QChar::fromLatin1('-');
+    const QChar e2 = QChar::fromLatin1('-');
+    const QChar e3 = QChar::fromLatin1('>');
+
+    prepare();
+    while (!current.isNull()) {
+
+        if (current != e1) {
+            writeAndConsume();
+            continue;
+        }
+
+        if (next != e2) {
+            writeAndConsume();
+            continue;
+        }
+
+        consume();
+        if (next != e3) {
+            write(e1);
+            continue;
+        }
+
+        prepare();
+        break;
+    }
+
+}
+
+void PreviewTransformer::readInlineConditional() {
+    const QChar a1 = QChar::fromLatin1(':');
+    const QChar a2 = QChar::fromLatin1(':');
+
+    const QChar e1 = QChar::fromLatin1('}');
+
+    prepare();
+    while (!current.isNull()) {
+
+        if (current == a1) {
+            if (next == a2) {
+                readInlineConditionalText();
+                break;
+            }
+        }
+
+        if (current != e1) {
+            consume();
+            continue;
+        }
+
+        consume();
+        break;
+    }
+
+}
+
+void PreviewTransformer::readInlineConditionalText() {
+    const QChar e1 = QChar::fromLatin1('}');
+
+    prepare();
+    while (!current.isNull()) {
+
+        if (current != e1) {
+            writeAndConsume();
+            continue;
+        }
+
+        consume();
+        break;
+    }
+
+}
+

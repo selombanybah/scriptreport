@@ -36,6 +36,10 @@ private:
     void readInLineScript();
     void readChangeContext();
     void readHtmlComment();
+    void readConditional();
+    void readConditionalText();
+    void readInlineConditional();
+    void readInlineConditionalText();
     void ajust();
 
 private:
