@@ -15,23 +15,25 @@ class TextStreamObject;
 class SCRIPTREPORTENGINE_EXPORT ScriptReportEngine
 {
 public:
-    explicit ScriptReportEngine(QString scriptName = QString(), bool printResult = false);
-    explicit ScriptReportEngine(QTextStream *inputStream, QString scriptName = QString(), bool printResult = false);
-    explicit ScriptReportEngine(QString input, QString scriptName = QString(), bool printResult = false);
+    explicit ScriptReportEngine(QString scriptName = QString(), bool isPrintErrorEnabled = true, bool writeWithPrintFunction = false);
+    explicit ScriptReportEngine(QTextStream *inputStream, QString scriptName = QString(), bool isPrintErrorEnabled = true, bool writeWithPrintFunction = false);
+    explicit ScriptReportEngine(QString input, QString scriptName = QString(), bool isPrintErrorEnabled = true, bool writeWithPrintFunction = false);
     ~ScriptReportEngine();
     bool run();
 
-    bool isEditing();
-    bool isFinal();
+    bool isEditing() const;
+    bool isFinal() const;
     void setEditing(bool editing);
-    bool isDebugging();
+    bool isDebugging() const;
     void setDebugging(bool debugging);
+    bool isPrintErrorEnabled() const;
+    void setPrintErrorEnabled(bool isPrintErrorEnabled);
 
-    QString scriptName();
+    QString scriptName() const;
     void setScriptName(QString scriptName);
 
-    bool isPrintResultEnabled();
-    void setPrintResultEnabled(bool printResult);
+    bool isWriteWithPrintFunctionTooEnabled() const;
+    void setWriteWithPrintFunctionTooEnabled(bool isWriteWithPrintFunctionTooEnabled);
 
     TextStreamObject* input() const;
     TextStreamObject* outputHeader() const;
@@ -45,8 +47,10 @@ public:
     QString intermediateCode() const;
     void updateIntermediateCode();
 
-    void loadPrintConfiguration(QPrinter &printer);
-    void print(QPrinter *printer);
+    QString errorMessage() const;
+
+    virtual void loadPrintConfiguration(QPrinter &printer);
+    virtual void print(QPrinter *printer);
 
 protected:
     virtual void initEngine(QScriptEngine &se);
@@ -55,6 +59,9 @@ private:
     void construct();
 
 private:
+    bool m_isPrintErrorEnabled;
+    
+    bool m_isRunRequired;
     bool m_isUpdateIntermediateCodeRequired;
     bool m_isInitialized;
 
@@ -62,7 +69,7 @@ private:
     bool m_isInDebuggingMode;
 
     QString m_name;
-    bool m_isPrintAndWriteEnabled;
+    bool m_isWriteWithPrintFunctionTooEnabled;
     QScriptEngine *m_engine;
     QString m_intermediate;
 

@@ -52,6 +52,15 @@ ScriptableReport::ScriptableReport(ScriptReportEngine *scriptReportEngine, QObje
 {
     m_sre = scriptReportEngine;
     m_scriptablePaper = new ScriptablePaper(this);
+    m_title = scriptReportEngine->scriptName();
+}
+
+QString ScriptableReport::title() {
+    return m_title;
+}
+
+void ScriptableReport::setTitle(QString title) {
+    m_title = title;
 }
 
 QString ScriptableReport::page() {
@@ -91,7 +100,7 @@ ScriptablePaper* ScriptableReport::paper() {
 }
 
 Q_INVOKABLE void ScriptableReport::writeHeader() {
-    if (m_sre->isPrintResultEnabled()) {
+    if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
         printAndWriteResult(m_sre->outputHeader());
     } else {
         writeResult(m_sre->outputHeader());
@@ -99,7 +108,7 @@ Q_INVOKABLE void ScriptableReport::writeHeader() {
 }
 
 Q_INVOKABLE void ScriptableReport::writeContent() {
-    if (m_sre->isPrintResultEnabled()) {
+    if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
         printAndWriteResult(m_sre->output());
     } else {
         writeResult(m_sre->output());
@@ -107,7 +116,7 @@ Q_INVOKABLE void ScriptableReport::writeContent() {
 }
 
 Q_INVOKABLE void ScriptableReport::writeFooter() {
-    if (m_sre->isPrintResultEnabled()) {
+    if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
         printAndWriteResult(m_sre->outputFooter());
     } else {
         writeResult(m_sre->outputFooter());
@@ -119,10 +128,16 @@ Q_INVOKABLE void ScriptableReport::importExtension(QString name) {
 }
 
 void ScriptableReport::loadConfigurationFrom(QPrinter &printer) {
+    QString title = printer.docName();
+    if (title.isEmpty()) {
+        title = m_sre->scriptName();
+    }
+    m_title = title;
     m_scriptablePaper->loadConfigurationFrom(printer);
 }
 
 void ScriptableReport::applyConfigurationTo(QPrinter &printer) {
+    printer.setDocName(m_title);
     m_scriptablePaper->applyConfigurationTo(printer);
 }
 

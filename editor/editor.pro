@@ -6,7 +6,12 @@ QT += script \
 TARGET = scriptreporteditor
 TEMPLATE = app
 DESTDIR = ../compiled
-LIBS += ../compiled/libscriptreportengine.so.0
+win32 {
+    LIBS += ../compiled/scriptreportengine0.dll
+}
+unix {
+    LIBS += ../compiled/libscriptreportengine.so.0
+}
 INCLUDEPATH += ../includes
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -27,8 +32,9 @@ HEADERS += mainwindow.h \
 FORMS += mainwindow.ui
 RESOURCES += scriptreporteditor.qrc
 
-# DEFINES += QT_NO_CAST_FROM_ASCII \
-# QT_NO_CAST_TO_ASCII
+DEFINES += QT_NO_CAST_FROM_ASCII \
+    QT_NO_CAST_TO_ASCII
+
 # The application version
 VERSION = 0.1
 

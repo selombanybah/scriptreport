@@ -280,14 +280,18 @@ void MainWindow::run() {
 
     ui->reportResultTextEdit->setPlainText(message);
 
+    QString header = scriptReportEngine->outputHeader()->text();
+    QString content = scriptReportEngine->output()->text();
+    QString footer = scriptReportEngine->outputFooter()->text();
+
     QString printSource;
     if (isRunResultValid) {
-        QString header = scriptReportEngine->outputHeader()->text();
-        QString content = scriptReportEngine->output()->text();
-        QString footer = scriptReportEngine->outputFooter()->text();
-
-        printSource = QString("<!-- header -->\n%1\n<!-- content -->\n%2\n<!-- footer -->\n%3")
+        printSource = QString::fromLatin1("<!-- header -->\n%1\n<!-- content -->\n%2\n<!-- footer -->\n%3")
                 .arg(header).arg(content).arg(footer);
+    } else {
+        QString errorMessage = scriptReportEngine->errorMessage();
+        printSource = QString::fromLatin1("<!-- error -->\n%1\n<!-- header -->\n%2\n<!-- content -->\n%3\n<!-- footer -->\n%4")
+                .arg(errorMessage).arg(header).arg(content).arg(footer);
     }
 
     ui->printSourceTextEdit->setPlainText(printSource);
@@ -306,7 +310,7 @@ void MainWindow::debug() {
     QString source = ui->sourcePlainTextEdit->toPlainText();
     QTextStream in(&source, QIODevice::ReadOnly);
 
-    ScriptReportEngine sre(&in, currentShownName, true);
+    ScriptReportEngine sre(&in, currentShownName, true, true);
     sre.setEditing(true);
     sre.setDebugging(true);
 
