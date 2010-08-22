@@ -4,6 +4,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 #include <QtScript/QScriptable>
+#include <QtScript/QScriptValue>
 
 #include "scriptablepaper.h"
 
@@ -47,6 +48,7 @@ public:
     Q_INVOKABLE void writeContent();
     Q_INVOKABLE void writeFooter();
     Q_INVOKABLE void importExtension(QString name);
+    Q_INVOKABLE void installTranslatorFunctions(const QScriptValue &object = QScriptValue());
 
     void loadConfigurationFrom(QPrinter &printer);
     void applyConfigurationTo(QPrinter &printer);
