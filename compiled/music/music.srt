@@ -1,4 +1,5 @@
 <!--@
+report.installTranslatorFunctions();
 report.paper.margins.setMargins(1.5,2,1.5,2,"cm");
 
 report.importExtension("sql");
@@ -24,7 +25,7 @@ if(report.isDebbuging) {
 -->
 
 <!--:header-->
-<center><b>Music Report</b></center>
+<center><b>${qsTr("Music Report")}</b></center>
 
 <!--:footer-->
 <center>${report.page}/${report.pageCount}</center>
@@ -35,7 +36,7 @@ if(report.isDebbuging) {
 var query = db.query("SELECT * FROM songs order by artist, title");
 -->
 
-<h1><center>Music Report</center></h1>
+<h1><center>${qsTr("Music Report")}</center></h1>
 <br>
 <!--@
 var artist = query.record().indexOf("artist");
@@ -46,10 +47,10 @@ var year = query.record().indexOf("year");
 <table width="100%" cellspacing="-1" cellpadding="2" border="1" style="border-style:solid;border-color:black;" >
     <thead>
         <tr>
-            <td><b>Artist</b></td>
-            <td><b>Title</b></td>
-            <td><b>Lenght</b></td>
-            <td><b>Year</b></td>
+            <td><b>${qsTr("Artist")}</b></td>
+            <td><b>${qsTr("Title")}</b></td>
+            <td><b>${qsTr("Lenght")}</b></td>
+            <td><b>${qsTr("Year")}</b></td>
         </tr>
     </thead>
     <tbody>

@@ -127,6 +127,15 @@ Q_INVOKABLE void ScriptableReport::importExtension(QString name) {
     m_sre->scriptEngine()->importExtension(name);
 }
 
+Q_INVOKABLE void ScriptableReport::installTranslatorFunctions(const QScriptValue & object) {
+    /*
+     * Bug: qsTr doesn't work in global scope
+     * Fixed in Qt 4.6.3
+     * See: http://bugreports.qt.nokia.com/browse/QTBUG-9775
+     */
+    m_sre->scriptEngine()->installTranslatorFunctions();
+}
+
 void ScriptableReport::loadConfigurationFrom(QPrinter &printer) {
     QString title = printer.docName();
     if (title.isEmpty()) {
