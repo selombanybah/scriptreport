@@ -16,6 +16,7 @@ class TextStreamObject;
 class ScriptableReport : public QObject, public QScriptable
 {
     Q_OBJECT
+    Q_PROPERTY(QString title READ title WRITE setTitle)
     Q_PROPERTY(QString page READ page)
     Q_PROPERTY(QString pageCount READ pageCount)
     Q_PROPERTY(QString reportEngineVersion READ reportEngineVersion)
@@ -28,6 +29,9 @@ class ScriptableReport : public QObject, public QScriptable
 
 public:
     ScriptableReport(ScriptReportEngine *simpleTemplateEngine, QObject *parent = 0);
+
+    QString title();
+    void setTitle(QString title);
 
     QString page();
     QString pageCount();
@@ -55,6 +59,7 @@ private:
 private:
     ScriptReportEngine *m_sre;
     ScriptablePaper *m_scriptablePaper;
+    QString m_title;
 };
 
 #endif // SCRIPTABLEREPORT_H
