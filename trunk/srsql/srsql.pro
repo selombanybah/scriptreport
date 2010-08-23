@@ -4,17 +4,17 @@
 QT += sql \
     script
 QT -= gui
-TARGET = scriptreportsql
+TARGET = srsql
 TEMPLATE = lib
 DESTDIR = ../compiled/script
 CONFIG += plugin
-SOURCES += scriptsql.cpp \
+SOURCES += scriptreportsql.cpp \
     scriptablesql.cpp \
     scriptabledatabase.cpp \
     scriptableerror.cpp \
     scriptablequery.cpp \
     scriptablerecord.cpp
-HEADERS += scriptsql.h \
+HEADERS += scriptreportsql.h \
     scriptablesql.h \
     scriptabledatabase.h \
     scriptableerror.h \

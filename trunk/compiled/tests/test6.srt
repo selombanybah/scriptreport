@@ -1,6 +1,6 @@
 <!--@
-report.paper.size.size = "Letter";
-report.paper.margins.setMargins(2, 2, 2, 2, "cm");
+sr.report.paper.size.size = "Letter";
+sr.report.paper.margins.setMargins(2, 2, 2, 2, "cm");
 -->
 <!--:header-->
 h1

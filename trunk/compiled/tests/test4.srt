@@ -1,7 +1,7 @@
 <!--@
-print(report.availableExtensions);
-report.importExtension("foo");
-print(report.importedExtensions);
+print(sr.engine.availableExtensions);
+sr.engine.importExtension("foo");
+print(sr.engine.importedExtensions);
 print(foo.add(1,2));
 print("end");
 -->

@@ -1,11 +1,11 @@
 <!--@
-report.installTranslatorFunctions();
-report.paper.margins.setMargins(1.5,2,1.5,2,"cm");
+sr.engine.installApplicationTranslatorFunctions();
+sr.report.paper.margins.setMargins(1.5,2,1.5,2,"cm");
 
-report.importExtension("sql");
+sr.engine.importExtension("srsql");
 var db;
-if (report.isEditing) {
-    db = sql.addDatabase("QSQLITE", "music");
+if (sr.report.isEditing) {
+    db = sr.sql.addDatabase("QSQLITE", "music");
     db.databaseName = "music.db";
     db.open();
 } else {
@@ -15,7 +15,7 @@ if (report.isEditing) {
  * Test
  * something else
  */
-if(report.isDebbuging) {
+if(sr.report.isDebbuging) {
     print(db.tables("AllTables"));
     var record = db.record("songs");
     for (var i = 0; i < record.count; i++) {
@@ -28,7 +28,7 @@ if(report.isDebbuging) {
 <center><b>${qsTr("Music Report")}</b></center>
 
 <!--:footer-->
-<center>${report.page}/${report.pageCount}</center>
+<center>${sr.report.page}/${sr.report.pageCount}</center>
 
 <!--:content-->
 
@@ -75,7 +75,7 @@ var year = query.record().indexOf("year");
 
 
 <!--@
-if (report.isDebbuging) {
+if (sr.report.isDebbuging) {
     print("end");
 }
 -->

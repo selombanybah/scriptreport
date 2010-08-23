@@ -10,6 +10,7 @@ class QScriptEngine;
 class QTextStream;
 
 class ScriptableReport;
+class ScriptableEngine;
 class TextStreamObject;
 
 class SCRIPTREPORTENGINE_EXPORT ScriptReportEngine
@@ -80,6 +81,7 @@ private:
     TextStreamObject *m_printStreamObject;
 
     ScriptableReport *m_scriptableReport;
+    ScriptableEngine *m_scriptableEngine;
 };
 
 #endif // SCRIPTREPORTENGINE_H
