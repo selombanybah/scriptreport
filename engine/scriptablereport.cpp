@@ -71,10 +71,6 @@ QString ScriptableReport::pageCount() {
     return QString::fromLatin1("##pageCount##");
 }
 
-QString ScriptableReport::reportEngineVersion() {
-    return QString::fromLatin1(APP_VERSION);
-}
-
 bool ScriptableReport::isFinal() {
     return m_sre->isFinal();
 }
@@ -85,14 +81,6 @@ bool ScriptableReport::isEditing() {
 
 bool ScriptableReport::isDebbuging() {
     return m_sre->isDebugging();
-}
-
-QStringList ScriptableReport::availableExtensions() {
-    return m_sre->scriptEngine()->availableExtensions();
-}
-
-QStringList ScriptableReport::importedExtensions() {
-    return m_sre->scriptEngine()->importedExtensions();
 }
 
 ScriptablePaper* ScriptableReport::paper() {
@@ -121,19 +109,6 @@ Q_INVOKABLE void ScriptableReport::writeFooter() {
     } else {
         writeResult(m_sre->outputFooter());
     }
-}
-
-Q_INVOKABLE void ScriptableReport::importExtension(QString name) {
-    m_sre->scriptEngine()->importExtension(name);
-}
-
-Q_INVOKABLE void ScriptableReport::installTranslatorFunctions(const QScriptValue & object) {
-    /*
-     * Bug: qsTr doesn't work in global scope
-     * Fixed in Qt 4.6.3
-     * See: http://bugreports.qt.nokia.com/browse/QTBUG-9775
-     */
-    m_sre->scriptEngine()->installTranslatorFunctions();
 }
 
 void ScriptableReport::loadConfigurationFrom(QPrinter &printer) {

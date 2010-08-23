@@ -9,6 +9,7 @@
 #include "sourcetransformer.h"
 #include "textstreamobject.h"
 #include "scriptablereport.h"
+#include "scriptableengine.h"
 
 ScriptReportEngine::ScriptReportEngine(QString scriptName, bool isPrintErrorEnabled, bool isWriteWithPrintFunctionTooEnabled) :
         m_isPrintErrorEnabled(isPrintErrorEnabled),
@@ -19,7 +20,8 @@ ScriptReportEngine::ScriptReportEngine(QString scriptName, bool isPrintErrorEnab
         m_isInDebuggingMode(false),
         m_name(scriptName),
         m_isWriteWithPrintFunctionTooEnabled(isWriteWithPrintFunctionTooEnabled),
-        m_scriptableReport(0)
+        m_scriptableReport(0),
+        m_scriptableEngine(0)
 {
     construct();
 }
@@ -33,7 +35,8 @@ ScriptReportEngine::ScriptReportEngine(QTextStream *inputStream, QString scriptN
         m_isInDebuggingMode(false),
         m_name(scriptName),
         m_isWriteWithPrintFunctionTooEnabled(isWriteWithPrintFunctionTooEnabled),
-        m_scriptableReport(0)
+        m_scriptableReport(0),
+        m_scriptableEngine(0)
 {
     construct();
     m_inStreamObject->setStream(inputStream);
@@ -48,7 +51,8 @@ ScriptReportEngine::ScriptReportEngine(QString input, QString scriptName, bool i
         m_isInDebuggingMode(false),
         m_name(scriptName),
         m_isWriteWithPrintFunctionTooEnabled(isWriteWithPrintFunctionTooEnabled),
-        m_scriptableReport(0)
+        m_scriptableReport(0),
+        m_scriptableEngine(0)
 {
     construct();
     m_inStreamObject->setText(input);
@@ -192,8 +196,16 @@ void ScriptReportEngine::initEngine(QScriptEngine &se) {
         loadPrintConfiguration(printer);
     }
     m_scriptableReport->initEngine(se);
+
+    QScriptValue sr = se.newObject();
+    se.globalObject().setProperty(QString::fromLatin1("sr"), sr, QScriptValue::Undeletable);
+
     QScriptValue report = se.newQObject(m_scriptableReport, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
-    se.globalObject().setProperty(QString::fromLatin1("report"), report, QScriptValue::Undeletable);
+    sr.setProperty(QString::fromLatin1("report"), report, QScriptValue::Undeletable);
+
+    QScriptValue engine = se.newQObject(m_scriptableEngine, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
+    sr.setProperty(QString::fromLatin1("engine"), engine, QScriptValue::Undeletable);
+
 }
 
 void ScriptReportEngine::updateIntermediateCode() {
@@ -208,7 +220,10 @@ void ScriptReportEngine::updateIntermediateCode() {
 
 void ScriptReportEngine::loadPrintConfiguration(QPrinter &printer) {
     if (!m_scriptableReport) {
-        m_scriptableReport = new ScriptableReport(this);
+        m_scriptableReport = new ScriptableReport(this, m_engine);
+    }
+    if (!m_scriptableEngine) {
+        m_scriptableEngine = new ScriptableEngine(m_engine);
     }
     m_scriptableReport->loadConfigurationFrom(printer);
 }

@@ -1,4 +1,4 @@
-#include "scriptsql.h"
+#include "scriptreportsql.h"
 
 #include <QtScript/QScriptEngine>
 
@@ -48,28 +48,30 @@ static void recordFromScriptValue(const QScriptValue &object, ScriptableRecord* 
  * Class
  */
 
-ScriptSql::ScriptSql()
+ScriptReportSql::ScriptReportSql()
 {
 }
 
-QStringList ScriptSql::keys() const {
+QStringList ScriptReportSql::keys() const {
     QStringList result;
-    result << QString::fromLatin1("sql");
+    result << QString::fromLatin1("srsql");
     return result;
 }
 
-void ScriptSql::initialize(const QString &key, QScriptEngine *engine) {
-    if (key == QString::fromLatin1("sql")) {
+void ScriptReportSql::initialize(const QString &key, QScriptEngine *engine) {
+    if (key == QString::fromLatin1("srsql")) {
         qScriptRegisterMetaType(engine, databaseToScriptValue, databaseFromScriptValue);
         qScriptRegisterMetaType(engine, errorToScriptValue, errorFromScriptValue);
         qScriptRegisterMetaType(engine, queryToScriptValue, queryFromScriptValue);
         qScriptRegisterMetaType(engine, recordToScriptValue, recordFromScriptValue);
 
+        QScriptValue sr = setupPackage(QString::fromLatin1("sr"), engine);
+
         ScriptableSql *scriptableSql = new ScriptableSql(engine);
         QScriptValue sql = engine->newQObject(scriptableSql, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
-        engine->globalObject().setProperty(QString::fromLatin1("sql"), sql, QScriptValue::Undeletable);
+        sr.setProperty(QString::fromLatin1("sql"), sql, QScriptValue::Undeletable);
 
     }
 }
 
-Q_EXPORT_PLUGIN2(scriptreportsql, ScriptSql)
+Q_EXPORT_PLUGIN2(scriptreportsql, ScriptReportSql)

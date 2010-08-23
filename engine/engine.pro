@@ -12,7 +12,8 @@ SOURCES += scriptreportengine.cpp \
     scriptablepapermargins.cpp \
     scriptablepapersize.cpp \
     scriptablereport.cpp \
-    textstreamobject.cpp
+    textstreamobject.cpp \
+    scriptableengine.cpp
 HEADERS += scriptreportengine.h \
     scriptreportengine_global.h \
     sourcetransformer.h \
@@ -20,7 +21,8 @@ HEADERS += scriptreportengine.h \
     scriptablepapermargins.h \
     scriptablepapersize.h \
     scriptablereport.h \
-    textstreamobject.h
+    textstreamobject.h \
+    scriptableengine.h
 DEFINES += QT_NO_CAST_FROM_ASCII \
     QT_NO_CAST_TO_ASCII
 

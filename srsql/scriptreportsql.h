@@ -3,10 +3,10 @@
 
 #include <QtScript/QScriptExtensionPlugin>
 
-class ScriptSql : public QScriptExtensionPlugin
+class ScriptReportSql : public QScriptExtensionPlugin
 {
 public:
-    ScriptSql();
+    ScriptReportSql();
     QStringList keys() const;
     void initialize(const QString &key, QScriptEngine *engine);
 };

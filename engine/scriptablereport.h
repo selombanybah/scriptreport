@@ -4,7 +4,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 #include <QtScript/QScriptable>
-#include <QtScript/QScriptValue>
 
 #include "scriptablepaper.h"
 
@@ -20,12 +19,9 @@ class ScriptableReport : public QObject, public QScriptable
     Q_PROPERTY(QString title READ title WRITE setTitle)
     Q_PROPERTY(QString page READ page)
     Q_PROPERTY(QString pageCount READ pageCount)
-    Q_PROPERTY(QString reportEngineVersion READ reportEngineVersion)
     Q_PROPERTY(bool isFinal READ isFinal)
     Q_PROPERTY(bool isEditing READ isEditing)
     Q_PROPERTY(bool isDebbuging READ isDebbuging)
-    Q_PROPERTY(QStringList availableExtensions READ availableExtensions)
-    Q_PROPERTY(QStringList importedExtensions READ importedExtensions)
     Q_PROPERTY(ScriptablePaper* paper READ paper)
 
 public:
@@ -36,19 +32,14 @@ public:
 
     QString page();
     QString pageCount();
-    QString reportEngineVersion();
     bool isFinal();
     bool isEditing();
     bool isDebbuging();
-    QStringList availableExtensions();
-    QStringList importedExtensions();
     ScriptablePaper* paper();
 
     Q_INVOKABLE void writeHeader();
     Q_INVOKABLE void writeContent();
     Q_INVOKABLE void writeFooter();
-    Q_INVOKABLE void importExtension(QString name);
-    Q_INVOKABLE void installTranslatorFunctions(const QScriptValue &object = QScriptValue());
 
     void loadConfigurationFrom(QPrinter &printer);
     void applyConfigurationTo(QPrinter &printer);

@@ -22,7 +22,7 @@ void SourceTransformer::setOutputStream(QTextStream *outputStream) {
 }
 
 bool SourceTransformer::transform() {
-    const QString first = QString::fromLatin1("var _ = report.writeContent;");
+    const QString first = QString::fromLatin1("var _ = sr.report.writeContent;");
     inLine    = 0;
     inColumn  = 0;
     outLine   = 0;
@@ -305,7 +305,7 @@ void SourceTransformer::readChangeContext() {
     const QChar h4 = QChar::fromLatin1('d');
     const QChar h5 = QChar::fromLatin1('e');
     const QChar h6 = QChar::fromLatin1('r');
-    const QString header = QString::fromLatin1("_ = report.writeHeader;");
+    const QString header = QString::fromLatin1("_ = sr.report.writeHeader;");
 
 
     // content
@@ -316,7 +316,7 @@ void SourceTransformer::readChangeContext() {
     const QChar c5 = QChar::fromLatin1('e');
     const QChar c6 = QChar::fromLatin1('n');
     const QChar c7 = QChar::fromLatin1('t');
-    const QString content = QString::fromLatin1("_ = report.writeContent;");
+    const QString content = QString::fromLatin1("_ = sr.report.writeContent;");
 
     // footer
     const QChar f1 = QChar::fromLatin1('f');
@@ -325,7 +325,7 @@ void SourceTransformer::readChangeContext() {
     const QChar f4 = QChar::fromLatin1('t');
     const QChar f5 = QChar::fromLatin1('e');
     const QChar f6 = QChar::fromLatin1('r');
-    const QString footer = QString::fromLatin1("_ = report.writeFooter;");
+    const QString footer = QString::fromLatin1("_ = sr.report.writeFooter;");
 
     prepare();
     if (current == h1) {
