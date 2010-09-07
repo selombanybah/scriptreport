@@ -91,11 +91,11 @@ void ScriptablePaper::setOrientationByName(QString orientation) {
     }
 }
 
-ScriptablePaperSize* ScriptablePaper::size() {
+ScriptablePaperSize* ScriptablePaper::size() const {
     return m_size;
 }
 
-ScriptablePaperMargins* ScriptablePaper::margins() {
+ScriptablePaperMargins* ScriptablePaper::margins() const {
     return m_margins;
 }
 

@@ -31,8 +31,8 @@ public:
     QString orientationByName() const;
     void setOrientationByName(QString orientation);
 
-    ScriptablePaperSize* size();
-    ScriptablePaperMargins* margins();
+    ScriptablePaperSize* size() const;
+    ScriptablePaperMargins* margins() const;
 
     void loadConfigurationFrom(QPrinter &printer);
     void applyConfigurationTo(QPrinter &printer);

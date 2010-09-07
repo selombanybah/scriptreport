@@ -98,7 +98,7 @@ void ScriptablePaperMargins::setUnitByName(QString unit) {
     }
 }
 
-qreal ScriptablePaperMargins::top() {
+qreal ScriptablePaperMargins::top() const {
     return m_top;
 }
 
@@ -107,7 +107,7 @@ void ScriptablePaperMargins::setTop(qreal top) {
     m_isMarginsChanged = true;
 }
 
-qreal ScriptablePaperMargins::right() {
+qreal ScriptablePaperMargins::right() const {
     return m_right;
 }
 
@@ -116,7 +116,7 @@ void ScriptablePaperMargins::setRight(qreal right) {
     m_isMarginsChanged = true;
 }
 
-qreal ScriptablePaperMargins::bottom() {
+qreal ScriptablePaperMargins::bottom() const {
     return m_bottom;
 }
 
@@ -125,7 +125,7 @@ void ScriptablePaperMargins::setBottom(qreal bottom) {
     m_isMarginsChanged = true;
 }
 
-qreal ScriptablePaperMargins::left() {
+qreal ScriptablePaperMargins::left() const {
     return m_left;
 }
 

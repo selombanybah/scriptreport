@@ -272,7 +272,7 @@ void ScriptablePaperSize::setUnitByName(QString unit) {
     }
 }
 
-qreal ScriptablePaperSize::height() {
+qreal ScriptablePaperSize::height() /*const*/ {
     if (m_isUpdateHeightAndWidthNeeded) {
         updateHeightAndWidth();
     }
@@ -285,7 +285,7 @@ void ScriptablePaperSize::setHeight(qreal height) {
     m_isSizeChanged = true;
 }
 
-qreal ScriptablePaperSize::width() {
+qreal ScriptablePaperSize::width() /*const*/ {
     if (m_isUpdateHeightAndWidthNeeded) {
         updateHeightAndWidth();
     }

@@ -42,16 +42,16 @@ public:
     QString unitByName() const;
     void setUnitByName(QString unit);
 
-    qreal top();
+    qreal top() const;
     void setTop(qreal top);
 
-    qreal right();
+    qreal right() const;
     void setRight(qreal right);
 
-    qreal bottom();
+    qreal bottom() const;
     void setBottom(qreal bottom);
 
-    qreal left();
+    qreal left() const;
     void setLeft(qreal left);
 
     Q_INVOKABLE void setMargins(qreal top, qreal right, qreal bottom, qreal left, QString unit);

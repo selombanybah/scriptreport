@@ -55,7 +55,7 @@ ScriptableReport::ScriptableReport(ScriptReportEngine *scriptReportEngine, QObje
     m_title = scriptReportEngine->scriptName();
 }
 
-QString ScriptableReport::title() {
+QString ScriptableReport::title() const {
     return m_title;
 }
 
@@ -63,27 +63,27 @@ void ScriptableReport::setTitle(QString title) {
     m_title = title;
 }
 
-QString ScriptableReport::page() {
+QString ScriptableReport::page() const {
     return QString::fromLatin1("##page##");
 }
 
-QString ScriptableReport::pageCount() {
+QString ScriptableReport::pageCount() const {
     return QString::fromLatin1("##pageCount##");
 }
 
-bool ScriptableReport::isFinal() {
+bool ScriptableReport::isFinal() const {
     return m_sre->isFinal();
 }
 
-bool ScriptableReport::isEditing() {
+bool ScriptableReport::isEditing() const {
     return m_sre->isEditing();
 }
 
-bool ScriptableReport::isDebbuging() {
+bool ScriptableReport::isDebbuging() const {
     return m_sre->isDebugging();
 }
 
-ScriptablePaper* ScriptableReport::paper() {
+ScriptablePaper* ScriptableReport::paper() const {
     return m_scriptablePaper;
 }
 
