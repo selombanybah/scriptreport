@@ -30,6 +30,9 @@ public:
     bool isPrintErrorEnabled() const;
     void setPrintErrorEnabled(bool isPrintErrorEnabled);
 
+    QStringList arguments() const;
+    void setArguments(QStringList arguments);
+
     QString scriptName() const;
     void setScriptName(QString scriptName);
 
