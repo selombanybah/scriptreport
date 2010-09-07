@@ -27,15 +27,15 @@ class ScriptableReport : public QObject, public QScriptable
 public:
     ScriptableReport(ScriptReportEngine *simpleTemplateEngine, QObject *parent = 0);
 
-    QString title();
+    QString title() const;
     void setTitle(QString title);
 
-    QString page();
-    QString pageCount();
-    bool isFinal();
-    bool isEditing();
-    bool isDebbuging();
-    ScriptablePaper* paper();
+    QString page() const;
+    QString pageCount() const;
+    bool isFinal() const;
+    bool isEditing() const;
+    bool isDebbuging() const;
+    ScriptablePaper* paper() const;
 
     Q_INVOKABLE void writeHeader();
     Q_INVOKABLE void writeContent();

@@ -157,8 +157,8 @@ TextStreamObject* ScriptReportEngine::print() const {
 
 QScriptEngine* ScriptReportEngine::scriptEngine() /*const*/ {
     if (!m_isInitialized) {
+        m_isInitialized = true; // after for prevent an indirect recursive call
         initEngine(*m_engine);
-        m_isInitialized = true;
     }
     return m_engine;
 }
@@ -179,12 +179,12 @@ QString ScriptReportEngine::errorMessage() const {
     QString message;
     if (m_engine->hasUncaughtException()) {
         QScriptValue exception = m_engine->uncaughtException();
-        message = QString::fromLatin1("Line: %1, Uncaught exception: %2.")
-                  .arg(QString::number(m_engine->uncaughtExceptionLineNumber()),
-                       exception.toString());
+        message = QString::fromLatin1("Uncaught exception: %1. Line: %2")
+                  .arg(exception.toString())
+                  .arg(m_engine->uncaughtExceptionLineNumber());
         QStringList backtrace = m_engine->uncaughtExceptionBacktrace();
         foreach (QString b, backtrace) {
-            message.append(QString::fromLatin1("\n     at %1").arg(b));
+            message.append(QString::fromLatin1("\n    at %1").arg(b));
         }
     }
     return message;
@@ -230,8 +230,8 @@ void ScriptReportEngine::loadPrintConfiguration(QPrinter &printer) {
 
 bool ScriptReportEngine::run() {
     if (!m_isInitialized) {
+        m_isInitialized = true; // after for prevent an indirect recursive call to scriptEngine()
         initEngine(*m_engine);
-        m_isInitialized = true;
     }
 
     if (m_isUpdateIntermediateCodeRequired) {

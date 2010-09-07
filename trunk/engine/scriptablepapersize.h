@@ -53,10 +53,10 @@ public:
     QString unitByName() const;
     void setUnitByName(QString unit);
 
-    qreal height();
+    qreal height() /*const*/;
     void setHeight(qreal height);
 
-    qreal width();
+    qreal width() /*const*/;
     void setWidth(qreal width);
 
     Q_INVOKABLE void setSize(qreal height, qreal width, QString unit);
