@@ -119,6 +119,21 @@ void ScriptReportEngine::setPrintErrorEnabled(bool isPrintErrorEnabled) {
     m_isPrintErrorEnabled = isPrintErrorEnabled;
 }
 
+QStringList ScriptReportEngine::arguments() const {
+    if (!m_scriptableEngine) {
+        return m_scriptableEngine->arguments();
+    } else {
+        return QStringList();
+    }
+}
+
+void ScriptReportEngine::setArguments(QStringList arguments) {
+    if (!m_scriptableEngine) {
+        m_scriptableEngine = new ScriptableEngine(m_engine);
+    }
+    m_scriptableEngine->setArguments(arguments);
+}
+
 QString ScriptReportEngine::scriptName() const {
     return m_name;
 }
