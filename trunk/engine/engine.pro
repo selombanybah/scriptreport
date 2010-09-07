@@ -1,6 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-04-04T16:27:12
 # -------------------------------------------------
+include(../scriptreport.pri)
 QT += script
 TARGET = scriptreportengine
 TEMPLATE = lib
@@ -13,7 +14,9 @@ SOURCES += scriptreportengine.cpp \
     scriptablepapersize.cpp \
     scriptablereport.cpp \
     textstreamobject.cpp \
-    scriptableengine.cpp
+    scriptableengine.cpp \
+    scriptableshellengine.cpp \
+    shell.cpp
 HEADERS += scriptreportengine.h \
     scriptreportengine_global.h \
     sourcetransformer.h \
@@ -22,12 +25,6 @@ HEADERS += scriptreportengine.h \
     scriptablepapersize.h \
     scriptablereport.h \
     textstreamobject.h \
-    scriptableengine.h
-DEFINES += QT_NO_CAST_FROM_ASCII \
-    QT_NO_CAST_TO_ASCII
-
-# The application version
-VERSION = 0.1
-
-# Define the preprocessor macro to get the application version in our application.
-DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+    scriptableengine.h \
+    scriptableshellengine.h \
+    shell.h
