@@ -1,17 +1,14 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-04-04T16:28:35
 # -------------------------------------------------
+include(../scriptreport.pri)
 QT += script \
     scripttools
 TARGET = scriptreporteditor
 TEMPLATE = app
 DESTDIR = ../compiled
-win32 {
-    LIBS += ../compiled/scriptreportengine0.dll
-}
-unix {
-    LIBS += ../compiled/libscriptreportengine.so.0
-}
+LIBS += -L../compiled -lscriptreportengine
+unix:LIBS += -Wl,-rpath,.
 INCLUDEPATH += ../includes
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -31,12 +28,3 @@ HEADERS += mainwindow.h \
     textdocumentsyntaxhighlighter.h
 FORMS += mainwindow.ui
 RESOURCES += scriptreporteditor.qrc
-
-DEFINES += QT_NO_CAST_FROM_ASCII \
-    QT_NO_CAST_TO_ASCII
-
-# The application version
-VERSION = 0.1
-
-# Define the preprocessor macro to get the application version in our application.
-DEFINES += APP_VERSION=\\\"$$VERSION\\\"
