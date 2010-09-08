@@ -1,13 +1,13 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-04-08T16:44:34
 # -------------------------------------------------
-include(../scriptreport.pri)
+include(../../scriptreport.pri)
 QT += sql \
     script
 QT -= gui
 TARGET = srsql
 TEMPLATE = lib
-DESTDIR = ../compiled/script
+DESTDIR = ../../compiled/script
 CONFIG += plugin
 SOURCES += scriptreportsql.cpp \
     scriptablesql.cpp \
