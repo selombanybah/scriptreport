@@ -5,9 +5,11 @@
 #include <QtCore/QStringList>
 #include <QtScript/QScriptEngine>
 
+#include "scriptreportengine_global.h"
+
 class ScriptableShellEngine;
 
-class Shell : public QObject
+class SCRIPTREPORTENGINE_EXPORT Shell : public QObject
 {
     Q_OBJECT
 
