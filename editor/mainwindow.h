@@ -3,18 +3,12 @@
 
 #include <QtGui/QMainWindow>
 
-/*
-  TODO:
-  - docs
-  - sql
-  */
-
 class ExtendedUiMainWindow;
 
 class QAction;
 class QPrinter;
 
-class ScriptReportEngine;
+class ScriptReport;
 class EditHandler;
 class PreviewHandler;
 
@@ -88,7 +82,7 @@ private:
     bool isRunResultValid;
     bool isPrintPreviewUpdateRequired;
 
-    ScriptReportEngine *scriptReportEngine;
+    ScriptReport *scriptReport;
 
     EditHandler *editHandler;
     PreviewHandler *previewHandler;

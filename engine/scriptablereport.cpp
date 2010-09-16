@@ -4,7 +4,7 @@
 #include <QtGui/QPrinter>
 #include <QtScript/QScriptEngine>
 
-#include "scriptreportengine.h"
+#include "scriptreport.h"
 #include "textstreamobject.h"
 
 /*
@@ -46,13 +46,13 @@ static QScriptValue print(QScriptContext *context, QScriptEngine *engine) {
  * Class
  */
 
-ScriptableReport::ScriptableReport(ScriptReportEngine *scriptReportEngine, QObject *parent) :
+ScriptableReport::ScriptableReport(ScriptReport *scriptReport, QObject *parent) :
     QObject(parent),
     QScriptable()
 {
-    m_sre = scriptReportEngine;
+    m_sre = scriptReport;
     m_scriptablePaper = new ScriptablePaper(this);
-    m_title = scriptReportEngine->scriptName();
+    m_title = scriptReport->scriptName();
 }
 
 QString ScriptableReport::title() const {

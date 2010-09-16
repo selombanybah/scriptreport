@@ -10,7 +10,7 @@
 #include <QtScript/QScriptEngine>
 #include <QtScriptTools/QScriptEngineDebugger>
 
-#include <ScriptReport/ScriptReportEngine>
+#include <ScriptReport/ScriptReport>
 #include <ScriptReport/TextStreamObject>
 #include <ScriptReport/SourceTransformer>
 
@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     isRunRequired(true),
     isRunResultValid(false),
     isPrintPreviewUpdateRequired(true),
-    scriptReportEngine(0)
+    scriptReport(0)
 {
     applicationPath = QApplication::applicationDirPath();
     QApplication::addLibraryPath(applicationPath);
@@ -73,9 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    if (scriptReportEngine) {
-        delete scriptReportEngine;
-    }
+    delete scriptReport;
 }
 
 void MainWindow::changeEvent(QEvent *event)
@@ -227,16 +225,14 @@ bool MainWindow::validate(QString &generatedCode) {
 }
 
 void MainWindow::run() {
-    if (scriptReportEngine) {
-        delete scriptReportEngine;
-    }
+    delete scriptReport;
     
     QString source = ui->sourcePlainTextEdit->toPlainText();
-    scriptReportEngine = new ScriptReportEngine(source, currentShownName);
-    scriptReportEngine->setEditing(true);
+    scriptReport = new ScriptReport(source, currentShownName);
+    scriptReport->setEditing(true);
 
-    scriptReportEngine->updateIntermediateCode();
-    QString generatedCode = scriptReportEngine->intermediateCode();
+    scriptReport->updateIntermediateCode();
+    QString generatedCode = scriptReport->intermediateCode();
     ui->generatedCodeTextEdit->setPlainText(generatedCode);
 
     validate(generatedCode);
@@ -249,18 +245,18 @@ void MainWindow::run() {
 
     QPrinter *printer = previewHandler->printer();
     if (printer) {
-        scriptReportEngine->loadPrintConfiguration(*printer);
+        scriptReport->loadPrintConfiguration(printer);
     }
 
-    scriptReportEngine->run();
+    scriptReport->run();
 
-    QString printed = scriptReportEngine->print()->text();
+    QString printed = scriptReport->print()->text();
     ui->reportOutputTextEdit->setPlainText(printed);
     if (!printed.isEmpty()) {
         showReportOutput();
     }
 
-    QScriptEngine *engine = scriptReportEngine->scriptEngine();
+    QScriptEngine *engine = scriptReport->scriptEngine();
     QString message;
     if (engine->hasUncaughtException()) {
         QScriptValue exception = engine->uncaughtException();
@@ -280,16 +276,16 @@ void MainWindow::run() {
 
     ui->reportResultTextEdit->setPlainText(message);
 
-    QString header = scriptReportEngine->outputHeader()->text();
-    QString content = scriptReportEngine->output()->text();
-    QString footer = scriptReportEngine->outputFooter()->text();
+    QString header = scriptReport->outputHeader()->text();
+    QString content = scriptReport->output()->text();
+    QString footer = scriptReport->outputFooter()->text();
 
     QString printSource;
     if (isRunResultValid) {
         printSource = QString::fromLatin1("<!-- header -->\n%1\n<!-- content -->\n%2\n<!-- footer -->\n%3")
                 .arg(header).arg(content).arg(footer);
     } else {
-        QString errorMessage = scriptReportEngine->errorMessage();
+        QString errorMessage = scriptReport->errorMessage();
         printSource = QString::fromLatin1("<!-- error -->\n%1\n<!-- header -->\n%2\n<!-- content -->\n%3\n<!-- footer -->\n%4")
                 .arg(errorMessage).arg(header).arg(content).arg(footer);
     }
@@ -301,16 +297,15 @@ void MainWindow::run() {
 }
 
 void MainWindow::debug() {
-    if (scriptReportEngine) {
-        // the engine must be deleted for clear all used resources
-        delete scriptReportEngine;
-        scriptReportEngine = 0;
-    }
+    // the engine must be deleted for clear all used resources
+    delete scriptReport;
+    scriptReport = 0;
 
     QString source = ui->sourcePlainTextEdit->toPlainText();
     QTextStream in(&source, QIODevice::ReadOnly);
 
-    ScriptReportEngine sre(&in, currentShownName, true, true);
+    ScriptReport sre(&in, currentShownName);
+    sre.setWriteWithPrintFunctionTooEnabled(true);
     sre.setEditing(true);
     sre.setDebugging(true);
 
@@ -724,9 +719,9 @@ void MainWindow::resetEditor() {
     isRunResultValid = false;
     isPrintPreviewUpdateRequired = true;
 
-    if (scriptReportEngine) {
-        delete scriptReportEngine;
-        scriptReportEngine = 0;
+    if (scriptReport) {
+        delete scriptReport;
+        scriptReport = 0;
     }
     previewHandler->resetEditor();
 
@@ -757,10 +752,8 @@ QString MainWindow::getSourcePreviewCode() {
 
 void MainWindow::createPrintPreview(QPrinter *p) {
 
-    if (scriptReportEngine) {
-        scriptReportEngine->print(p);
+    if (scriptReport) {
+        scriptReport->print(p);
     }
     isPrintPreviewUpdateRequired = isRunRequired; // prevent set false when the print preview is initializing
 }
-
-//include "mainwindow.moc"

@@ -6,3 +6,4 @@ SOURCES += ../../engine/shell.cpp \
     ../../engine/scriptableengine.cpp \
     ../../engine/scriptableshellengine.cpp
 INCLUDEPATH += ../../engine
+DEFINES += SCRIPTREPORTENGINE_NOLIBRARY

@@ -16,7 +16,8 @@ SOURCES += scriptreportengine.cpp \
     textstreamobject.cpp \
     scriptableengine.cpp \
     scriptableshellengine.cpp \
-    shell.cpp
+    shell.cpp \
+    scriptreport.cpp
 HEADERS += scriptreportengine.h \
     scriptreportengine_global.h \
     sourcetransformer.h \
@@ -27,4 +28,5 @@ HEADERS += scriptreportengine.h \
     textstreamobject.h \
     scriptableengine.h \
     scriptableshellengine.h \
-    shell.h
+    shell.h \
+    scriptreport.h

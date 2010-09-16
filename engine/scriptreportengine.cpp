@@ -11,274 +11,27 @@
 #include "scriptablereport.h"
 #include "scriptableengine.h"
 
-ScriptReportEngine::ScriptReportEngine(QString scriptName, bool isPrintErrorEnabled, bool isWriteWithPrintFunctionTooEnabled) :
-        m_isPrintErrorEnabled(isPrintErrorEnabled),
-        m_isRunRequired(true),
-        m_isUpdateIntermediateCodeRequired(true),
-        m_isInitialized(false),
-        m_isInEditingMode(false),
-        m_isInDebuggingMode(false),
-        m_name(scriptName),
-        m_isWriteWithPrintFunctionTooEnabled(isWriteWithPrintFunctionTooEnabled),
-        m_scriptableReport(0),
-        m_scriptableEngine(0)
+ScriptReportEngine::ScriptReportEngine()
 {
-    construct();
-}
-
-ScriptReportEngine::ScriptReportEngine(QTextStream *inputStream, QString scriptName, bool isPrintErrorEnabled, bool isWriteWithPrintFunctionTooEnabled) :
-        m_isPrintErrorEnabled(isPrintErrorEnabled),
-        m_isRunRequired(true),
-        m_isUpdateIntermediateCodeRequired(true),
-        m_isInitialized(false),
-        m_isInEditingMode(false),
-        m_isInDebuggingMode(false),
-        m_name(scriptName),
-        m_isWriteWithPrintFunctionTooEnabled(isWriteWithPrintFunctionTooEnabled),
-        m_scriptableReport(0),
-        m_scriptableEngine(0)
-{
-    construct();
-    m_inStreamObject->setStream(inputStream);
-}
-
-ScriptReportEngine::ScriptReportEngine(QString input, QString scriptName, bool isPrintErrorEnabled, bool isWriteWithPrintFunctionTooEnabled) :
-        m_isPrintErrorEnabled(isPrintErrorEnabled),
-        m_isRunRequired(true),
-        m_isUpdateIntermediateCodeRequired(true),
-        m_isInitialized(false),
-        m_isInEditingMode(false),
-        m_isInDebuggingMode(false),
-        m_name(scriptName),
-        m_isWriteWithPrintFunctionTooEnabled(isWriteWithPrintFunctionTooEnabled),
-        m_scriptableReport(0),
-        m_scriptableEngine(0)
-{
-    construct();
-    m_inStreamObject->setText(input);
-}
-
-void ScriptReportEngine::construct() {
-    m_engine = new QScriptEngine;
-
-    m_inStreamObject = new TextStreamObject(
-            QString::fromLatin1("Input"),
-            QIODevice::ReadOnly,
-            m_engine);
-
-    m_outHeaderStreamObject = new TextStreamObject(
-            QString::fromLatin1("Header"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_outStreamObject = new TextStreamObject(
-            QString::fromLatin1("Content"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_outFooterStreamObject = new TextStreamObject(
-            QString::fromLatin1("Footer"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_printStreamObject = new TextStreamObject(
-            QString::fromLatin1("Print"),
-            QIODevice::WriteOnly,
-            m_engine);
 }
 
 ScriptReportEngine::~ScriptReportEngine() {
-    delete m_engine;
-}
-
-bool ScriptReportEngine::isEditing() const {
-    return m_isInEditingMode;
-}
-
-bool ScriptReportEngine::isFinal() const {
-    return !m_isInEditingMode;
-}
-
-void ScriptReportEngine::setEditing(bool editing) {
-    m_isInEditingMode = editing;
-}
-
-bool ScriptReportEngine::isDebugging() const {
-    return m_isInDebuggingMode;
-}
-
-void ScriptReportEngine::setDebugging(bool debugging) {
-    m_isInDebuggingMode = debugging;
-}
-
-bool ScriptReportEngine::isPrintErrorEnabled() const {
-    return m_isPrintErrorEnabled;
-}
-
-void ScriptReportEngine::setPrintErrorEnabled(bool isPrintErrorEnabled) {
-    m_isPrintErrorEnabled = isPrintErrorEnabled;
-}
-
-QStringList ScriptReportEngine::arguments() const {
-    if (!m_scriptableEngine) {
-        return m_scriptableEngine->arguments();
-    } else {
-        return QStringList();
-    }
-}
-
-void ScriptReportEngine::setArguments(QStringList arguments) {
-    if (!m_scriptableEngine) {
-        m_scriptableEngine = new ScriptableEngine(m_engine);
-    }
-    m_scriptableEngine->setArguments(arguments);
-}
-
-QString ScriptReportEngine::scriptName() const {
-    return m_name;
-}
-
-void ScriptReportEngine::setScriptName(QString scriptName) {
-    m_name = scriptName;
-}
-
-bool ScriptReportEngine::isWriteWithPrintFunctionTooEnabled() const {
-    return m_isWriteWithPrintFunctionTooEnabled;
-}
-
-void ScriptReportEngine::setWriteWithPrintFunctionTooEnabled(bool isWriteWithPrintFunctionTooEnabled) {
-    m_isWriteWithPrintFunctionTooEnabled = isWriteWithPrintFunctionTooEnabled;
-}
-
-TextStreamObject* ScriptReportEngine::input() const {
-    return m_inStreamObject;
-}
-
-TextStreamObject* ScriptReportEngine::outputHeader() const {
-    return m_outHeaderStreamObject;
-}
-
-TextStreamObject* ScriptReportEngine::output() const {
-    return m_outStreamObject;
-}
-
-TextStreamObject* ScriptReportEngine::outputFooter() const {
-    return m_outFooterStreamObject;
-}
-
-TextStreamObject* ScriptReportEngine::print() const {
-    return m_printStreamObject;
-}
-
-QScriptEngine* ScriptReportEngine::scriptEngine() /*const*/ {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
-        initEngine(*m_engine);
-    }
-    return m_engine;
-}
-
-//void ScriptReportEngine::setScriptEngine(QScriptEngine *scriptEngine) {
-//    if (m_engine == scriptEngine) {
-//        return;
-//    }
-//    m_engine = scriptEngine;
-//    initEngine(*m_engine);
-//}
-
-QString ScriptReportEngine::intermediateCode() const {
-    return m_intermediate;
-}
-
-QString ScriptReportEngine::errorMessage() const {
-    QString message;
-    if (m_engine->hasUncaughtException()) {
-        QScriptValue exception = m_engine->uncaughtException();
-        message = QString::fromLatin1("Uncaught exception: %1. Line: %2")
-                  .arg(exception.toString())
-                  .arg(m_engine->uncaughtExceptionLineNumber());
-        QStringList backtrace = m_engine->uncaughtExceptionBacktrace();
-        foreach (QString b, backtrace) {
-            message.append(QString::fromLatin1("\n    at %1").arg(b));
-        }
-    }
-    return message;
-}
-
-void ScriptReportEngine::initEngine(QScriptEngine &se) {
-    if (!m_scriptableReport) {
-        QPrinter printer;
-        loadPrintConfiguration(printer);
-    }
-    m_scriptableReport->initEngine(se);
-
-    QScriptValue sr = se.newObject();
-    se.globalObject().setProperty(QString::fromLatin1("sr"), sr, QScriptValue::Undeletable);
-
-    QScriptValue report = se.newQObject(m_scriptableReport, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
-    sr.setProperty(QString::fromLatin1("report"), report, QScriptValue::Undeletable);
-
-    QScriptValue engine = se.newQObject(m_scriptableEngine, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
-    sr.setProperty(QString::fromLatin1("engine"), engine, QScriptValue::Undeletable);
 
 }
 
-void ScriptReportEngine::updateIntermediateCode() {
-    m_intermediate.clear();
-    QTextStream intermediateStream(&m_intermediate, QIODevice::WriteOnly);
+void ScriptReportEngine::initEngine(ScriptReport */*scriptReport*/, QScriptEngine */*engine*/) {
 
-    SourceTransformer st(m_inStreamObject->stream(), &intermediateStream);
-    st.transform();
-    m_isUpdateIntermediateCodeRequired = false;
-    m_isRunRequired = true;
 }
 
-void ScriptReportEngine::loadPrintConfiguration(QPrinter &printer) {
-    if (!m_scriptableReport) {
-        m_scriptableReport = new ScriptableReport(this, m_engine);
-    }
-    if (!m_scriptableEngine) {
-        m_scriptableEngine = new ScriptableEngine(m_engine);
-    }
-    m_scriptableReport->loadConfigurationFrom(printer);
+void ScriptReportEngine::loadPrintConfiguration(ScriptReport */*scriptReport*/, QPrinter */*printer*/) {
+
 }
 
-bool ScriptReportEngine::run() {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call to scriptEngine()
-        initEngine(*m_engine);
-    }
-
-    if (m_isUpdateIntermediateCodeRequired) {
-        updateIntermediateCode();
-    }
-
-    m_engine->evaluate(m_intermediate, m_name);
-
-    m_outHeaderStreamObject->stream()->flush();
-    m_outStreamObject->stream()->flush();
-    m_outFooterStreamObject->stream()->flush();
-    m_printStreamObject->stream()->flush();
-
-    m_isRunRequired = false;
-    return m_engine->hasUncaughtException();
-}
-
-void ScriptReportEngine::print(QPrinter *printer) {
+void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
     // Based on the code published by "Prashant Shah" on October 29, 2008 in the KDE mailing list
     // See: http://lists.kde.org/?l=kde-devel&m=122529598606039&w=2
     // Based on the code of the Qt 4.6 QTextDocument print method
 
-    if (!printer || !printer->isValid()) {
-        return;
-    }    
-
-    if (m_isRunRequired) {
-        run();
-    }
-
-    m_scriptableReport->applyConfigurationTo(*printer);
-        
     QPainter painter(printer);
     // Check that there is a valid device to print to.
     if (!painter.isActive()) {
@@ -290,13 +43,13 @@ void ScriptReportEngine::print(QPrinter *printer) {
     QString pageName = QString::fromLatin1("##page##");
     QString pageCountName = QString::fromLatin1("##pageCount##");
 
-    QString headerTemplate = m_outHeaderStreamObject->text();
+    QString headerTemplate = scriptReport->outputHeader()->text();
     bool headerHasPage = headerTemplate.contains(pageName);
     bool headerHasPageCount = headerTemplate.contains(pageCountName);
-    QString contentTemplate = m_outStreamObject->text();
+    QString contentTemplate = scriptReport->output()->text();
     bool contentHasPage = contentTemplate.contains(pageName);
     bool contentHasPageCount = contentTemplate.contains(pageCountName);
-    QString footerTemplate = m_outFooterStreamObject->text();
+    QString footerTemplate = scriptReport->outputFooter()->text();
     bool footerHasPage = footerTemplate.contains(pageName);
     bool footerHasPageCount = footerTemplate.contains(pageCountName);
 
@@ -429,8 +182,8 @@ void ScriptReportEngine::print(QPrinter *printer) {
             }
 
             if (currentPage == toPage) {
-                if (m_isPrintErrorEnabled) {
-                    QString message = errorMessage();
+                if (scriptReport->isPrintErrorEnabled()) {
+                    QString message = scriptReport->errorMessage();
                     if (!message.isNull()) {
                         // Setting up the error and calculating the error size
                         QTextDocument documentError;

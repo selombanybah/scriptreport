@@ -10,7 +10,7 @@
 class QScriptEngine;
 class QPrinter;
 
-class ScriptReportEngine;
+class ScriptReport;
 class TextStreamObject;
 
 class ScriptableReport : public QObject, public QScriptable
@@ -25,7 +25,7 @@ class ScriptableReport : public QObject, public QScriptable
     Q_PROPERTY(ScriptablePaper* paper READ paper)
 
 public:
-    ScriptableReport(ScriptReportEngine *simpleTemplateEngine, QObject *parent = 0);
+    ScriptableReport(ScriptReport *scriptReport, QObject *parent = 0);
 
     QString title() const;
     void setTitle(QString title);
@@ -50,7 +50,7 @@ private:
     void printAndWriteResult(TextStreamObject *outputObject);
 
 private:
-    ScriptReportEngine *m_sre;
+    ScriptReport *m_sre;
     ScriptablePaper *m_scriptablePaper;
     QString m_title;
 };
