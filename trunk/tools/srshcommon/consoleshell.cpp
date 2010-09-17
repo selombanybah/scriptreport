@@ -6,7 +6,7 @@
 #include <QtCore/QFile>
 
 #include <stdio.h>
-#if defined(Q_WS_WIN) && !defined(Q_CC_MINGW)
+#if defined(Q_WS_WIN)
 #include <io.h>
 #endif
 
@@ -454,11 +454,7 @@ bool ConsoleShell::init(int &retunrCode) {
 
 bool ConsoleShell::isStdinTty() {
     #if defined(Q_WS_WIN)
-        #if defined(Q_CC_MINGW)
-            return isatty(STDIN_FILENO);
-        #else
-            return _isatty(_fileno(stdin));
-        #endif
+        return _isatty(_fileno(stdin));
     #else
         return isatty(STDIN_FILENO);
     #endif

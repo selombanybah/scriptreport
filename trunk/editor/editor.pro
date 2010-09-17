@@ -7,7 +7,11 @@ QT += script \
 TARGET = scriptreporteditor
 TEMPLATE = app
 DESTDIR = ../compiled
-LIBS += -L../compiled -lscriptreportengine
+win32 {
+    LIBS += -L../compiled -lscriptreportengine$${VERSION_MAJOR}
+} else {
+    LIBS += -L../compiled -lscriptreportengine
+}
 unix:LIBS += -Wl,-rpath,.
 INCLUDEPATH += ../includes
 SOURCES += main.cpp \
