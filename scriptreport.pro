@@ -1,3 +1,5 @@
+include(scriptreport.pri)
+
 TEMPLATE = subdirs
 
 #http://www.archivum.info/qt-interest@trolltech.com/2007-03/00639/Re:-Using-qmake-subdirs,-ordered,-AND-dependencies.html
