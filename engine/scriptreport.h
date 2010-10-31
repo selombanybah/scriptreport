@@ -65,6 +65,7 @@ protected:
 
 private:
     void construct();
+    void initScriptReportEngine();
 
 private:
     bool m_isPrintErrorEnabled;
