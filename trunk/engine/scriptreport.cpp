@@ -194,7 +194,7 @@ QScriptEngine* ScriptReport::scriptEngine() /*const*/ {
 
 ScriptReportEngine* ScriptReport::scriptReportEngine() /*const*/ {
     if (!m_scriptReportEngine) {
-        m_scriptReportEngine = new ScriptReportEngine();
+        initScriptReportEngine();
     }
     return m_scriptReportEngine;
 }
@@ -234,7 +234,7 @@ bool ScriptReport::run() {
         initEngine();
     }
 
-    if (m_isUpdateIntermediateCodeRequired) {ScriptReportEngine
+    if (m_isUpdateIntermediateCodeRequired) {
         updateIntermediateCode();
     }
 
@@ -272,13 +272,16 @@ void ScriptReport::loadPrintConfiguration(QPrinter *printer) {
     if (!m_scriptableEngine) {
         m_scriptableEngine = new ScriptableEngine(m_engine);
     }
+    if (!m_scriptReportEngine) {
+        initScriptReportEngine();
+    }
     m_scriptableReport->loadConfigurationFrom(*printer);
     m_scriptReportEngine->loadPrintConfiguration(this, printer);
 }
 
 void ScriptReport::initEngine() {
     if (!m_scriptReportEngine) {
-        m_scriptReportEngine = new ScriptReportEngine();
+        initScriptReportEngine();
     }
     if (!m_scriptableReport) {
         QPrinter printer;
@@ -296,4 +299,8 @@ void ScriptReport::initEngine() {
     sr.setProperty(QString::fromLatin1("engine"), engine, QScriptValue::Undeletable);
 
     m_scriptReportEngine->initEngine(this, m_engine);
+}
+
+void ScriptReport::initScriptReportEngine() {
+    m_scriptReportEngine = new ScriptReportEngine();
 }
