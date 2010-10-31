@@ -2,7 +2,7 @@
 
 #include <QtScript/QScriptValueIterator>
 
-#include "scriptableshellengine.h"
+#include "scriptable/scriptableshellengine.h"
 
 /*
  * Static
