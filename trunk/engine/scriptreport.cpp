@@ -8,8 +8,8 @@
 
 #include "sourcetransformer.h"
 #include "textstreamobject.h"
-#include "scriptablereport.h"
-#include "scriptableengine.h"
+#include "scriptable/scriptablereport.h"
+#include "scriptable/scriptableengine.h"
 
 #include "scriptreportengine.h"
 

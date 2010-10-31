@@ -8,8 +8,6 @@
 
 #include "sourcetransformer.h"
 #include "textstreamobject.h"
-#include "scriptablereport.h"
-#include "scriptableengine.h"
 
 ScriptReportEngine::ScriptReportEngine()
 {
