@@ -89,7 +89,7 @@ bool ScriptableDatabase::isValid() const {
     return m_db->isValid();
 }
 
-QStringList ScriptableDatabase::tables(QString type) const {
+QStringList ScriptableDatabase::tables(QString type) {
     QSql::TableType tableType;
 
     if (type == QLatin1String("Tables")) {
@@ -112,13 +112,13 @@ QStringList ScriptableDatabase::tables(QString type) const {
     return result;
 }
 
-ScriptableRecord* ScriptableDatabase::record(const QString& tablename) const {
+ScriptableRecord* ScriptableDatabase::record(const QString& tablename) {
     QSqlRecord record = m_db->record(tablename);
     throwError();
     return new ScriptableRecord(record, m_autoThrow, engine());
 }
 
-ScriptableQuery* ScriptableDatabase::exec(const QString& query) const {
+ScriptableQuery* ScriptableDatabase::exec(const QString& query) {
     QSqlQuery q = m_db->exec(query);
     if (m_autoThrow) {
         QSqlError error = m_db->lastError();
@@ -127,12 +127,16 @@ ScriptableQuery* ScriptableDatabase::exec(const QString& query) const {
         }
     }
     throwError();
-    return new ScriptableQuery(q, m_autoThrow, engine());
+    // this must be the parent of the ScriptableQuery for prevent a message from qt
+    // when the database is remove in ScriptableSql
+    return new ScriptableQuery(q, m_autoThrow, this);
 }
 
-ScriptableQuery* ScriptableDatabase::query(const QString& query) const {
+ScriptableQuery* ScriptableDatabase::query(const QString& query) {
     QSqlQuery q(query, *m_db);
-    return new ScriptableQuery(q, m_autoThrow, engine());
+    // this must be the parent of the ScriptableQuery for prevent a message from qt
+    // when the database is remove in ScriptableSql
+    return new ScriptableQuery(q, m_autoThrow, this);
 }
 
 bool ScriptableDatabase::transaction() {

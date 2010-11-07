@@ -129,7 +129,7 @@ void ScriptableReport::initEngine(QScriptEngine &engine) {
     qScriptRegisterMetaType(&engine, paperToScriptValue, paperFromScriptValue);
 
     QScriptValue printFunction = engine.newFunction(print);
-    printFunction.setData(engine.newQObject(m_sre->print()));
+    printFunction.setData(engine.newQObject(m_sre->printOutput()));
     engine.globalObject().setProperty(QString::fromLatin1("print"), printFunction, QScriptValue::Undeletable);
 
     m_scriptablePaper->initEngine(engine);

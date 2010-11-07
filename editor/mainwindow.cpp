@@ -250,7 +250,7 @@ void MainWindow::run() {
 
     scriptReport->run();
 
-    QString printed = scriptReport->print()->text();
+    QString printed = scriptReport->printOutput()->text();
     ui->reportOutputTextEdit->setPlainText(printed);
     if (!printed.isEmpty()) {
         showReportOutput();
