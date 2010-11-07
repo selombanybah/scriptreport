@@ -9,7 +9,7 @@ if (sr.report.isEditing) {
     db.databaseName = "music.db";
     db.open();
 } else {
-    db = sql.database("music");
+    db = sr.sql.database("music");
 }
 /*
  * Test

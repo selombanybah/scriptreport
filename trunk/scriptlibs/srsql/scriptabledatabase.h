@@ -44,11 +44,11 @@ public:
     ScriptableError* lastError() const;
     bool isValid() const;
 
-    Q_INVOKABLE QStringList tables(QString type = QLatin1String("Tables")) const;
-//    QSqlIndex primaryIndex(const QString& tablename) const;
-    Q_INVOKABLE ScriptableRecord* record(const QString& tablename) const;
-    Q_INVOKABLE ScriptableQuery* exec(const QString& query = QString()) const;
-    Q_INVOKABLE ScriptableQuery* query(const QString& query = QString()) const;
+    Q_INVOKABLE QStringList tables(QString type = QLatin1String("Tables"));
+//    QSqlIndex primaryIndex(const QString& tablename);
+    Q_INVOKABLE ScriptableRecord* record(const QString& tablename);
+    Q_INVOKABLE ScriptableQuery* exec(const QString& query = QString());
+    Q_INVOKABLE ScriptableQuery* query(const QString& query = QString());
 
     Q_INVOKABLE bool transaction();
     Q_INVOKABLE bool commit();

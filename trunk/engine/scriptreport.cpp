@@ -13,7 +13,8 @@
 
 #include "scriptreportengine.h"
 
-ScriptReport::ScriptReport(QString scriptName) :
+ScriptReport::ScriptReport(QString scriptName, QObject *parent) :
+        QObject(parent),
         m_isPrintErrorEnabled(true),
         m_isRunRequired(true),
         m_isUpdateIntermediateCodeRequired(true),
@@ -29,7 +30,8 @@ ScriptReport::ScriptReport(QString scriptName) :
     construct();
 }
 
-ScriptReport::ScriptReport(QTextStream *inputStream, QString scriptName) :
+ScriptReport::ScriptReport(QTextStream *inputStream, QString scriptName, QObject *parent) :
+        QObject(parent),
         m_isPrintErrorEnabled(true),
         m_isRunRequired(true),
         m_isUpdateIntermediateCodeRequired(true),
@@ -46,7 +48,8 @@ ScriptReport::ScriptReport(QTextStream *inputStream, QString scriptName) :
     m_inStreamObject->setStream(inputStream);
 }
 
-ScriptReport::ScriptReport(QString input, QString scriptName) :
+ScriptReport::ScriptReport(QString input, QString scriptName, QObject *parent) :
+        QObject(parent),
         m_isPrintErrorEnabled(true),
         m_isRunRequired(true),
         m_isUpdateIntermediateCodeRequired(true),
@@ -101,12 +104,16 @@ bool ScriptReport::isEditing() const {
     return m_isInEditingMode;
 }
 
+void ScriptReport::setEditing(bool editing) {
+    m_isInEditingMode = editing;
+}
+
 bool ScriptReport::isFinal() const {
     return !m_isInEditingMode;
 }
 
-void ScriptReport::setEditing(bool editing) {
-    m_isInEditingMode = editing;
+void ScriptReport::setFinal(bool final) {
+    m_isInEditingMode = !final;
 }
 
 bool ScriptReport::isDebugging() const {
@@ -138,6 +145,14 @@ void ScriptReport::setArguments(QStringList arguments) {
         m_scriptableEngine = new ScriptableEngine(m_engine);
     }
     m_scriptableEngine->setArguments(arguments);
+}
+
+QString ScriptReport::previousScript() const {
+    return m_previousScript;
+}
+
+void ScriptReport::setPreviousScript(QString previousScript) {
+    m_previousScript = previousScript;
 }
 
 QString ScriptReport::scriptName() const {
@@ -172,7 +187,7 @@ TextStreamObject* ScriptReport::outputFooter() const {
     return m_outFooterStreamObject;
 }
 
-TextStreamObject* ScriptReport::print() const {
+TextStreamObject* ScriptReport::printOutput() const {
     return m_printStreamObject;
 }
 
@@ -203,13 +218,23 @@ QString ScriptReport::intermediateCode() const {
     return m_intermediate;
 }
 
+bool ScriptReport::hasUncaughtException() const {
+    if (!m_engine) {
+        return false;
+    }
+    return m_engine->hasUncaughtException();
+}
+
 QString ScriptReport::errorMessage() const {
     QString message;
+    if (!m_engine) {
+        return message;
+    }
     if (m_engine->hasUncaughtException()) {
         QScriptValue exception = m_engine->uncaughtException();
-        message = QString::fromLatin1("Uncaught exception: %1. Line: %2")
-                  .arg(exception.toString())
-                  .arg(m_engine->uncaughtExceptionLineNumber());
+        message = QString::fromLatin1("Line: %1, Uncaught exception: %2.")
+                  .arg(m_engine->uncaughtExceptionLineNumber())
+                  .arg(exception.toString());
         QStringList backtrace = m_engine->uncaughtExceptionBacktrace();
         foreach (QString b, backtrace) {
             message.append(QString::fromLatin1("\n    at %1").arg(b));
@@ -228,7 +253,7 @@ void ScriptReport::updateIntermediateCode() {
     m_isRunRequired = true;
 }
 
-bool ScriptReport::run() {
+void ScriptReport::run() {
     if (!m_isInitialized) {
         m_isInitialized = true; // after for prevent an indirect recursive call to scriptEngine()
         initEngine();
@@ -238,6 +263,9 @@ bool ScriptReport::run() {
         updateIntermediateCode();
     }
 
+    if (!m_previousScript.isEmpty()) {
+        m_engine->evaluate(m_previousScript, QString::fromLatin1("previousScript"));
+    }
     m_engine->evaluate(m_intermediate, m_name);
 
     m_outHeaderStreamObject->stream()->flush();
@@ -246,7 +274,6 @@ bool ScriptReport::run() {
     m_printStreamObject->stream()->flush();
 
     m_isRunRequired = false;
-    return m_engine->hasUncaughtException();
 }
 
 void ScriptReport::print(QPrinter *printer) {
