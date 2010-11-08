@@ -59,8 +59,12 @@ public:
 
     TextStreamObject* input() const;
     TextStreamObject* outputHeader() const;
+    TextStreamObject* outputHeaderFirst() const;
+    TextStreamObject* outputHeaderLast() const;
     TextStreamObject* output() const;
     TextStreamObject* outputFooter() const;
+    TextStreamObject* outputFooterFirst() const;
+    TextStreamObject* outputFooterLast() const;
     TextStreamObject* printOutput() const;
 
     QScriptEngine* scriptEngine() /*const*/;
@@ -105,8 +109,12 @@ private:
 
     TextStreamObject *m_inStreamObject;
     TextStreamObject *m_outHeaderStreamObject;
+    TextStreamObject *m_outHeaderFirstStreamObject;
+    TextStreamObject *m_outHeaderLastStreamObject;
     TextStreamObject *m_outStreamObject;
     TextStreamObject *m_outFooterStreamObject;
+    TextStreamObject *m_outFooterFirstStreamObject;
+    TextStreamObject *m_outFooterLastStreamObject;
     TextStreamObject *m_printStreamObject;
 
     ScriptableReport *m_scriptableReport;

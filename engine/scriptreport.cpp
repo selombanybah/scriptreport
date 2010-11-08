@@ -79,6 +79,16 @@ void ScriptReport::construct() {
             QIODevice::WriteOnly,
             m_engine);
 
+    m_outHeaderFirstStreamObject = new TextStreamObject(
+            QString::fromLatin1("HeaderFirst"),
+            QIODevice::WriteOnly,
+            m_engine);
+
+    m_outHeaderLastStreamObject = new TextStreamObject(
+            QString::fromLatin1("HeaderLast"),
+            QIODevice::WriteOnly,
+            m_engine);
+
     m_outStreamObject = new TextStreamObject(
             QString::fromLatin1("Content"),
             QIODevice::WriteOnly,
@@ -86,6 +96,16 @@ void ScriptReport::construct() {
 
     m_outFooterStreamObject = new TextStreamObject(
             QString::fromLatin1("Footer"),
+            QIODevice::WriteOnly,
+            m_engine);
+
+    m_outFooterFirstStreamObject = new TextStreamObject(
+            QString::fromLatin1("FooterFirst"),
+            QIODevice::WriteOnly,
+            m_engine);
+
+    m_outFooterLastStreamObject = new TextStreamObject(
+            QString::fromLatin1("FooterLast"),
             QIODevice::WriteOnly,
             m_engine);
 
@@ -179,12 +199,28 @@ TextStreamObject* ScriptReport::outputHeader() const {
     return m_outHeaderStreamObject;
 }
 
+TextStreamObject* ScriptReport::outputHeaderFirst() const {
+    return m_outHeaderFirstStreamObject;
+}
+
+TextStreamObject* ScriptReport::outputHeaderLast() const {
+    return m_outHeaderLastStreamObject;
+}
+
 TextStreamObject* ScriptReport::output() const {
     return m_outStreamObject;
 }
 
 TextStreamObject* ScriptReport::outputFooter() const {
     return m_outFooterStreamObject;
+}
+
+TextStreamObject* ScriptReport::outputFooterFirst() const {
+    return m_outFooterFirstStreamObject;
+}
+
+TextStreamObject* ScriptReport::outputFooterLast() const {
+    return m_outFooterLastStreamObject;
 }
 
 TextStreamObject* ScriptReport::printOutput() const {

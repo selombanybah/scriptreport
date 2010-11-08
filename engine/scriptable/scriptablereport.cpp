@@ -87,7 +87,7 @@ ScriptablePaper* ScriptableReport::paper() const {
     return m_scriptablePaper;
 }
 
-Q_INVOKABLE void ScriptableReport::writeHeader() {
+void ScriptableReport::writeHeader() {
     if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
         printAndWriteResult(m_sre->outputHeader());
     } else {
@@ -95,7 +95,23 @@ Q_INVOKABLE void ScriptableReport::writeHeader() {
     }
 }
 
-Q_INVOKABLE void ScriptableReport::writeContent() {
+void ScriptableReport::writeHeaderFirst() {
+    if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
+        printAndWriteResult(m_sre->outputHeaderFirst());
+    } else {
+        writeResult(m_sre->outputHeaderFirst());
+    }
+}
+
+void ScriptableReport::writeHeaderLast() {
+    if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
+        printAndWriteResult(m_sre->outputHeaderLast());
+    } else {
+        writeResult(m_sre->outputHeaderLast());
+    }
+}
+
+void ScriptableReport::writeContent() {
     if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
         printAndWriteResult(m_sre->output());
     } else {
@@ -103,11 +119,27 @@ Q_INVOKABLE void ScriptableReport::writeContent() {
     }
 }
 
-Q_INVOKABLE void ScriptableReport::writeFooter() {
+void ScriptableReport::writeFooter() {
     if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
         printAndWriteResult(m_sre->outputFooter());
     } else {
         writeResult(m_sre->outputFooter());
+    }
+}
+
+void ScriptableReport::writeFooterFirst() {
+    if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
+        printAndWriteResult(m_sre->outputFooterFirst());
+    } else {
+        writeResult(m_sre->outputFooterFirst());
+    }
+}
+
+void ScriptableReport::writeFooterLast() {
+    if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
+        printAndWriteResult(m_sre->outputFooterLast());
+    } else {
+        writeResult(m_sre->outputFooterLast());
     }
 }
 

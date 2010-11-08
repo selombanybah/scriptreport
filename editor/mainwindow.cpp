@@ -277,17 +277,32 @@ void MainWindow::run() {
     ui->reportResultTextEdit->setPlainText(message);
 
     QString header = scriptReport->outputHeader()->text();
+    QString headerFirst = scriptReport->outputHeaderFirst()->text();
+    QString headerLast = scriptReport->outputHeaderLast()->text();
     QString content = scriptReport->output()->text();
     QString footer = scriptReport->outputFooter()->text();
+    QString footerFirst = scriptReport->outputFooterFirst()->text();
+    QString footerLast = scriptReport->outputFooterLast()->text();
 
     QString printSource;
-    if (isRunResultValid) {
-        printSource = QString::fromLatin1("<!-- header -->\n%1\n<!-- content -->\n%2\n<!-- footer -->\n%3")
-                .arg(header).arg(content).arg(footer);
-    } else {
+    if (!isRunResultValid) {
         QString errorMessage = scriptReport->errorMessage();
-        printSource = QString::fromLatin1("<!-- error -->\n%1\n<!-- header -->\n%2\n<!-- content -->\n%3\n<!-- footer -->\n%4")
-                .arg(errorMessage).arg(header).arg(content).arg(footer);
+        printSource.append(QString::fromLatin1("<!-- error -->\n%1\n").arg(errorMessage));
+    }
+    if (!headerFirst.isNull()) {
+        printSource.append(QString::fromLatin1("<!-- headerFirst -->\n%1\n").arg(headerFirst));
+    }
+    printSource.append(QString::fromLatin1("<!-- header -->\n%1\n").arg(header));
+    if (!headerLast.isNull()) {
+        printSource.append(QString::fromLatin1("<!-- headerLast -->\n%1\n").arg(headerLast));
+    }
+    printSource.append(QString::fromLatin1("<!-- content -->\n%1\n").arg(content));
+    if (!footerFirst.isNull()) {
+        printSource.append(QString::fromLatin1("<!-- footerFirst -->\n%1\n").arg(footerFirst));
+    }
+    printSource.append(QString::fromLatin1("<!-- footer -->\n%1\n").arg(footer));
+    if (!headerLast.isNull()) {
+        printSource.append(QString::fromLatin1("<!-- footerLast -->\n%1\n").arg(footerLast));
     }
 
     ui->printSourceTextEdit->setPlainText(printSource);

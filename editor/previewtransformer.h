@@ -25,8 +25,12 @@ private:
     void write(const QString &s);
 
 
-    void readHtml(QTextStream *header, QTextStream *content, QTextStream *footer);
-    void readChangeContext(QTextStream *header, QTextStream *content, QTextStream *footer);
+    void readHtml(QTextStream *headerFirst, QTextStream *header, QTextStream *headerLast,
+                  QTextStream *content,
+                  QTextStream *footerFirst, QTextStream *footer, QTextStream *footerLast);
+    void readChangeContext(QTextStream *headerFirst, QTextStream *header, QTextStream *headerLast,
+                           QTextStream *content,
+                           QTextStream *footerFirst, QTextStream *footer, QTextStream *footerLast);
     void readComment();
     void readConditional();
     void readConditionalText();
