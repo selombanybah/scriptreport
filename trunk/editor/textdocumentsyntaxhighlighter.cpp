@@ -506,8 +506,12 @@ void TextDocumentSyntaxHighlighter::process(const QString &text, Token tokens[],
 
     if (token.type == Srt_Section) {
         if (tokenText == QString::fromLatin1("header")
+                || tokenText == QString::fromLatin1("headerFirst")
+                || tokenText == QString::fromLatin1("headerLast")
                 || tokenText == QString::fromLatin1("content")
-                || tokenText == QString::fromLatin1("footer")) {
+                || tokenText == QString::fromLatin1("footer")
+                || tokenText == QString::fromLatin1("footerFirst")
+                || tokenText == QString::fromLatin1("footerLast")) {
             format = m_srtValidSectionFormat;
         }
     } else if (token.type == Html_TagName) {

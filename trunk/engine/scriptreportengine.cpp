@@ -42,14 +42,32 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
     QString pageCountName = QString::fromLatin1("##pageCount##");
 
     QString headerTemplate = scriptReport->outputHeader()->text();
+    QString headerFirstTemplate = scriptReport->outputHeaderFirst()->text();
+    QString headerLastTemplate = scriptReport->outputHeaderLast()->text();
     bool headerHasPage = headerTemplate.contains(pageName);
     bool headerHasPageCount = headerTemplate.contains(pageCountName);
     QString contentTemplate = scriptReport->output()->text();
     bool contentHasPage = contentTemplate.contains(pageName);
     bool contentHasPageCount = contentTemplate.contains(pageCountName);
     QString footerTemplate = scriptReport->outputFooter()->text();
+    QString footerFirstTemplate = scriptReport->outputFooterFirst()->text();
+    QString footerLastTemplate = scriptReport->outputFooterLast()->text();
     bool footerHasPage = footerTemplate.contains(pageName);
     bool footerHasPageCount = footerTemplate.contains(pageCountName);
+
+    if (headerFirstTemplate.isNull()) {
+        headerFirstTemplate = headerTemplate;
+    }
+    if (headerLastTemplate.isNull()) {
+        headerLastTemplate = headerTemplate;
+    }
+
+    if (footerFirstTemplate.isNull()) {
+        footerFirstTemplate = footerTemplate;
+    }
+    if (footerLastTemplate.isNull()) {
+        footerLastTemplate = footerTemplate;
+    }
 
     // Setting up the header and calculating the header size
     QTextDocument documentHeader;
@@ -80,6 +98,8 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
         headerTemplate.replace(pageCountName, pageCountText);
         documentHeader.setHtml(headerTemplate);
     }
+    headerFirstTemplate.replace(pageCountName, pageCountText);
+    headerLastTemplate.replace(pageCountName, pageCountText);
     if (contentHasPageCount) {
         contentTemplate.replace(pageCountName, pageCountText);
         mainDocument.setHtml(contentTemplate);
@@ -88,6 +108,8 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
         footerTemplate.replace(pageCountName, pageCountText);
         documentFooter.setHtml(footerTemplate);
     }
+    footerFirstTemplate.replace(pageCountName, pageCountText);
+    footerLastTemplate.replace(pageCountName, pageCountText);
 
     // Setting up the rectangles for each section.
     QRect headerRect  = QRect(QPoint(0,0), documentHeader.size().toSize());
@@ -134,18 +156,37 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
 
         forever {
             QString page = QString::number(currentPage);
-            if (headerHasPage) {
+            if (currentPage == 1) {
+                QString header = QString(headerFirstTemplate).replace(pageName, page);
+                documentHeader.setHtml(header);
+            } else if (currentPage >= pageCount) {
+                QString header = QString(headerLastTemplate).replace(pageName, page);
+                documentHeader.setHtml(header);
+            } else if (headerHasPage) {
                 QString header = QString(headerTemplate).replace(pageName, page);
                 documentHeader.setHtml(header);
+            } else if (currentPage == 2) {
+                documentHeader.setHtml(headerTemplate);
             }
+
             if (contentHasPage) {
                 QString content = QString(contentTemplate).replace(pageName, page);
                 mainDocument.setHtml(content);
             }
-            if (footerHasPage) {
+
+            if (currentPage == 1) {
+                QString footer = QString(footerFirstTemplate).replace(pageName, page);
+                documentFooter.setHtml(footer);
+            } else if (currentPage >= pageCount) {
+                QString footer = QString(footerLastTemplate).replace(pageName, page);
+                documentFooter.setHtml(footer);
+            } else if (footerHasPage) {
                 QString footer = QString(footerTemplate).replace(pageName, page);
                 documentFooter.setHtml(footer);
+            } else if (currentPage == 2) {
+                documentFooter.setHtml(footerTemplate);
             }
+
 
             // Move the current rectangle to the area to be printed for the current page
             currentRect.moveTo(0, (currentPage - 1) * currentRect.height());

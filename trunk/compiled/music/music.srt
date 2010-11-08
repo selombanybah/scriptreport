@@ -1,6 +1,18 @@
 <!--@
-sr.engine.installApplicationTranslatorFunctions();
+/*
+ * For update translations:
+ * $> scriptreporttool -c music.srt
+ * $> lupdate music.srt.js -ts music_es.ts
+ * $> rm music.srt.js
+ * $> cp music.srt music.srt.js
+ * Update translations
+ * $> lrelease music_es.ts
+ */
 sr.report.paper.margins.setMargins(1.5,2,1.5,2,"cm");
+
+sr.engine.importExtension("sri18n");
+sr.i18n.installTranslator("music_es.qs");
+sr.i18n.installTranslatorFunctions();
 
 sr.engine.importExtension("srsql");
 var db;
@@ -23,6 +35,8 @@ if(sr.report.isDebbuging) {
     }
 }
 -->
+
+<!--:headerFirst-->
 
 <!--:header-->
 <center><b>${qsTr("Music Report")}</b></center>

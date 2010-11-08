@@ -38,8 +38,12 @@ public:
     ScriptablePaper* paper() const;
 
     Q_INVOKABLE void writeHeader();
+    Q_INVOKABLE void writeHeaderFirst();
+    Q_INVOKABLE void writeHeaderLast();
     Q_INVOKABLE void writeContent();
     Q_INVOKABLE void writeFooter();
+    Q_INVOKABLE void writeFooterFirst();
+    Q_INVOKABLE void writeFooterLast();
 
     void loadConfigurationFrom(QPrinter &printer);
     void applyConfigurationTo(QPrinter &printer);

@@ -306,7 +306,8 @@ void SourceTransformer::readChangeContext() {
     const QChar h5 = QChar::fromLatin1('e');
     const QChar h6 = QChar::fromLatin1('r');
     const QString header = QString::fromLatin1("_ = sr.report.writeHeader;");
-
+    const QString headerFirst = QString::fromLatin1("_ = sr.report.writeHeaderFirst;");
+    const QString headerLast = QString::fromLatin1("_ = sr.report.writeHeaderLast;");
 
     // content
     const QChar c1 = QChar::fromLatin1('c');
@@ -326,6 +327,21 @@ void SourceTransformer::readChangeContext() {
     const QChar f5 = QChar::fromLatin1('e');
     const QChar f6 = QChar::fromLatin1('r');
     const QString footer = QString::fromLatin1("_ = sr.report.writeFooter;");
+    const QString footerFirst = QString::fromLatin1("_ = sr.report.writeFooterFirst;");
+    const QString footerLast = QString::fromLatin1("_ = sr.report.writeFooterLast;");
+
+    // First
+    const QChar b1 = QChar::fromLatin1('F');
+    const QChar b2 = QChar::fromLatin1('i');
+    const QChar b3 = QChar::fromLatin1('r');
+    const QChar b4 = QChar::fromLatin1('s');
+    const QChar b5 = QChar::fromLatin1('t');
+
+    // Last
+    const QChar l1 = QChar::fromLatin1('L');
+    const QChar l2 = QChar::fromLatin1('a');
+    const QChar l3 = QChar::fromLatin1('s');
+    const QChar l4 = QChar::fromLatin1('t');
 
     prepare();
     if (current == h1) {
@@ -353,7 +369,54 @@ void SourceTransformer::readChangeContext() {
             goto end;
         }
 
-        write(header);
+        consume();
+        if (next == b1) {
+            // First
+
+            consume();
+            if (next != b2) {
+                goto end;
+            }
+
+            consume();
+            if (next != b3) {
+                goto end;
+            }
+
+            consume();
+            if (next != b4) {
+                goto end;
+            }
+
+            consume();
+            if (next != b5) {
+                goto end;
+            }
+
+            write(headerFirst);
+        } else if (next == l1) {
+            // Last
+
+            consume();
+            if (next != l2) {
+                goto end;
+            }
+
+            consume();
+            if (next != l3) {
+                goto end;
+            }
+
+            consume();
+            if (next != l4) {
+                goto end;
+            }
+
+            write(headerLast);
+        } else {
+            write(header);
+        }
+
     } else if (current == c1) {
         if (next != c2) {
             goto end;
@@ -410,7 +473,53 @@ void SourceTransformer::readChangeContext() {
             goto end;
         }
 
-        write(footer);
+        consume();
+        if (next == b1) {
+            // First
+
+            consume();
+            if (next != b2) {
+                goto end;
+            }
+
+            consume();
+            if (next != b3) {
+                goto end;
+            }
+
+            consume();
+            if (next != b4) {
+                goto end;
+            }
+
+            consume();
+            if (next != b5) {
+                goto end;
+            }
+
+            write(footerFirst);
+        } else if (next == l1) {
+            // Last
+
+            consume();
+            if (next != l2) {
+                goto end;
+            }
+
+            consume();
+            if (next != l3) {
+                goto end;
+            }
+
+            consume();
+            if (next != l4) {
+                goto end;
+            }
+
+            write(footerLast);
+        } else {
+            write(footer);
+        }
     }
 
  end:
