@@ -89,6 +89,7 @@ void Shell::initEngine(QScriptEngine &engine) {
 
 void Shell::runInteractive() {
     if (!m_isInitialized) {
+        m_isInitialized = true; // after for prevent an indirect recursive call
         initEngine(*m_engine);
     }
     m_exit = false;
@@ -116,6 +117,7 @@ void Shell::runInteractive() {
 
 void Shell::runQuiet() {
     if (!m_isInitialized) {
+        m_isInitialized = true; // after for prevent an indirect recursive call
         initEngine(*m_engine);
     }
     m_exit = false;
@@ -141,6 +143,7 @@ void Shell::runQuiet() {
 
 void Shell::runBatch() {
     if (!m_isInitialized) {
+        m_isInitialized = true; // after for prevent an indirect recursive call
         initEngine(*m_engine);
     }
     m_exit = false;
@@ -161,6 +164,7 @@ void Shell::runBatch() {
 
 void Shell::runOneSentence() {
     if (!m_isInitialized) {
+        m_isInitialized = true; // after for prevent an indirect recursive call
         initEngine(*m_engine);
     }
     m_exit = false;
@@ -177,6 +181,7 @@ void Shell::runOneSentence() {
 
 void Shell::runOneSentenceInteractive() {
     if (!m_isInitialized) {
+        m_isInitialized = true; // after for prevent an indirect recursive call
         initEngine(*m_engine);
     }
     m_exit = false;
@@ -396,7 +401,7 @@ static QStringList findCompletions(QScriptContext *context, QStringList path, QS
                     common = propertyName;
                 } else {
                     int i = 0;
-                    for( ; i < common.length() && propertyName.length(); i++) {
+                    for( ; i < common.length() && i < propertyName.length(); i++) {
                         if (common.at(i) != propertyName.at(i)) {
                             break;
                         }
@@ -433,6 +438,11 @@ static QStringList findCompletions(QScriptContext *context, QStringList path, QS
 }
 
 QStringList Shell::completeScriptExpression(QString expression, int &completitionStartAt, QString &commonName) {
+    if (!m_isInitialized) {
+        m_isInitialized = true; // after for prevent an indirect recursive call
+        initEngine(*m_engine);
+    }
+
     QStringList path;
     QString name;
 
@@ -465,4 +475,8 @@ QStringList Shell::completeScriptExpression(QString expression, int &completitio
     }
 
     return findCompletions(m_engine->currentContext(), path, name, commonName);
+}
+
+QString Shell::version() const {
+    return QString::fromLatin1(APP_VERSION);
 }

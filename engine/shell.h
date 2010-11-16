@@ -12,6 +12,15 @@ class ScriptableShellEngine;
 class SCRIPTREPORTENGINE_EXPORT Shell : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool useGlobalEngine READ useGlobalEngine WRITE setUseGlobalEngine)
+    Q_PROPERTY(QStringList arguments READ arguments WRITE setArguments)
+    Q_PROPERTY(QString fileName READ fileName WRITE setFileName)
+    Q_PROPERTY(int currentLineNumber READ currentLineNumber WRITE setCurrentLineNumber)
+    Q_PROPERTY(int processEventsInterval READ processEventsInterval WRITE setProcessEventsInterval)
+    Q_PROPERTY(bool isExitCalled READ isExitCalled)
+    Q_PROPERTY(bool isEngineInitialized READ isEngineInitialized)
+    Q_PROPERTY(int exitCode READ exitCode)
+    Q_PROPERTY(QString version READ version)
 
 public:
     explicit Shell(QObject *parent = 0);
@@ -51,6 +60,8 @@ public:
     QScriptEngine* engine();
 
     int exitCode() const;
+
+    QString version() const;
 
     QStringList completeScriptExpression(QString expression, int &completitionStartAt, QString &commonName);
 

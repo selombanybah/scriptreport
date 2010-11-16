@@ -7,11 +7,10 @@ QT += script \
 TARGET = scriptreporteditor
 TEMPLATE = app
 DESTDIR = ../compiled
-win32 {
-    LIBS += -L../compiled -lscriptreportengine$${VERSION_MAJOR}
-} else {
-    LIBS += -L../compiled -lscriptreportengine
-}
+win32:LIBS += -L../compiled \
+    -lscriptreportengine$${VERSION_MAJOR}
+else:LIBS += -L../compiled \
+    -lscriptreportengine
 unix:LIBS += -Wl,-rpath,.
 INCLUDEPATH += ../includes
 SOURCES += main.cpp \
@@ -21,7 +20,9 @@ SOURCES += main.cpp \
     previewhandler.cpp \
     plaintexteditwithlinenumber.cpp \
     syntaxhighlighter.cpp \
-    textdocumentsyntaxhighlighter.cpp
+    textdocumentsyntaxhighlighter.cpp \
+    shellform.cpp \
+    shellcontroller.cpp
 HEADERS += mainwindow.h \
     previewtransformer.h \
     extendeduimainwindow.h \
@@ -29,6 +30,9 @@ HEADERS += mainwindow.h \
     previewhandler.h \
     plaintexteditwithlinenumber.h \
     syntaxhighlighter.h \
-    textdocumentsyntaxhighlighter.h
-FORMS += mainwindow.ui
+    textdocumentsyntaxhighlighter.h \
+    shellform.h \
+    shellcontroller.h
+FORMS += mainwindow.ui \
+    shellform.ui
 RESOURCES += scriptreporteditor.qrc
