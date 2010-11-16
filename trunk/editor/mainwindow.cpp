@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionShowNext,     SIGNAL(triggered()), SLOT(showNext()));
     connect(ui->actionValidate,     SIGNAL(triggered()), SLOT(validate()));
     connect(ui->actionRun,          SIGNAL(triggered()), SLOT(run()));
+    connect(ui->actionShowShell,    SIGNAL(triggered()), SLOT(showShell()));
     connect(ui->actionShowValidationResult, SIGNAL(triggered()), SLOT(showValidationResult()));
     connect(ui->actionShowReportResult,     SIGNAL(triggered()), SLOT(showReportResult()));
     connect(ui->actionShowReportOutput,     SIGNAL(triggered()), SLOT(showReportOutput()));
@@ -64,9 +65,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->printPreviewWidget, SIGNAL(paintRequested(QPrinter*)), SLOT(createPrintPreview(QPrinter*)));
 
+    tabifyDockWidget(ui->shellDockWidget, ui->validationResultDockWidget);
     tabifyDockWidget(ui->validationResultDockWidget, ui->reportResultDockWidget);
-    tabifyDockWidget(ui->reportResultDockWidget, ui->reportOutputDockWidget);
+    tabifyDockWidget(ui->reportResultDockWidget, ui->reportOutputDockWidget);    
 
+    ui->shellDockWidget->setVisible(false);
     updateNoFile();
 }
 
@@ -331,44 +334,76 @@ void MainWindow::debug() {
     sre.run();
 }
 
-void MainWindow::showValidationResult() {
+void MainWindow::showShell() {
+    if (ui->shellWidget->isActive()) {
+        // for some reason, this don't work (QT 4.6 on Ubuntu 10.04)
+        ui->sourcePlainTextEdit->setFocus();
+    }
+    bool a = ui->validationResultDockWidget->isVisible();
     bool b = ui->reportResultDockWidget->isVisible();
     bool c = ui->reportOutputDockWidget->isVisible();
 
+    ui->shellDockWidget->setVisible(false);
+    ui->validationResultDockWidget->setVisible(false);
+    ui->reportResultDockWidget->setVisible(false);
+    ui->reportOutputDockWidget->setVisible(false);
+
+    ui->shellDockWidget->setVisible(true);
+
+    ui->validationResultDockWidget->setVisible(a);
+    ui->reportResultDockWidget->setVisible(b);
+    ui->reportOutputDockWidget->setVisible(c);
+
+    ui->shellWidget->activate();
+}
+
+void MainWindow::showValidationResult() {
+    bool s = ui->shellDockWidget->isVisible();
+    bool b = ui->reportResultDockWidget->isVisible();
+    bool c = ui->reportOutputDockWidget->isVisible();
+
+    ui->shellDockWidget->setVisible(false);
     ui->validationResultDockWidget->setVisible(false);
     ui->reportResultDockWidget->setVisible(false);
     ui->reportOutputDockWidget->setVisible(false);
 
     ui->validationResultDockWidget->setVisible(true);
 
+    ui->shellDockWidget->setVisible(s);
     ui->reportResultDockWidget->setVisible(b);
     ui->reportOutputDockWidget->setVisible(c);
 }
 
 void MainWindow::showReportResult() {
+    bool s = ui->shellDockWidget->isVisible();
     bool a = ui->validationResultDockWidget->isVisible();
     bool c = ui->reportOutputDockWidget->isVisible();
 
+    ui->shellDockWidget->setVisible(false);
     ui->validationResultDockWidget->setVisible(false);
     ui->reportResultDockWidget->setVisible(false);
     ui->reportOutputDockWidget->setVisible(false);
 
     ui->reportResultDockWidget->setVisible(true);
 
+    ui->shellDockWidget->setVisible(s);
     ui->validationResultDockWidget->setVisible(a);
     ui->reportOutputDockWidget->setVisible(c);
 }
 
 void MainWindow::showReportOutput() {
+    bool s = ui->shellDockWidget->isVisible();
     bool a = ui->validationResultDockWidget->isVisible();
     bool b = ui->reportResultDockWidget->isVisible();
 
+    ui->shellDockWidget->setVisible(false);
     ui->validationResultDockWidget->setVisible(false);
     ui->reportResultDockWidget->setVisible(false);
     ui->reportOutputDockWidget->setVisible(false);
 
     ui->reportOutputDockWidget->setVisible(true);
 
+    ui->shellDockWidget->setVisible(s);
     ui->validationResultDockWidget->setVisible(a);
     ui->reportResultDockWidget->setVisible(b);
 }

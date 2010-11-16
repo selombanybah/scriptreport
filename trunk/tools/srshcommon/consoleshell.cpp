@@ -44,7 +44,7 @@ QString ConsoleShell::readLineTty(bool isContinue) {
         if (newLine.length() < 1) {
             return line;
         } else if (line.at(line.length() - 1) == QChar::fromLatin1('?')) {
-            line = line.mid(0, line.length() - 1);
+            line.chop(1);
             int completitionStartAt = 0;
             QString commonName;
             QStringList completitons = completeScriptExpression(line, completitionStartAt, commonName);
@@ -174,12 +174,12 @@ void ConsoleShell::printUncaughtException(const QScriptValue &exception) {
         m_out->flush();
     }
     QScriptEngine *eng = engine();
-    QString message = QString::fromLatin1("Uncaught exception: %1. Line: %2")
+    QString message = QString::fromLatin1("Uncaught exception: %1. Line: %2\n")
               .arg(exception.toString())
               .arg(eng->uncaughtExceptionLineNumber());
     QStringList backtrace = eng->uncaughtExceptionBacktrace();
     foreach (QString b, backtrace) {
-        message.append(QString::fromLatin1("\n    at %1\n").arg(b));
+        message.append(QString::fromLatin1("    at %1\n").arg(b));
     }
     *m_err << message;
 

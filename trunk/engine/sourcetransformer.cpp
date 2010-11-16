@@ -22,7 +22,7 @@ void SourceTransformer::setOutputStream(QTextStream *outputStream) {
 }
 
 bool SourceTransformer::transform() {
-    const QString first = QString::fromLatin1("var _ = sr.report.writeContent;");
+    const QString first = QString::fromLatin1("var _ = sr.report.writeContent;\nvar _f = sr.report.isFinal;");
     inLine    = 0;
     inColumn  = 0;
     outLine   = 0;
@@ -578,6 +578,10 @@ void SourceTransformer::readHtmlComment() {
 }
 
 void SourceTransformer::readConditional() {
+    const QString s = QString::fromLatin1("_f?");
+    const QString m = QString::fromLatin1(":");
+    const QString e = QString::fromLatin1("\"\"");
+
     const QChar a1 = QChar::fromLatin1(':');
     const QChar a2 = QChar::fromLatin1(':');
 
@@ -586,11 +590,13 @@ void SourceTransformer::readConditional() {
     const QChar e3 = QChar::fromLatin1('>');
 
     prepare();
+    write(s);
     ajust();
     while (!current.isNull()) {
 
         if (current == a1) {
             if (next == a2) {
+                write(m);
                 readConditionalText();
                 break;
             }
@@ -614,17 +620,23 @@ void SourceTransformer::readConditional() {
         }
 
         prepare();
+        write(m);
+        write(e);
         break;
     }
 
 }
 
 void SourceTransformer::readConditionalText() {
+    const QString s = QString::fromLatin1("\"");
+    const QString e = QString::fromLatin1("\"");
+
     const QChar e1 = QChar::fromLatin1('-');
     const QChar e2 = QChar::fromLatin1('-');
     const QChar e3 = QChar::fromLatin1('>');
 
     prepare();
+    write(s);
     while (!current.isNull()) {
 
         if (current != e1) {
@@ -644,23 +656,31 @@ void SourceTransformer::readConditionalText() {
         }
 
         prepare();
+        write(e);
         break;
     }
 
 }
 
 void SourceTransformer::readInlineConditional() {
+    const QString s = QString::fromLatin1("_f?");
+    const QString m = QString::fromLatin1(":");
+    const QString e = QString::fromLatin1("\"\"");
+
+
     const QChar a1 = QChar::fromLatin1(':');
     const QChar a2 = QChar::fromLatin1(':');
 
     const QChar e1 = QChar::fromLatin1('}');
 
     prepare();
+    write(s);
     ajust();
     while (!current.isNull()) {
 
         if (current == a1) {
             if (next == a2) {
+                write(m);
                 readInlineConditionalText();
                 break;
             }
@@ -672,23 +692,30 @@ void SourceTransformer::readInlineConditional() {
         }
 
         consume();
+        write(m);
+        write(e);
         break;
     }
 
 }
 
 void SourceTransformer::readInlineConditionalText() {
+    const QString s = QString::fromLatin1("\"");
+    const QString e = QString::fromLatin1("\"");
+
     const QChar e1 = QChar::fromLatin1('}');
 
     prepare();
+    write(s);
     while (!current.isNull()) {
 
         if (current != e1) {
-            consume();
+            writeAndConsume();
             continue;
         }
 
         consume();
+        write(e);
         break;
     }
 

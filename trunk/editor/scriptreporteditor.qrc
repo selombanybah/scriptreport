@@ -41,5 +41,6 @@
         <file>images/debug.png</file>
         <file>images/run.png</file>
         <file>images/validate.png</file>
+        <file>images/configure.png</file>
     </qresource>
 </RCC>

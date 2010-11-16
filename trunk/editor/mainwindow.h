@@ -32,6 +32,7 @@ private slots:
     void exit();
     void validate();
     void run();
+    void showShell();
     void showValidationResult();
     void showReportResult();
     void showReportOutput();
