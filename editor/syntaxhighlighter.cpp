@@ -192,7 +192,8 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             token.type < HtmlEnd) { // <<<<<<<<<<<<<<<<<<<<<<<Html(Begin-End)<<<<<<<<<<<<<<
 
             if (m_operationMode == ScriptReportTemplateMode) {
-                if (token.type == Html_AttributeValue) {
+                if (token.type == Html_AttributeValue || Html_AttributeSingleQuoteValue ||
+                        Html_AttributeDoubleQuoteValue) {
                     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Html_AttributeValue<<<<<<<<<<<<<
                     if (ch == '$') { // ******************Html_AttributeValue*********** $
                         char ch1 = at(t,pos + 1);
