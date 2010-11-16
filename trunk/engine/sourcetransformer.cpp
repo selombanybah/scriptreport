@@ -592,10 +592,15 @@ void SourceTransformer::readConditional() {
     prepare();
     write(s);
     ajust();
+    int i = -1;
     while (!current.isNull()) {
+        ++i;
 
         if (current == a1) {
             if (next == a2) {
+                if (i <= 0) {
+                    write(e);
+                }
                 write(m);
                 readConditionalText();
                 break;
@@ -676,10 +681,15 @@ void SourceTransformer::readInlineConditional() {
     prepare();
     write(s);
     ajust();
+    int i = -1;
     while (!current.isNull()) {
+        ++i;
 
         if (current == a1) {
-            if (next == a2) {
+            if (next == a2) {                
+                if (i <= 0) {
+                    write(e);
+                }
                 write(m);
                 readInlineConditionalText();
                 break;

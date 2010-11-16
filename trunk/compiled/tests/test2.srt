@@ -1,7 +1,7 @@
 <!--:header-->
 header
 <!--:content-->
-<h1>Holas</h1>
+<h1>Hello</h1>
 <!--@ print ("foo"); -->
 <!--@ if ( 1 < 2 ) { -->
 is greater
