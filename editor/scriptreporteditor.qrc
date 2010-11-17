@@ -42,5 +42,6 @@
         <file>images/run.png</file>
         <file>images/validate.png</file>
         <file>images/configure.png</file>
+        <file>help/Supported_HTML_Subset.html</file>
     </qresource>
 </RCC>

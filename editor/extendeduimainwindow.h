@@ -270,6 +270,9 @@ public:
         printSourceSyntaxHighlighter = new TextDocumentSyntaxHighlighter(printSourceTextEdit, SyntaxHighlighter::HtmlMode);
         generatedCodeSyntaxHighlighter = new TextDocumentSyntaxHighlighter(generatedCodeTextEdit->document(), SyntaxHighlighter::JavaScriptMode);
         sourceCodeSyntaxHighlighter = new TextDocumentSyntaxHighlighter(sourcePlainTextEdit->document());
+
+        htmlSubsetTextBrowser->setSource(QUrl(QString::fromLatin1("qrc:/help/Supported_HTML_Subset.html")));
+
     } // setupUi
 
     void retranslateUi(QMainWindow *MainWindow)
