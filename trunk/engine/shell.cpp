@@ -4,6 +4,28 @@
 
 #include "scriptable/scriptableshellengine.h"
 
+class ShellPrivate {
+public:
+    ShellPrivate() :
+        lineNumber(1),
+        isInitialized(false),
+        useGlobalEngine(true),
+        exit(false),
+        exitCode(0),
+        fileName(QString()),
+        scriptableEngine(0)
+    {}
+
+    int lineNumber;
+    QScriptEngine *engine;
+    bool isInitialized;
+    bool useGlobalEngine;
+    bool exit;
+    int exitCode;
+    QString fileName;
+    ScriptableShellEngine *scriptableEngine;
+};
+
 /*
  * Static
  */
@@ -31,18 +53,13 @@ static QScriptValue print(QScriptContext *context, QScriptEngine *engine) {
 
 Shell::Shell(QObject *parent) :
     QObject(parent),
-    m_lineNumber(1),
-    m_isInitialized(false),
-    m_useGlobalEngine(true),
-    m_exit(false),
-    m_exitCode(0),
-    m_fileName(QString()),
-    m_scriptableEngine(0)
+    d(new ShellPrivate())
 {
-    m_engine = new QScriptEngine(this);
+    d->engine = new QScriptEngine(this);
 }
 
 Shell::~Shell() {
+    delete d;
 }
 
 void Shell::printResult(const QScriptValue &result) {
@@ -54,14 +71,14 @@ void Shell::printUncaughtException(const QScriptValue &exception) {
 }
 
 void Shell::initEngine(QScriptEngine &engine) {
-    if (!m_scriptableEngine) {
-        m_scriptableEngine = new ScriptableShellEngine(this, this);
+    if (!d->scriptableEngine) {
+        d->scriptableEngine = new ScriptableShellEngine(this, this);
     }
 
     QScriptValue global = engine.globalObject();
 
-    if (m_useGlobalEngine) {
-        QScriptValue globalEngine = engine.newQObject(m_scriptableEngine, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
+    if (d->useGlobalEngine) {
+        QScriptValue globalEngine = engine.newQObject(d->scriptableEngine, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
 
         QScriptValueIterator it(global);
         while (it.hasNext()) {
@@ -83,115 +100,115 @@ void Shell::initEngine(QScriptEngine &engine) {
     QScriptValue sr = engine.newObject();
     global.setProperty(QString::fromLatin1("sr"), sr, QScriptValue::Undeletable);
 
-    QScriptValue eng = engine.newQObject(m_scriptableEngine, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
+    QScriptValue eng = engine.newQObject(d->scriptableEngine, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
     sr.setProperty(QString::fromLatin1("engine"), eng, QScriptValue::Undeletable);
 }
 
 void Shell::runInteractive() {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
-        initEngine(*m_engine);
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call
+        initEngine(*d->engine);
     }
-    m_exit = false;
-    m_exitCode = 0;
+    d->exit = false;
+    d->exitCode = 0;
 
     QString sentence;
-    int previousLine = m_lineNumber;
+    int previousLine = d->lineNumber;
     do {
-        sentence = readSentence(m_lineNumber);
+        sentence = readSentence(d->lineNumber);
 
-        QScriptValue result = m_engine->evaluate(sentence, m_fileName, previousLine);
-        previousLine = m_lineNumber;
-        if (m_engine->hasUncaughtException()) {
+        QScriptValue result = d->engine->evaluate(sentence, d->fileName, previousLine);
+        previousLine = d->lineNumber;
+        if (d->engine->hasUncaughtException()) {
             printUncaughtException(result);
         } else if (!result.isUndefined()) {
             printResult(result);
         }
 
-    } while (!sentence.isNull() && !m_exit);
+    } while (!sentence.isNull() && !d->exit);
 
-    if (!m_exit) {
+    if (!d->exit) {
         emit finished(0);
     }
 }
 
 void Shell::runQuiet() {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
-        initEngine(*m_engine);
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call
+        initEngine(*d->engine);
     }
-    m_exit = false;
-    m_exitCode = 0;
+    d->exit = false;
+    d->exitCode = 0;
 
     QString sentence;
-    int previousLine = m_lineNumber;
+    int previousLine = d->lineNumber;
     do {
-        sentence = readSentence(m_lineNumber);
+        sentence = readSentence(d->lineNumber);
 
-        QScriptValue result = m_engine->evaluate(sentence, m_fileName, previousLine);
-        previousLine = m_lineNumber;
-        if (m_engine->hasUncaughtException()) {
+        QScriptValue result = d->engine->evaluate(sentence, d->fileName, previousLine);
+        previousLine = d->lineNumber;
+        if (d->engine->hasUncaughtException()) {
             printUncaughtException(result);
         }
 
-    } while (!sentence.isNull() && !m_exit);
+    } while (!sentence.isNull() && !d->exit);
 
-    if (!m_exit) {
+    if (!d->exit) {
         emit finished(0);
     }
 }
 
 void Shell::runBatch() {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
-        initEngine(*m_engine);
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call
+        initEngine(*d->engine);
     }
-    m_exit = false;
-    m_exitCode = 0;
+    d->exit = false;
+    d->exitCode = 0;
 
-    int previousLine = m_lineNumber;
-    QString script = readAll(m_lineNumber);
+    int previousLine = d->lineNumber;
+    QString script = readAll(d->lineNumber);
 
-    QScriptValue result = m_engine->evaluate(script, m_fileName, previousLine);
-    if (m_engine->hasUncaughtException()) {
+    QScriptValue result = d->engine->evaluate(script, d->fileName, previousLine);
+    if (d->engine->hasUncaughtException()) {
         printUncaughtException(result);
     }
 
-    if (!m_exit) {
+    if (!d->exit) {
         emit finished(0);
     }
 }
 
 void Shell::runOneSentence() {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
-        initEngine(*m_engine);
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call
+        initEngine(*d->engine);
     }
-    m_exit = false;
-    m_exitCode = 0;
+    d->exit = false;
+    d->exitCode = 0;
 
-    int previousLine = m_lineNumber;
-    QString sentence = readSentence(m_lineNumber);
+    int previousLine = d->lineNumber;
+    QString sentence = readSentence(d->lineNumber);
 
-    QScriptValue result = m_engine->evaluate(sentence, m_fileName, previousLine);
-    if (m_engine->hasUncaughtException()) {
+    QScriptValue result = d->engine->evaluate(sentence, d->fileName, previousLine);
+    if (d->engine->hasUncaughtException()) {
         printUncaughtException(result);
     }
 }
 
 void Shell::runOneSentenceInteractive() {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
-        initEngine(*m_engine);
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call
+        initEngine(*d->engine);
     }
-    m_exit = false;
-    m_exitCode = 0;
+    d->exit = false;
+    d->exitCode = 0;
 
-    int previousLine = m_lineNumber;
-    QString sentence = readSentence(m_lineNumber);
+    int previousLine = d->lineNumber;
+    QString sentence = readSentence(d->lineNumber);
 
-    QScriptValue result = m_engine->evaluate(sentence, m_fileName, previousLine);
-    if (m_engine->hasUncaughtException()) {
+    QScriptValue result = d->engine->evaluate(sentence, d->fileName, previousLine);
+    if (d->engine->hasUncaughtException()) {
         printUncaughtException(result);
     } else if (!result.isUndefined()) {
         printResult(result);
@@ -204,13 +221,13 @@ bool Shell::isCompleteSententence(QString sentence) {
 }
 
 void Shell::exit(int exitCode) {
-    m_exit = true;
-    m_exitCode = exitCode;
+    d->exit = true;
+    d->exitCode = exitCode;
     emit finished(exitCode);
 }
 
 int Shell::exitCode() const {
-    return m_exitCode;
+    return d->exitCode;
 }
 
 QString Shell::helpMessage() {
@@ -282,76 +299,76 @@ QString Shell::helpMessage() {
 }
 
 bool Shell::useGlobalEngine() const {
-    return m_useGlobalEngine;
+    return d->useGlobalEngine;
 }
 
 void Shell::setUseGlobalEngine(bool useGlobalEngine) {
-    m_useGlobalEngine = useGlobalEngine;
+    d->useGlobalEngine = useGlobalEngine;
 }
 
 QStringList Shell::arguments() const {
-    if (!m_scriptableEngine) {
-        return m_scriptableEngine->arguments();
+    if (!d->scriptableEngine) {
+        return d->scriptableEngine->arguments();
     } else {
         return QStringList();
     }
 }
 
 void Shell::setArguments(QStringList arguments) {
-    if (!m_scriptableEngine) {
-        m_scriptableEngine = new ScriptableShellEngine(this, this);
+    if (!d->scriptableEngine) {
+        d->scriptableEngine = new ScriptableShellEngine(this, this);
     }
-    m_scriptableEngine->setArguments(arguments);
+    d->scriptableEngine->setArguments(arguments);
 }
 
 QString Shell::fileName() const {
-    return m_fileName;
+    return d->fileName;
 }
 
 void Shell::setFileName(QString fileName) {
-    m_fileName = fileName;
+    d->fileName = fileName;
 }
 
 int Shell::currentLineNumber() const {
-    return m_lineNumber;
+    return d->lineNumber;
 }
 
 void Shell::setCurrentLineNumber(int currentLineNumber) {
-    m_lineNumber = currentLineNumber;
+    d->lineNumber = currentLineNumber;
 }
 
 int Shell::processEventsInterval() const {
-    return m_engine->processEventsInterval();
+    return d->engine->processEventsInterval();
 }
 
 void Shell::setProcessEventsInterval(int interval) {
-    m_engine->setProcessEventsInterval(interval);
+    d->engine->setProcessEventsInterval(interval);
 }
 
 bool Shell::isExitCalled() const {
-    return m_exit;
+    return d->exit;
 }
 
 bool Shell::isEngineInitialized() const {
-    return m_isInitialized;
+    return d->isInitialized;
 }
 
 QScriptEngine* Shell::engine() {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
-        initEngine(*m_engine);
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call
+        initEngine(*d->engine);
     }
-    return m_engine;
+    return d->engine;
 }
 
 void Shell::reset() {
-    m_lineNumber = 1;
-    int interval = m_engine->processEventsInterval();
-    delete m_engine;
-    m_engine = new QScriptEngine(this);
-    m_engine->setProcessEventsInterval(interval);
-    m_isInitialized = false;
-    m_exit = false;
+    d->lineNumber = 1;
+    int interval = d->engine->processEventsInterval();
+    delete d->engine;
+    d->engine = new QScriptEngine(this);
+    d->engine->setProcessEventsInterval(interval);
+    d->isInitialized = false;
+    d->exit = false;
 }
 
 static bool isIdentifierChar(const QChar &ch)
@@ -438,9 +455,9 @@ static QStringList findCompletions(QScriptContext *context, QStringList path, QS
 }
 
 QStringList Shell::completeScriptExpression(QString expression, int &completitionStartAt, QString &commonName) {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
-        initEngine(*m_engine);
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call
+        initEngine(*d->engine);
     }
 
     QStringList path;
@@ -448,7 +465,7 @@ QStringList Shell::completeScriptExpression(QString expression, int &completitio
 
     if (expression.isEmpty()) {
         completitionStartAt = 0;
-        return findCompletions(m_engine->currentContext(), path, name, commonName);
+        return findCompletions(d->engine->currentContext(), path, name, commonName);
     }
 
     int endWord = expression.length() - 1;
@@ -474,7 +491,7 @@ QStringList Shell::completeScriptExpression(QString expression, int &completitio
         startWord--;
     }
 
-    return findCompletions(m_engine->currentContext(), path, name, commonName);
+    return findCompletions(d->engine->currentContext(), path, name, commonName);
 }
 
 QString Shell::version() const {

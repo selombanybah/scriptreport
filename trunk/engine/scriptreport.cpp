@@ -13,265 +13,287 @@
 
 #include "scriptreportengine.h"
 
+class ScriptReportPrivate {
+public:
+
+    ScriptReportPrivate(QString scriptName) :
+            isPrintErrorEnabled(true),
+            isRunRequired(true),
+            isUpdateIntermediateCodeRequired(true),
+            isInitialized(false),
+            isInEditingMode(false),
+            isInDebuggingMode(false),
+            name(scriptName),
+            isWriteWithPrintFunctionTooEnabled(false),
+            scriptableReport(0),
+            scriptableEngine(0),
+            scriptReportEngine(0)
+    {
+        construct();
+    }
+
+    void construct() {
+        engine = new QScriptEngine;
+
+        inStreamObject = new TextStreamObject(
+                QString::fromLatin1("Input"),
+                QIODevice::ReadOnly,
+                engine);
+
+        outHeaderStreamObject = new TextStreamObject(
+                QString::fromLatin1("Header"),
+                QIODevice::WriteOnly,
+                engine);
+
+        outHeaderFirstStreamObject = new TextStreamObject(
+                QString::fromLatin1("HeaderFirst"),
+                QIODevice::WriteOnly,
+                engine);
+
+        outHeaderLastStreamObject = new TextStreamObject(
+                QString::fromLatin1("HeaderLast"),
+                QIODevice::WriteOnly,
+                engine);
+
+        outStreamObject = new TextStreamObject(
+                QString::fromLatin1("Content"),
+                QIODevice::WriteOnly,
+                engine);
+
+        outFooterStreamObject = new TextStreamObject(
+                QString::fromLatin1("Footer"),
+                QIODevice::WriteOnly,
+                engine);
+
+        outFooterFirstStreamObject = new TextStreamObject(
+                QString::fromLatin1("FooterFirst"),
+                QIODevice::WriteOnly,
+                engine);
+
+        outFooterLastStreamObject = new TextStreamObject(
+                QString::fromLatin1("FooterLast"),
+                QIODevice::WriteOnly,
+                engine);
+
+        printStreamObject = new TextStreamObject(
+                QString::fromLatin1("Print"),
+                QIODevice::WriteOnly,
+                engine);
+    }
+
+    void initScriptReportEngine() {
+        scriptReportEngine = new ScriptReportEngine();
+    }
+
+    bool isPrintErrorEnabled;
+
+    bool isRunRequired;
+    bool isUpdateIntermediateCodeRequired;
+    bool isInitialized;
+
+    bool isInEditingMode;
+    bool isInDebuggingMode;
+
+    QString previousScript;
+    QString name;
+    QString type;
+    bool isWriteWithPrintFunctionTooEnabled;
+    QScriptEngine *engine;
+    QString intermediate;
+
+    TextStreamObject *inStreamObject;
+    TextStreamObject *outHeaderStreamObject;
+    TextStreamObject *outHeaderFirstStreamObject;
+    TextStreamObject *outHeaderLastStreamObject;
+    TextStreamObject *outStreamObject;
+    TextStreamObject *outFooterStreamObject;
+    TextStreamObject *outFooterFirstStreamObject;
+    TextStreamObject *outFooterLastStreamObject;
+    TextStreamObject *printStreamObject;
+
+    ScriptableReport *scriptableReport;
+    ScriptableEngine *scriptableEngine;
+
+    ScriptReportEngine *scriptReportEngine;
+};
+
 ScriptReport::ScriptReport(QString scriptName, QObject *parent) :
         QObject(parent),
-        m_isPrintErrorEnabled(true),
-        m_isRunRequired(true),
-        m_isUpdateIntermediateCodeRequired(true),
-        m_isInitialized(false),
-        m_isInEditingMode(false),
-        m_isInDebuggingMode(false),
-        m_name(scriptName),
-        m_isWriteWithPrintFunctionTooEnabled(false),
-        m_scriptableReport(0),
-        m_scriptableEngine(0),
-        m_scriptReportEngine(0)
-{
-    construct();
-}
+        d(new ScriptReportPrivate(scriptName))
+{ }
 
 ScriptReport::ScriptReport(QTextStream *inputStream, QString scriptName, QObject *parent) :
         QObject(parent),
-        m_isPrintErrorEnabled(true),
-        m_isRunRequired(true),
-        m_isUpdateIntermediateCodeRequired(true),
-        m_isInitialized(false),
-        m_isInEditingMode(false),
-        m_isInDebuggingMode(false),
-        m_name(scriptName),
-        m_isWriteWithPrintFunctionTooEnabled(false),
-        m_scriptableReport(0),
-        m_scriptableEngine(0),
-        m_scriptReportEngine(0)
+        d(new ScriptReportPrivate(scriptName))
 {
-    construct();
-    m_inStreamObject->setStream(inputStream);
+    d->inStreamObject->setStream(inputStream);
 }
 
 ScriptReport::ScriptReport(QString input, QString scriptName, QObject *parent) :
         QObject(parent),
-        m_isPrintErrorEnabled(true),
-        m_isRunRequired(true),
-        m_isUpdateIntermediateCodeRequired(true),
-        m_isInitialized(false),
-        m_isInEditingMode(false),
-        m_isInDebuggingMode(false),
-        m_name(scriptName),
-        m_isWriteWithPrintFunctionTooEnabled(false),
-        m_scriptableReport(0),
-        m_scriptableEngine(0),
-        m_scriptReportEngine(0)
+        d(new ScriptReportPrivate(scriptName))
 {
-    construct();
-    m_inStreamObject->setText(input);
-}
-
-void ScriptReport::construct() {
-    m_engine = new QScriptEngine;
-
-    m_inStreamObject = new TextStreamObject(
-            QString::fromLatin1("Input"),
-            QIODevice::ReadOnly,
-            m_engine);
-
-    m_outHeaderStreamObject = new TextStreamObject(
-            QString::fromLatin1("Header"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_outHeaderFirstStreamObject = new TextStreamObject(
-            QString::fromLatin1("HeaderFirst"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_outHeaderLastStreamObject = new TextStreamObject(
-            QString::fromLatin1("HeaderLast"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_outStreamObject = new TextStreamObject(
-            QString::fromLatin1("Content"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_outFooterStreamObject = new TextStreamObject(
-            QString::fromLatin1("Footer"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_outFooterFirstStreamObject = new TextStreamObject(
-            QString::fromLatin1("FooterFirst"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_outFooterLastStreamObject = new TextStreamObject(
-            QString::fromLatin1("FooterLast"),
-            QIODevice::WriteOnly,
-            m_engine);
-
-    m_printStreamObject = new TextStreamObject(
-            QString::fromLatin1("Print"),
-            QIODevice::WriteOnly,
-            m_engine);
+    d->inStreamObject->setText(input);
 }
 
 ScriptReport::~ScriptReport() {
-    delete m_engine;
-    delete m_scriptReportEngine;
+    delete d->engine;
+    delete d->scriptReportEngine;
+    delete d;
 }
 
 bool ScriptReport::isEditing() const {
-    return m_isInEditingMode;
+    return d->isInEditingMode;
 }
 
 void ScriptReport::setEditing(bool editing) {
-    m_isInEditingMode = editing;
+    d->isInEditingMode = editing;
 }
 
 bool ScriptReport::isFinal() const {
-    return !m_isInEditingMode;
+    return !d->isInEditingMode;
 }
 
 void ScriptReport::setFinal(bool final) {
-    m_isInEditingMode = !final;
+    d->isInEditingMode = !final;
 }
 
 bool ScriptReport::isDebugging() const {
-    return m_isInDebuggingMode;
+    return d->isInDebuggingMode;
 }
 
 void ScriptReport::setDebugging(bool debugging) {
-    m_isInDebuggingMode = debugging;
+    d->isInDebuggingMode = debugging;
 }
 
 bool ScriptReport::isPrintErrorEnabled() const {
-    return m_isPrintErrorEnabled;
+    return d->isPrintErrorEnabled;
 }
 
 void ScriptReport::setPrintErrorEnabled(bool isPrintErrorEnabled) {
-    m_isPrintErrorEnabled = isPrintErrorEnabled;
+    d->isPrintErrorEnabled = isPrintErrorEnabled;
 }
 
 QStringList ScriptReport::arguments() const {
-    if (!m_scriptableEngine) {
-        return m_scriptableEngine->arguments();
+    if (!d->scriptableEngine) {
+        return d->scriptableEngine->arguments();
     } else {
         return QStringList();
     }
 }
 
 void ScriptReport::setArguments(QStringList arguments) {
-    if (!m_scriptableEngine) {
-        m_scriptableEngine = new ScriptableEngine(m_engine);
+    if (!d->scriptableEngine) {
+        d->scriptableEngine = new ScriptableEngine(d->engine);
     }
-    m_scriptableEngine->setArguments(arguments);
+    d->scriptableEngine->setArguments(arguments);
 }
 
 QString ScriptReport::previousScript() const {
-    return m_previousScript;
+    return d->previousScript;
 }
 
 void ScriptReport::setPreviousScript(QString previousScript) {
-    m_previousScript = previousScript;
+    d->previousScript = previousScript;
 }
 
 QString ScriptReport::scriptName() const {
-    return m_name;
+    return d->name;
 }
 
 void ScriptReport::setScriptName(QString scriptName) {
-    m_name = scriptName;
+    d->name = scriptName;
 }
 
 bool ScriptReport::isWriteWithPrintFunctionTooEnabled() const {
-    return m_isWriteWithPrintFunctionTooEnabled;
+    return d->isWriteWithPrintFunctionTooEnabled;
 }
 
 void ScriptReport::setWriteWithPrintFunctionTooEnabled(bool isWriteWithPrintFunctionTooEnabled) {
-    m_isWriteWithPrintFunctionTooEnabled = isWriteWithPrintFunctionTooEnabled;
+    d->isWriteWithPrintFunctionTooEnabled = isWriteWithPrintFunctionTooEnabled;
 }
 
 TextStreamObject* ScriptReport::input() const {
-    return m_inStreamObject;
+    return d->inStreamObject;
 }
 
-TextStreamObject* ScriptReport::outputHeader() const {
-    return m_outHeaderStreamObject;
+const TextStreamObject* ScriptReport::outputHeader() const {
+    return d->outHeaderStreamObject;
 }
 
-TextStreamObject* ScriptReport::outputHeaderFirst() const {
-    return m_outHeaderFirstStreamObject;
+const TextStreamObject* ScriptReport::outputHeaderFirst() const {
+    return d->outHeaderFirstStreamObject;
 }
 
-TextStreamObject* ScriptReport::outputHeaderLast() const {
-    return m_outHeaderLastStreamObject;
+const TextStreamObject* ScriptReport::outputHeaderLast() const {
+    return d->outHeaderLastStreamObject;
 }
 
-TextStreamObject* ScriptReport::output() const {
-    return m_outStreamObject;
+const TextStreamObject* ScriptReport::output() const {
+    return d->outStreamObject;
 }
 
-TextStreamObject* ScriptReport::outputFooter() const {
-    return m_outFooterStreamObject;
+const TextStreamObject* ScriptReport::outputFooter() const {
+    return d->outFooterStreamObject;
 }
 
-TextStreamObject* ScriptReport::outputFooterFirst() const {
-    return m_outFooterFirstStreamObject;
+const TextStreamObject* ScriptReport::outputFooterFirst() const {
+    return d->outFooterFirstStreamObject;
 }
 
-TextStreamObject* ScriptReport::outputFooterLast() const {
-    return m_outFooterLastStreamObject;
+const TextStreamObject* ScriptReport::outputFooterLast() const {
+    return d->outFooterLastStreamObject;
 }
 
 TextStreamObject* ScriptReport::printOutput() const {
-    return m_printStreamObject;
+    return d->printStreamObject;
 }
 
 QScriptEngine* ScriptReport::scriptEngine() /*const*/ {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call
         initEngine();
     }
-    return m_engine;
+    return d->engine;
 }
 
 //void ScriptReport::setScriptEngine(QScriptEngine *scriptEngine) {
-//    if (m_engine == scriptEngine) {
+//    if (d->engine == scriptEngine) {
 //        return;
 //    }
-//    m_engine = scriptEngine;
-//    initEngine(*m_engine);
+//    d->engine = scriptEngine;
+//    initEngine(*d->engine);
 //}
 
 ScriptReportEngine* ScriptReport::scriptReportEngine() /*const*/ {
-    if (!m_scriptReportEngine) {
-        initScriptReportEngine();
+    if (!d->scriptReportEngine) {
+        d->initScriptReportEngine();
     }
-    return m_scriptReportEngine;
+    return d->scriptReportEngine;
 }
 
 QString ScriptReport::intermediateCode() const {
-    return m_intermediate;
+    return d->intermediate;
 }
 
 bool ScriptReport::hasUncaughtException() const {
-    if (!m_engine) {
+    if (!d->engine) {
         return false;
     }
-    return m_engine->hasUncaughtException();
+    return d->engine->hasUncaughtException();
 }
 
 QString ScriptReport::errorMessage() const {
     QString message;
-    if (!m_engine) {
+    if (!d->engine) {
         return message;
     }
-    if (m_engine->hasUncaughtException()) {
-        QScriptValue exception = m_engine->uncaughtException();
+    if (d->engine->hasUncaughtException()) {
+        QScriptValue exception = d->engine->uncaughtException();
         message = QString::fromLatin1("Line: %1, Uncaught exception: %2.")
-                  .arg(m_engine->uncaughtExceptionLineNumber())
+                  .arg(d->engine->uncaughtExceptionLineNumber())
                   .arg(exception.toString());
-        QStringList backtrace = m_engine->uncaughtExceptionBacktrace();
+        QStringList backtrace = d->engine->uncaughtExceptionBacktrace();
         foreach (QString b, backtrace) {
             message.append(QString::fromLatin1("\n    at %1").arg(b));
         }
@@ -280,36 +302,36 @@ QString ScriptReport::errorMessage() const {
 }
 
 void ScriptReport::updateIntermediateCode() {
-    m_intermediate.clear();
-    QTextStream intermediateStream(&m_intermediate, QIODevice::WriteOnly);
+    d->intermediate.clear();
+    QTextStream intermediateStream(&d->intermediate, QIODevice::WriteOnly);
 
-    SourceTransformer st(m_inStreamObject->stream(), &intermediateStream);
+    SourceTransformer st(d->inStreamObject->stream(), &intermediateStream);
     st.transform();
-    m_isUpdateIntermediateCodeRequired = false;
-    m_isRunRequired = true;
+    d->isUpdateIntermediateCodeRequired = false;
+    d->isRunRequired = true;
 }
 
 void ScriptReport::run() {
-    if (!m_isInitialized) {
-        m_isInitialized = true; // after for prevent an indirect recursive call to scriptEngine()
+    if (!d->isInitialized) {
+        d->isInitialized = true; // after for prevent an indirect recursive call to scriptEngine()
         initEngine();
     }
 
-    if (m_isUpdateIntermediateCodeRequired) {
+    if (d->isUpdateIntermediateCodeRequired) {
         updateIntermediateCode();
     }
 
-    if (!m_previousScript.isEmpty()) {
-        m_engine->evaluate(m_previousScript, QString::fromLatin1("previousScript"));
+    if (!d->previousScript.isEmpty()) {
+        d->engine->evaluate(d->previousScript, QString::fromLatin1("previousScript"));
     }
-    m_engine->evaluate(m_intermediate, m_name);
+    d->engine->evaluate(d->intermediate, d->name);
 
-    m_outHeaderStreamObject->stream()->flush();
-    m_outStreamObject->stream()->flush();
-    m_outFooterStreamObject->stream()->flush();
-    m_printStreamObject->stream()->flush();
+    d->outHeaderStreamObject->stream()->flush();
+    d->outStreamObject->stream()->flush();
+    d->outFooterStreamObject->stream()->flush();
+    d->printStreamObject->stream()->flush();
 
-    m_isRunRequired = false;
+    d->isRunRequired = false;
 }
 
 void ScriptReport::print(QPrinter *printer) {
@@ -317,53 +339,49 @@ void ScriptReport::print(QPrinter *printer) {
         return;
     }
 
-    if (m_isRunRequired) {
+    if (d->isRunRequired) {
         run();
     }
 
-    m_scriptableReport->applyConfigurationTo(*printer);
-    m_scriptReportEngine->print(this, printer);
+    d->scriptableReport->applyConfigurationTo(*printer);
+    d->scriptReportEngine->print(this, printer);
 }
 
 void ScriptReport::loadPrintConfiguration(QPrinter *printer) {
     if (!printer || !printer->isValid()) {
         return;
     }
-    if (!m_scriptableReport) {
-        m_scriptableReport = new ScriptableReport(this, m_engine);
+    if (!d->scriptableReport) {
+        d->scriptableReport = new ScriptableReport(this, d->engine);
     }
-    if (!m_scriptableEngine) {
-        m_scriptableEngine = new ScriptableEngine(m_engine);
+    if (!d->scriptableEngine) {
+        d->scriptableEngine = new ScriptableEngine(d->engine);
     }
-    if (!m_scriptReportEngine) {
-        initScriptReportEngine();
+    if (!d->scriptReportEngine) {
+        d->initScriptReportEngine();
     }
-    m_scriptableReport->loadConfigurationFrom(*printer);
-    m_scriptReportEngine->loadPrintConfiguration(this, printer);
+    d->scriptableReport->loadConfigurationFrom(*printer);
+    d->scriptReportEngine->loadPrintConfiguration(this, printer);
 }
 
 void ScriptReport::initEngine() {
-    if (!m_scriptReportEngine) {
-        initScriptReportEngine();
+    if (!d->scriptReportEngine) {
+        d->initScriptReportEngine();
     }
-    if (!m_scriptableReport) {
+    if (!d->scriptableReport) {
         QPrinter printer;
         loadPrintConfiguration(&printer);
     }
-    m_scriptableReport->initEngine(*m_engine);
+    d->scriptableReport->initEngine(*d->engine);
 
-    QScriptValue sr = m_engine->newObject();
-    m_engine->globalObject().setProperty(QString::fromLatin1("sr"), sr, QScriptValue::Undeletable);
+    QScriptValue sr = d->engine->newObject();
+    d->engine->globalObject().setProperty(QString::fromLatin1("sr"), sr, QScriptValue::Undeletable);
 
-    QScriptValue report = m_engine->newQObject(m_scriptableReport, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
+    QScriptValue report = d->engine->newQObject(d->scriptableReport, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
     sr.setProperty(QString::fromLatin1("report"), report, QScriptValue::Undeletable);
 
-    QScriptValue engine = m_engine->newQObject(m_scriptableEngine, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
+    QScriptValue engine = d->engine->newQObject(d->scriptableEngine, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects | QScriptEngine::ExcludeSuperClassContents | QScriptEngine::ExcludeDeleteLater);
     sr.setProperty(QString::fromLatin1("engine"), engine, QScriptValue::Undeletable);
 
-    m_scriptReportEngine->initEngine(this, m_engine);
-}
-
-void ScriptReport::initScriptReportEngine() {
-    m_scriptReportEngine = new ScriptReportEngine();
+    d->scriptReportEngine->initEngine(this, d->engine);
 }

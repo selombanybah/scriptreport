@@ -7,7 +7,7 @@
 
 #include "scriptreportengine_global.h"
 
-class ScriptableShellEngine;
+class ShellPrivate;
 
 class SCRIPTREPORTENGINE_EXPORT Shell : public QObject
 {
@@ -84,14 +84,7 @@ protected:
     virtual void initEngine(QScriptEngine &engine);
 
 private:
-    int m_lineNumber;
-    QScriptEngine *m_engine;
-    bool m_isInitialized;
-    bool m_useGlobalEngine;
-    bool m_exit;
-    int m_exitCode;
-    QString m_fileName;
-    ScriptableShellEngine *m_scriptableEngine;
+    ShellPrivate *d;
 };
 
 #endif // SHELL_H

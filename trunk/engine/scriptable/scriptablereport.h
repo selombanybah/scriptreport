@@ -50,8 +50,8 @@ public:
     void initEngine(QScriptEngine &engine);
 
 private:
-    void writeResult(TextStreamObject *outputObject);
-    void printAndWriteResult(TextStreamObject *outputObject);
+    void writeResult(const TextStreamObject *outputObject);
+    void printAndWriteResult(const TextStreamObject *outputObject);
 
 private:
     ScriptReport *m_sre;
