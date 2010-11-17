@@ -1,61 +1,76 @@
 #include "textstreamobject.h"
 
+class TextStreamObjectPrivate {
+public:
+    TextStreamObjectPrivate(QString name, QIODevice::OpenMode defaultStreamMode) :
+        streamName(name),
+        streamMode(defaultStreamMode),
+        stream(0),
+        deleteStream(false)
+    {
+    }
+
+    QString streamText;
+    QString streamName;
+    QIODevice::OpenMode streamMode;
+    QTextStream* stream;
+    bool deleteStream;
+};
+
 TextStreamObject::TextStreamObject(QString name, QIODevice::OpenMode defaultStreamMode, QObject* parent)
     : QObject(parent),
-    m_streamName(name),
-    m_streamMode(defaultStreamMode),
-    m_stream(0),
-    m_deleteStream(false)
+    d(new TextStreamObjectPrivate(name, defaultStreamMode))
 {
 }
 
 TextStreamObject::~TextStreamObject() {
-    if (m_deleteStream) {
-        delete m_stream;
+    if (d->deleteStream) {
+        delete d->stream;
     }
+    delete d;
 }
 
 void TextStreamObject::reset() {
-    m_streamText.clear();
-    QTextStream *s = new QTextStream(&m_streamText, m_streamMode);
+    d->streamText.clear();
+    QTextStream *s = new QTextStream(&d->streamText, d->streamMode);
     setStream(s, true);
 }
 
-QTextStream* TextStreamObject::stream() {
-    if (!m_stream) {
-        m_stream = new QTextStream(&m_streamText, m_streamMode);
-        m_deleteStream = true;
+QTextStream* TextStreamObject::stream() const {
+    if (!d->stream) {
+        d->stream = new QTextStream(&d->streamText, d->streamMode);
+        d->deleteStream = true;
     }
-    return m_stream;
+    return d->stream;
 }
 
 void TextStreamObject::setStream(QTextStream* textStream, bool forDelete) {
-    if (m_stream == textStream) {
+    if (d->stream == textStream) {
         return;
     }
-    if (!m_stream && m_deleteStream) {
-        delete m_stream;
+    if (!d->stream && d->deleteStream) {
+        delete d->stream;
     }
-    m_stream = textStream;
-    m_deleteStream = forDelete;
+    d->stream = textStream;
+    d->deleteStream = forDelete;
 }
 
-QString TextStreamObject::text() {
-    return m_streamText;
+QString TextStreamObject::text() const {
+    return d->streamText;
 }
 
 void TextStreamObject::setText(QString text) {
-    m_streamText = text;
+    d->streamText = text;
 }
 
-QString TextStreamObject::name() {
-    return m_streamName;
+QString TextStreamObject::name() const {
+    return d->streamName;
 }
 
-QIODevice::OpenMode TextStreamObject::defaultStreamMode() {
-    return m_streamMode;
+QIODevice::OpenMode TextStreamObject::defaultStreamMode() const {
+    return d->streamMode;
 }
 
-bool TextStreamObject::isDeleteStreamEmabled() {
-    return m_deleteStream;
+bool TextStreamObject::isDeleteStreamEmabled() const {
+    return d->deleteStream;
 }

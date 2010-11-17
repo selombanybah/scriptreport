@@ -10,11 +10,10 @@ class QPrinter;
 class QScriptEngine;
 class QTextStream;
 
-class ScriptableReport;
-class ScriptableEngine;
 class TextStreamObject;
 class ScriptReportEngine;
 
+class ScriptReportPrivate;
 class SCRIPTREPORTENGINE_EXPORT ScriptReport : public QObject
 {
     Q_OBJECT
@@ -58,13 +57,13 @@ public:
     void setWriteWithPrintFunctionTooEnabled(bool isWriteWithPrintFunctionTooEnabled);
 
     TextStreamObject* input() const;
-    TextStreamObject* outputHeader() const;
-    TextStreamObject* outputHeaderFirst() const;
-    TextStreamObject* outputHeaderLast() const;
-    TextStreamObject* output() const;
-    TextStreamObject* outputFooter() const;
-    TextStreamObject* outputFooterFirst() const;
-    TextStreamObject* outputFooterLast() const;
+    const TextStreamObject* outputHeader() const;
+    const TextStreamObject* outputHeaderFirst() const;
+    const TextStreamObject* outputHeaderLast() const;
+    const TextStreamObject* output() const;
+    const TextStreamObject* outputFooter() const;
+    const TextStreamObject* outputFooterFirst() const;
+    const TextStreamObject* outputFooterLast() const;
     TextStreamObject* printOutput() const;
 
     QScriptEngine* scriptEngine() /*const*/;
@@ -87,40 +86,7 @@ protected:
     void initEngine();
 
 private:
-    void construct();
-    void initScriptReportEngine();
-
-private:
-    bool m_isPrintErrorEnabled;
-
-    bool m_isRunRequired;
-    bool m_isUpdateIntermediateCodeRequired;
-    bool m_isInitialized;
-
-    bool m_isInEditingMode;
-    bool m_isInDebuggingMode;
-
-    QString m_previousScript;
-    QString m_name;
-    QString m_type;
-    bool m_isWriteWithPrintFunctionTooEnabled;
-    QScriptEngine *m_engine;
-    QString m_intermediate;
-
-    TextStreamObject *m_inStreamObject;
-    TextStreamObject *m_outHeaderStreamObject;
-    TextStreamObject *m_outHeaderFirstStreamObject;
-    TextStreamObject *m_outHeaderLastStreamObject;
-    TextStreamObject *m_outStreamObject;
-    TextStreamObject *m_outFooterStreamObject;
-    TextStreamObject *m_outFooterFirstStreamObject;
-    TextStreamObject *m_outFooterLastStreamObject;
-    TextStreamObject *m_printStreamObject;
-
-    ScriptableReport *m_scriptableReport;
-    ScriptableEngine *m_scriptableEngine;
-
-    ScriptReportEngine *m_scriptReportEngine;
+    ScriptReportPrivate *d;
 };
 
 #endif // SCRIPTREPORT_H

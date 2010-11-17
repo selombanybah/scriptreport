@@ -1,27 +1,81 @@
 #include "sourcetransformer.h"
 
+class SourceTransformerPrivate {
+public:
+    SourceTransformerPrivate(QTextStream *inputStream, QTextStream *outputStream) :
+            in(inputStream), out(outputStream) {}
+
+    bool transform();
+
+    void consume();
+    void prepare();
+    void writeAndConsume();
+    void writeHtmlAndConsume();
+    void writeStartHtml();
+    void writeEndHtml();
+    void write(const QChar &c);
+    void write(const QChar &c1, const QChar &c2);
+    void write(const QString &s);
+
+    void writeHtmlChar(const QChar &c);
+
+    void readHtml();
+    void readScript(bool writeEnd);
+    void readInLineScript();
+    void readChangeContext();
+    void readHtmlComment();
+    void readConditional();
+    void readConditionalText();
+    void readInlineConditional();
+    void readInlineConditionalText();
+    void ajust();
+
+    QChar current;
+    QChar next;
+    bool startHtmlWrited;
+    QTextStream *in;
+    QTextStream *out;
+    int inLine;
+    int inColumn;
+    int outLine;
+    int outColumn;
+
+};
+
 SourceTransformer::SourceTransformer(QTextStream *inputStream, QTextStream *outputStream) :
-        in(inputStream), out(outputStream)
+        d(new SourceTransformerPrivate(inputStream, outputStream))
 {
 }
 
+SourceTransformer::~SourceTransformer() {
+    delete d;
+}
+
 QTextStream* SourceTransformer::inputStream() const {
-    return in;
+    return d->in;
 }
 
 void SourceTransformer::setInputStream(QTextStream *inputStream) {
-    in = inputStream;
+    d->in = inputStream;
 }
 
 QTextStream* SourceTransformer::outputStream() const {
-    return out;
+    return d->out;
 }
 
 void SourceTransformer::setOutputStream(QTextStream *outputStream) {
-    out = outputStream;
+    d->out = outputStream;
 }
 
 bool SourceTransformer::transform() {
+    return d->transform();
+}
+
+/*
+ * Private members
+ */
+
+bool SourceTransformerPrivate::transform() {
     const QString first = QString::fromLatin1("var _ = sr.report.writeContent;\nvar _f = sr.report.isFinal;");
     inLine    = 0;
     inColumn  = 0;
@@ -55,7 +109,7 @@ bool SourceTransformer::transform() {
     return true;
 }
 
-void SourceTransformer::consume() {
+void SourceTransformerPrivate::consume() {
     const QChar n = QChar::fromLatin1('\n');
 
     current = next;
@@ -68,23 +122,23 @@ void SourceTransformer::consume() {
     }
 }
 
-void SourceTransformer::prepare() {
+void SourceTransformerPrivate::prepare() {
     consume();
     consume();
 }
 
-void SourceTransformer::writeAndConsume() {
+void SourceTransformerPrivate::writeAndConsume() {
     write(current);
     consume();
 }
 
-void SourceTransformer::writeHtmlAndConsume() {
+void SourceTransformerPrivate::writeHtmlAndConsume() {
     writeStartHtml();
     writeHtmlChar(current);
     consume();
 }
 
-void SourceTransformer::writeStartHtml() {
+void SourceTransformerPrivate::writeStartHtml() {
     const QString start = QString::fromLatin1("_(\"");
     if (!startHtmlWrited) {
         write(start);
@@ -92,7 +146,7 @@ void SourceTransformer::writeStartHtml() {
     }
 }
 
-void SourceTransformer::writeEndHtml() {
+void SourceTransformerPrivate::writeEndHtml() {
     const QString end = QString::fromLatin1("\");");
 
     if (startHtmlWrited) {
@@ -101,7 +155,7 @@ void SourceTransformer::writeEndHtml() {
     }
 }
 
-void SourceTransformer::write(const QChar &c) {
+void SourceTransformerPrivate::write(const QChar &c) {
     const QChar n = QChar::fromLatin1('\n');
 
     *out << c;
@@ -113,18 +167,18 @@ void SourceTransformer::write(const QChar &c) {
     }
 }
 
-void SourceTransformer::write(const QChar &c1, const QChar &c2) {
+void SourceTransformerPrivate::write(const QChar &c1, const QChar &c2) {
     write(c1);
     write(c2);
 }
 
-void SourceTransformer::write(const QString &s) {
+void SourceTransformerPrivate::write(const QString &s) {
     for (int i = 0; i < s.size(); i++) {
         write(s[i]);
     }
 }
 
-void SourceTransformer::writeHtmlChar(const QChar &c) {
+void SourceTransformerPrivate::writeHtmlChar(const QChar &c) {
     const QChar r = QChar::fromLatin1('\r');
     const QChar n = QChar::fromLatin1('\n');
     const QChar q = QChar::fromLatin1('"');
@@ -148,7 +202,7 @@ void SourceTransformer::writeHtmlChar(const QChar &c) {
     }
 }
 
-void SourceTransformer::readHtml() {
+void SourceTransformerPrivate::readHtml() {
     const QChar s1  = QChar::fromLatin1('<');
     const QChar s2  = QChar::fromLatin1('!');
     const QChar s3  = QChar::fromLatin1('-');
@@ -246,7 +300,7 @@ void SourceTransformer::readHtml() {
     writeEndHtml();
 }
 
-void SourceTransformer::readScript(bool writeEnd) {
+void SourceTransformerPrivate::readScript(bool writeEnd) {
     const QChar e1 = QChar::fromLatin1('-');
     const QChar e2 = QChar::fromLatin1('-');
     const QChar e3 = QChar::fromLatin1('>');
@@ -281,7 +335,7 @@ void SourceTransformer::readScript(bool writeEnd) {
     }
 }
 
-void SourceTransformer::readInLineScript() {
+void SourceTransformerPrivate::readInLineScript() {
     const QChar ae1 = QChar::fromLatin1('}');
 
     prepare();
@@ -297,7 +351,7 @@ void SourceTransformer::readInLineScript() {
     }
 }
 
-void SourceTransformer::readChangeContext() {
+void SourceTransformerPrivate::readChangeContext() {
     // header
     const QChar h1 = QChar::fromLatin1('h');
     const QChar h2 = QChar::fromLatin1('e');
@@ -549,7 +603,7 @@ void SourceTransformer::readChangeContext() {
     }
 }
 
-void SourceTransformer::readHtmlComment() {
+void SourceTransformerPrivate::readHtmlComment() {
     const QChar e1 = QChar::fromLatin1('-');
     const QChar e2 = QChar::fromLatin1('-');
     const QChar e3 = QChar::fromLatin1('>');
@@ -577,7 +631,7 @@ void SourceTransformer::readHtmlComment() {
     }
 }
 
-void SourceTransformer::readConditional() {
+void SourceTransformerPrivate::readConditional() {
     const QString s = QString::fromLatin1("_f?");
     const QString m = QString::fromLatin1(":");
     const QString e = QString::fromLatin1("\"\"");
@@ -632,7 +686,7 @@ void SourceTransformer::readConditional() {
 
 }
 
-void SourceTransformer::readConditionalText() {
+void SourceTransformerPrivate::readConditionalText() {
     const QString s = QString::fromLatin1("\"");
     const QString e = QString::fromLatin1("\"");
 
@@ -667,7 +721,7 @@ void SourceTransformer::readConditionalText() {
 
 }
 
-void SourceTransformer::readInlineConditional() {
+void SourceTransformerPrivate::readInlineConditional() {
     const QString s = QString::fromLatin1("_f?");
     const QString m = QString::fromLatin1(":");
     const QString e = QString::fromLatin1("\"\"");
@@ -709,7 +763,7 @@ void SourceTransformer::readInlineConditional() {
 
 }
 
-void SourceTransformer::readInlineConditionalText() {
+void SourceTransformerPrivate::readInlineConditionalText() {
     const QString s = QString::fromLatin1("\"");
     const QString e = QString::fromLatin1("\"");
 
@@ -731,7 +785,7 @@ void SourceTransformer::readInlineConditionalText() {
 
 }
 
-void SourceTransformer::ajust() {
+void SourceTransformerPrivate::ajust() {
     const QChar n = QChar::fromLatin1('\n');
     const QChar sp = QChar::fromLatin1(' ');
 

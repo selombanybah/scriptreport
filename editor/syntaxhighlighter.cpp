@@ -192,8 +192,9 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             token.type < HtmlEnd) { // <<<<<<<<<<<<<<<<<<<<<<<Html(Begin-End)<<<<<<<<<<<<<<
 
             if (m_operationMode == ScriptReportTemplateMode) {
-                if (token.type == Html_AttributeValue || Html_AttributeSingleQuoteValue ||
-                        Html_AttributeDoubleQuoteValue) {
+                if (token.type == Html_AttributeValue ||
+                        token.type == Html_AttributeSingleQuoteValue ||
+                        token.type == Html_AttributeDoubleQuoteValue) {
                     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Html_AttributeValue<<<<<<<<<<<<<
                     if (ch == '$') { // ******************Html_AttributeValue*********** $
                         char ch1 = at(t,pos + 1);
@@ -399,13 +400,6 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 
             if (token.type > HtmlContentBegin && token.type < HtmlContentEnd) {
                 token.end = pos;
-                continue;
-            }
-
-            if (token.type == Html_Entity) {
-                token.end = pos - 1;
-                token.type = Html_Text;
-                token.isMark = true;
                 continue;
             }
 

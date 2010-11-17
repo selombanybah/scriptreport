@@ -9,12 +9,17 @@
 #include "sourcetransformer.h"
 #include "textstreamobject.h"
 
+class ScriptReportEnginePrivate {
+    // Nothing here at this momment;
+};
+
 ScriptReportEngine::ScriptReportEngine()
+    : d(new ScriptReportEnginePrivate())
 {
 }
 
 ScriptReportEngine::~ScriptReportEngine() {
-
+    delete d;
 }
 
 void ScriptReportEngine::initEngine(ScriptReport */*scriptReport*/, QScriptEngine */*engine*/) {
@@ -148,7 +153,7 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
         ascending = false;
     }
 
-    for (int i = 0; i < docCopies; i++) {
+    for (int i = 0; i < docCopies; ++i) {
         // Main content rectangle.
         // Current main content rectangle.
         QRect currentRect = QRect(QPoint(0,0), centerSize.toSize());
@@ -191,7 +196,7 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
             // Move the current rectangle to the area to be printed for the current page
             currentRect.moveTo(0, (currentPage - 1) * currentRect.height());
 
-            for (int j = 0; j < pageCopies; j++) {
+            for (int j = 0; j < pageCopies; ++j) {
                 if (printer->printerState() == QPrinter::Aborted
                     || printer->printerState() == QPrinter::Error) {
                     return;
@@ -241,9 +246,9 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
             }
 
             if (ascending) {
-                currentPage++;
+                ++currentPage;
             } else {
-                currentPage--;
+                --currentPage;
             }
 
             printer->newPage();

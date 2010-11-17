@@ -167,7 +167,7 @@ void ScriptableReport::initEngine(QScriptEngine &engine) {
     m_scriptablePaper->initEngine(engine);
 }
 
-void ScriptableReport::writeResult(TextStreamObject* outputObject)
+void ScriptableReport::writeResult(const TextStreamObject* outputObject)
 {
     QTextStream *stream = outputObject->stream();
 
@@ -177,7 +177,7 @@ void ScriptableReport::writeResult(TextStreamObject* outputObject)
     }
 }
 
-void ScriptableReport::printAndWriteResult(TextStreamObject* outputObject)
+void ScriptableReport::printAndWriteResult(const TextStreamObject* outputObject)
 {
     const QString begin1 = QString::fromLatin1(">>> Simple Template Result:");
     const QString begin2 = QString::fromLatin1("Begin >>>");

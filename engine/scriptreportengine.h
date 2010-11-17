@@ -9,6 +9,8 @@
 class QPrinter;
 class QScriptEngine;
 
+class ScriptReportEnginePrivate;
+
 class SCRIPTREPORTENGINE_EXPORT ScriptReportEngine
 {
 public:
@@ -18,6 +20,9 @@ public:
     virtual void loadPrintConfiguration(ScriptReport *scriptReport, QPrinter *printer);
     virtual void print(ScriptReport *scriptReport, QPrinter *printer);
     virtual void initEngine(ScriptReport *scriptReport, QScriptEngine *engine);
+
+private:
+    ScriptReportEnginePrivate *d;
 };
 
 #endif // SCRIPTREPORTENGINE_H

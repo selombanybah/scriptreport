@@ -6,6 +6,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QTextStream>
 
+class TextStreamObjectPrivate;
+
 class SCRIPTREPORTENGINE_EXPORT TextStreamObject : public QObject
 {
 Q_OBJECT
@@ -15,22 +17,18 @@ public:
 
     void reset();
 
-    QTextStream* stream();
+    QTextStream* stream() const;
     void setStream(QTextStream* textStream, bool forDelete = false);
 
-    QString text();
+    QString text() const;
     void setText(QString text);
 
-    QString name();
-    QIODevice::OpenMode defaultStreamMode();
-    bool isDeleteStreamEmabled();
+    QString name() const;
+    QIODevice::OpenMode defaultStreamMode() const;
+    bool isDeleteStreamEmabled() const;
 
 private:
-    QString m_streamText;
-    QString m_streamName;
-    QIODevice::OpenMode m_streamMode;
-    QTextStream* m_stream;
-    bool m_deleteStream;
+    TextStreamObjectPrivate *d;
 };
 
 #endif // TEXTSTREAMOBJECT_H
