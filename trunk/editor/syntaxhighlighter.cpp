@@ -173,7 +173,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             if (ch == '&') { // ************************************Html_Text*********** &
                 int entityEnd = pos;
                 while (entityEnd < len
-                       && at(t,entityEnd++) != ';') {
+                       && at(t,++entityEnd) != ';') {
                     ; // ignore
                 }
                 token.end = entityEnd;
@@ -399,6 +399,13 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 
             if (token.type > HtmlContentBegin && token.type < HtmlContentEnd) {
                 token.end = pos;
+                continue;
+            }
+
+            if (token.type == Html_Entity) {
+                token.end = pos - 1;
+                token.type = Html_Text;
+                token.isMark = true;
                 continue;
             }
 
