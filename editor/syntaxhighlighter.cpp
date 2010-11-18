@@ -192,9 +192,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             token.type < HtmlEnd) { // <<<<<<<<<<<<<<<<<<<<<<<Html(Begin-End)<<<<<<<<<<<<<<
 
             if (m_operationMode == ScriptReportTemplateMode) {
-                if (token.type == Html_AttributeValue ||
-                        token.type == Html_AttributeSingleQuoteValue ||
-                        token.type == Html_AttributeDoubleQuoteValue) {
+                if (token.type == Html_AttributeValue) {
                     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Html_AttributeValue<<<<<<<<<<<<<
                     if (ch == '$') { // ******************Html_AttributeValue*********** $
                         char ch1 = at(t,pos + 1);
@@ -213,6 +211,46 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                         }
                     }
                 } // end Html_AttributeValue
+
+                if (token.type == Html_AttributeSingleQuoteValue) {
+                    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Html_AttributeSingleValue<<<<<<<
+                    if (ch == '$') { // ******************Html_AttributeSingleValue***** $
+                        char ch1 = at(t,pos + 1);
+                        if (ch1 == '{') { // *************Html_AttributeSingleValue*** ${
+                            token.end = pos + 1;
+                            token.type = Srt_AttributeSinglePrintStart;
+                            continue;
+                        }
+                    }
+                    if (ch == '?') { // *****************Html_AttributeSingleValue***** ?
+                        char ch1 = at(t,pos + 1);
+                        if (ch1 == '{') { // ************Html_AttributeSingleValue*** ?{
+                            token.end = pos + 1;
+                            token.type = Srt_AttributeSingleConditionalPrintStart;
+                            continue;
+                        }
+                    }
+                } // end Html_AttributeSingleValue
+
+                if (token.type == Html_AttributeDoubleQuoteValue) {
+                    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Html_AttributeDoubleValue<<<<<<<
+                    if (ch == '$') { // ******************Html_AttributeDoubleValue***** $
+                        char ch1 = at(t,pos + 1);
+                        if (ch1 == '{') { // *************Html_AttributeDoubleValue*** ${
+                            token.end = pos + 1;
+                            token.type = Srt_AttributeDoublePrintStart;
+                            continue;
+                        }
+                    }
+                    if (ch == '?') { // *****************Html_AttributeDoubleValue***** ?
+                        char ch1 = at(t,pos + 1);
+                        if (ch1 == '{') { // ************Html_AttributeDoubleValue*** ?{
+                            token.end = pos + 1;
+                            token.type = Srt_AttributeDoubleConditionalPrintStart;
+                            continue;
+                        }
+                    }
+                } // end Html_AttributeDoubleValue
             }
 
             if (ch == '-' && token.type == Html_Comment) { // ***Html_Comment*********** -
@@ -260,8 +298,10 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                 if (token.type == Html_AttributeReady ||
                         token.type == Html_TagClose2 ||
                         token.type == Html_TagEndReady ||
-                        token.type == Html_TagCloseName) {
-                    // *********************************Html_AttributeReady/
+                        token.type == Html_TagCloseName ||
+                        token.type == Html_AttributeName ||
+                        token.type == Html_AttributeValue) {
+                    // *********************************Html_Attribute(Ready/Name/Value)/
                     //                    Html_Tag(Close2/EndReady/CloseName)********** >
                     token.end = pos;
                     token.type = Html_TagEnd;
@@ -344,9 +384,10 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             } // end "
 
             if (ch == ' ' || ch == '\r' || ch == '\n') { // *************************** sp
-                if (token.type == Html_AttributeValue ||
+                if (token.type == Html_AttributeName ||
+                        token.type == Html_AttributeValue ||
                         token.type == Html_AttributeReady) {
-                    // ***************************Html_Attribute(Value/Ready)********* sp
+                    // ***************************Html_Attribute(Name/Value/Ready)**** sp
                     token.end = pos;
                     token.type = Html_AttributeReady;
                     token.isMark = true;
@@ -516,6 +557,18 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                     token.type = Srt_AttributeConditionalPrintEnd;
                     continue;
                 }
+                if (token.type == Srt_AttributeSingleConditionalPrintElseText) {
+                    // ****************Srt_AttributeSingleConditionalPrintElseText*********** }
+                    token.end = pos;
+                    token.type = Srt_AttributeSingleConditionalPrintEnd;
+                    continue;
+                }
+                if (token.type == Srt_AttributeDoubleConditionalPrintElseText) {
+                    // ****************Srt_AttributeDoubleConditionalPrintElseText*********** }
+                    token.end = pos;
+                    token.type = Srt_AttributeDoubleConditionalPrintEnd;
+                    continue;
+                }
             }
 
             if (token.type == Srt_Section) {
@@ -576,6 +629,22 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                 continue;
             }
 
+            if (token.type == Srt_AttributeSinglePrintEnd ||
+                    token.type == Srt_AttributeSingleConditionalPrintEnd) {
+                token.end = pos - 1;
+                token.type = Html_AttributeSingleQuoteValue;
+                token.isMark = true;
+                continue;
+            }
+
+            if (token.type == Srt_AttributeDoublePrintEnd ||
+                    token.type == Srt_AttributeDoubleConditionalPrintEnd) {
+                token.end = pos - 1;
+                token.type = Html_AttributeDoubleQuoteValue;
+                token.isMark = true;
+                continue;
+            }
+
             // ignore
             pos++;
             token.isMark = true;
@@ -632,6 +701,18 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                             token.type = Srt_AttributeConditionalPrintElse;
                             continue;
                         }
+                        if (token.type == Js_AttributeSingleConditionalPrintScript) {
+                            // ***********Js_AttributeSingleConditionalPrintScript*** ::
+                            token.end = pos + 1;
+                            token.type = Srt_AttributeSingleConditionalPrintElse;
+                            continue;
+                        }
+                        if (token.type == Js_AttributeDoubleConditionalPrintScript) {
+                            // ***********Js_AttributeDoubleConditionalPrintScript*** ::
+                            token.end = pos + 1;
+                            token.type = Srt_AttributeDoubleConditionalPrintElse;
+                            continue;
+                        }
                     }
                 } // end ::
 
@@ -654,10 +735,34 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                         token.type = Srt_AttributePrintEnd;
                         continue;
                     }
+                    if (token.type == Js_AttributeSinglePrintScript) {
+                        // **************************Js_AttributeSinglePrintScript***** }
+                        token.end = pos;
+                        token.type = Srt_AttributeSinglePrintEnd;
+                        continue;
+                    }
+                    if (token.type == Js_AttributeDoublePrintScript) {
+                        // **************************Js_AttributeDoublePrintScript***** }
+                        token.end = pos;
+                        token.type = Srt_AttributeDoublePrintEnd;
+                        continue;
+                    }
                     if (token.type == Js_AttributeConditionalPrintScript) {
                         // ***************Js_AttributeConditionalPrintScript*********** }
                         token.end = pos;
                         token.type = Srt_AttributeConditionalPrintEnd;
+                        continue;
+                    }
+                    if (token.type == Js_AttributeSingleConditionalPrintScript) {
+                        // ***************Js_AttributeSingleConditionalPrintScript***** }
+                        token.end = pos;
+                        token.type = Srt_AttributeSingleConditionalPrintEnd;
+                        continue;
+                    }
+                    if (token.type == Js_AttributeDoubleConditionalPrintScript) {
+                        // ***************Js_AttributeDoubleConditionalPrintScript***** }
+                        token.end = pos;
+                        token.type = Srt_AttributeDoubleConditionalPrintEnd;
                         continue;
                     }
                 } // end }
