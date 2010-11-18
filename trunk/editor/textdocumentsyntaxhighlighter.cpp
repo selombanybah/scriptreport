@@ -86,6 +86,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_formats[JsCC_Begin5] = commentMarkFormat;
     m_formats[JsCC_Begin6] = commentMarkFormat;
     m_formats[JsCC_Begin7] = commentMarkFormat;
+    m_formats[JsCC_Begin8] = commentMarkFormat;
+    m_formats[JsCC_Begin9] = commentMarkFormat;
+    m_formats[JsCC_Begin10] = commentMarkFormat;
+    m_formats[JsCC_Begin11] = commentMarkFormat;
     m_formats[JsCC_Commnent1] = commentFormat;
     m_formats[JsCC_Commnent2] = commentFormat;
     m_formats[JsCC_Commnent3] = commentFormat;
@@ -93,6 +97,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_formats[JsCC_Commnent5] = commentFormat;
     m_formats[JsCC_Commnent6] = commentFormat;
     m_formats[JsCC_Commnent7] = commentFormat;
+    m_formats[JsCC_Commnent8] = commentFormat;
+    m_formats[JsCC_Commnent9] = commentFormat;
+    m_formats[JsCC_Commnent10] = commentFormat;
+    m_formats[JsCC_Commnent11] = commentFormat;
     m_formats[JsCC_End1] = commentMarkFormat;
     m_formats[JsCC_End2] = commentMarkFormat;
     m_formats[JsCC_End3] = commentMarkFormat;
@@ -100,6 +108,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_formats[JsCC_End5] = commentMarkFormat;
     m_formats[JsCC_End6] = commentMarkFormat;
     m_formats[JsCC_End7] = commentMarkFormat;
+    m_formats[JsCC_End8] = commentMarkFormat;
+    m_formats[JsCC_End9] = commentMarkFormat;
+    m_formats[JsCC_End10] = commentMarkFormat;
+    m_formats[JsCC_End11] = commentMarkFormat;
 
     m_formats[JsC_Begin1] = commentMarkFormat;
     m_formats[JsC_Begin2] = commentMarkFormat;
@@ -108,6 +120,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_formats[JsC_Begin5] = commentMarkFormat;
     m_formats[JsC_Begin6] = commentMarkFormat;
     m_formats[JsC_Begin7] = commentMarkFormat;
+    m_formats[JsC_Begin8] = commentMarkFormat;
+    m_formats[JsC_Begin9] = commentMarkFormat;
+    m_formats[JsC_Begin10] = commentMarkFormat;
+    m_formats[JsC_Begin11] = commentMarkFormat;
     m_formats[JsC_Commnent1] = commentFormat;
     m_formats[JsC_Commnent2] = commentFormat;
     m_formats[JsC_Commnent3] = commentFormat;
@@ -115,6 +131,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_formats[JsC_Commnent5] = commentFormat;
     m_formats[JsC_Commnent6] = commentFormat;
     m_formats[JsC_Commnent7] = commentFormat;
+    m_formats[JsC_Commnent8] = commentFormat;
+    m_formats[JsC_Commnent9] = commentFormat;
+    m_formats[JsC_Commnent10] = commentFormat;
+    m_formats[JsC_Commnent11] = commentFormat;
     m_formats[JsC_End1] = commentMarkFormat;
     m_formats[JsC_End2] = commentMarkFormat;
     m_formats[JsC_End3] = commentMarkFormat;
@@ -122,18 +142,30 @@ void TextDocumentSyntaxHighlighter::init() {
     m_formats[JsC_End5] = commentMarkFormat;
     m_formats[JsC_End6] = commentMarkFormat;
     m_formats[JsC_End7] = commentMarkFormat;
+    m_formats[JsC_End8] = commentMarkFormat;
+    m_formats[JsC_End9] = commentMarkFormat;
+    m_formats[JsC_End10] = commentMarkFormat;
+    m_formats[JsC_End11] = commentMarkFormat;
 
     m_formats[Srt_AttributeConditionalPrintStart] = printSrtFormat;
+    m_formats[Srt_AttributeSingleConditionalPrintStart] = printSrtFormat;
+    m_formats[Srt_AttributeDoubleConditionalPrintStart] = printSrtFormat;
     m_formats[Srt_InlineConditionalPrintStart] = printSrtFormat;
     m_formats[Srt_InlineConditionalScriptStart] = srtFormat;
     m_formats[Srt_AttributePrintStart] = printSrtFormat;
+    m_formats[Srt_AttributeSinglePrintStart] = printSrtFormat;
+    m_formats[Srt_AttributeDoublePrintStart] = printSrtFormat;
     m_formats[Srt_InlinePrintStart] = printSrtFormat;
     m_formats[Srt_InlineScriptStart] = srtFormat;
     m_formats[Srt_ScriptStart] = srtFormat;
     m_formats[Srt_SectionStart] = srtSectionFormat;
 
     m_formats[Srt_AttributePrintEnd] = printSrtFormat;
+    m_formats[Srt_AttributeSinglePrintEnd] = printSrtFormat;
+    m_formats[Srt_AttributeDoublePrintEnd] = printSrtFormat;
     m_formats[Srt_AttributeConditionalPrintEnd] = printSrtFormat;
+    m_formats[Srt_AttributeSingleConditionalPrintEnd] = printSrtFormat;
+    m_formats[Srt_AttributeDoubleConditionalPrintEnd] = printSrtFormat;
     m_formats[Srt_InlinePrintEnd] = printSrtFormat;
     m_formats[Srt_InlineConditionalPrintEnd] = printSrtFormat;
     m_formats[Srt_InlineConditionalScriptEnd] = srtFormat;
@@ -161,16 +193,24 @@ void TextDocumentSyntaxHighlighter::init() {
     bgSrtSectionFormat.setBackground(QBrush(QColor(242, 253, 255)));
 
     m_backgrounds[Srt_AttributeConditionalPrintStart] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeSingleConditionalPrintStart] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeDoubleConditionalPrintStart] = bgPrintSrtFormat;
     m_backgrounds[Srt_InlineConditionalPrintStart] = bgPrintSrtFormat;
     m_backgrounds[Srt_InlineConditionalScriptStart] = bgSrtFormat;
     m_backgrounds[Srt_AttributePrintStart] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeSinglePrintStart] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeDoublePrintStart] = bgPrintSrtFormat;
     m_backgrounds[Srt_InlinePrintStart] = bgPrintSrtFormat;
     m_backgrounds[Srt_InlineScriptStart] = bgSrtFormat;
     m_backgrounds[Srt_ScriptStart] = bgSrtFormat;
     m_backgrounds[Srt_SectionStart] = bgSrtSectionFormat;
 
     m_backgrounds[Srt_AttributePrintEnd] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeSinglePrintEnd] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeDoublePrintEnd] = bgPrintSrtFormat;
     m_backgrounds[Srt_AttributeConditionalPrintEnd] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeSingleConditionalPrintEnd] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeDoubleConditionalPrintEnd] = bgPrintSrtFormat;
     m_backgrounds[Srt_InlinePrintEnd] = bgPrintSrtFormat;
     m_backgrounds[Srt_InlineConditionalPrintEnd] = bgPrintSrtFormat;
     m_backgrounds[Srt_InlineConditionalScriptEnd] = bgSrtFormat;
@@ -179,18 +219,26 @@ void TextDocumentSyntaxHighlighter::init() {
     m_backgrounds[Srt_SectionEnd] = bgSrtSectionFormat;
 
     m_backgrounds[Srt_AttributeConditionalPrintElse] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeSingleConditionalPrintElse] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeDoubleConditionalPrintElse] = bgPrintSrtFormat;
     m_backgrounds[Srt_ConditionalPrintElse] = bgPrintSrtFormat;
     m_backgrounds[Srt_ConditionalElse] = bgSrtFormat;
 
     m_backgrounds[Srt_Section] = bgSrtSectionFormat;
     m_backgrounds[Srt_AttributeConditionalPrintElseText] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeSingleConditionalPrintElseText] = bgPrintSrtFormat;
+    m_backgrounds[Srt_AttributeDoubleConditionalPrintElseText] = bgPrintSrtFormat;
     m_backgrounds[Srt_ConditionalPrintElseText] = bgPrintSrtFormat;
     m_backgrounds[Srt_ConditionalElseText] = bgSrtFormat;
 
     m_backgrounds[Js_AttributeConditionalPrintScript] = bgPrintSrtFormat;
+    m_backgrounds[Js_AttributeSingleConditionalPrintScript] = bgPrintSrtFormat;
+    m_backgrounds[Js_AttributeDoubleConditionalPrintScript] = bgPrintSrtFormat;
     m_backgrounds[Js_InlineConditionalPrintScript] = bgPrintSrtFormat;
     m_backgrounds[Js_InlineConditionalScript] = bgSrtFormat;
     m_backgrounds[Js_AttributePrintScript] = bgPrintSrtFormat;
+    m_backgrounds[Js_AttributeSinglePrintScript] = bgPrintSrtFormat;
+    m_backgrounds[Js_AttributeDoublePrintScript] = bgPrintSrtFormat;
     m_backgrounds[Js_InlinePrintScript] = bgPrintSrtFormat;
     m_backgrounds[Js_InlineScript] = bgSrtFormat;
     m_backgrounds[Js_Script] = bgSrtFormat;
@@ -202,6 +250,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_backgrounds[JsCC_Begin5] = bgPrintSrtFormat;
     m_backgrounds[JsCC_Begin6] = bgSrtFormat;
     m_backgrounds[JsCC_Begin7] = bgSrtFormat;
+    m_backgrounds[JsCC_Begin8] = bgSrtFormat;
+    m_backgrounds[JsCC_Begin9] = bgSrtFormat;
+    m_backgrounds[JsCC_Begin10] = bgSrtFormat;
+    m_backgrounds[JsCC_Begin11] = bgSrtFormat;
     m_backgrounds[JsCC_Commnent1] = bgPrintSrtFormat;
     m_backgrounds[JsCC_Commnent2] = bgPrintSrtFormat;
     m_backgrounds[JsCC_Commnent3] = bgSrtFormat;
@@ -209,6 +261,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_backgrounds[JsCC_Commnent5] = bgPrintSrtFormat;
     m_backgrounds[JsCC_Commnent6] = bgSrtFormat;
     m_backgrounds[JsCC_Commnent7] = bgSrtFormat;
+    m_backgrounds[JsCC_Commnent8] = bgSrtFormat;
+    m_backgrounds[JsCC_Commnent9] = bgSrtFormat;
+    m_backgrounds[JsCC_Commnent10] = bgSrtFormat;
+    m_backgrounds[JsCC_Commnent11] = bgSrtFormat;
     m_backgrounds[JsCC_End1] = bgPrintSrtFormat;
     m_backgrounds[JsCC_End2] = bgPrintSrtFormat;
     m_backgrounds[JsCC_End3] = bgSrtFormat;
@@ -216,6 +272,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_backgrounds[JsCC_End5] = bgPrintSrtFormat;
     m_backgrounds[JsCC_End6] = bgSrtFormat;
     m_backgrounds[JsCC_End7] = bgSrtFormat;
+    m_backgrounds[JsCC_End8] = bgSrtFormat;
+    m_backgrounds[JsCC_End9] = bgSrtFormat;
+    m_backgrounds[JsCC_End10] = bgSrtFormat;
+    m_backgrounds[JsCC_End11] = bgSrtFormat;
 
     m_backgrounds[JsC_Begin1] = bgPrintSrtFormat;
     m_backgrounds[JsC_Begin2] = bgPrintSrtFormat;
@@ -224,6 +284,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_backgrounds[JsC_Begin5] = bgPrintSrtFormat;
     m_backgrounds[JsC_Begin6] = bgSrtFormat;
     m_backgrounds[JsC_Begin7] = bgSrtFormat;
+    m_backgrounds[JsC_Begin8] = bgSrtFormat;
+    m_backgrounds[JsC_Begin9] = bgSrtFormat;
+    m_backgrounds[JsC_Begin10] = bgSrtFormat;
+    m_backgrounds[JsC_Begin11] = bgSrtFormat;
     m_backgrounds[JsC_Commnent1] = bgPrintSrtFormat;
     m_backgrounds[JsC_Commnent2] = bgPrintSrtFormat;
     m_backgrounds[JsC_Commnent3] = bgSrtFormat;
@@ -231,6 +295,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_backgrounds[JsC_Commnent5] = bgPrintSrtFormat;
     m_backgrounds[JsC_Commnent6] = bgSrtFormat;
     m_backgrounds[JsC_Commnent7] = bgSrtFormat;
+    m_backgrounds[JsC_Commnent8] = bgSrtFormat;
+    m_backgrounds[JsC_Commnent9] = bgSrtFormat;
+    m_backgrounds[JsC_Commnent10] = bgSrtFormat;
+    m_backgrounds[JsC_Commnent11] = bgSrtFormat;
     m_backgrounds[JsC_End1] = bgPrintSrtFormat;
     m_backgrounds[JsC_End2] = bgPrintSrtFormat;
     m_backgrounds[JsC_End3] = bgSrtFormat;
@@ -238,6 +306,10 @@ void TextDocumentSyntaxHighlighter::init() {
     m_backgrounds[JsC_End5] = bgPrintSrtFormat;
     m_backgrounds[JsC_End6] = bgSrtFormat;
     m_backgrounds[JsC_End7] = bgSrtFormat;
+    m_backgrounds[JsC_End8] = bgSrtFormat;
+    m_backgrounds[JsC_End9] = bgSrtFormat;
+    m_backgrounds[JsC_End10] = bgSrtFormat;
+    m_backgrounds[JsC_End11] = bgSrtFormat;
 
     m_validTags << QString::fromLatin1("a")
                 << QString::fromLatin1("address")

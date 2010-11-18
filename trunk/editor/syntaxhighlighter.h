@@ -45,7 +45,9 @@ public:
                                 //                                   Html_TagClose2      ||
                                 //                                   Html_TagEndReady    ||
                                 //                                   Html_TagName        ||
-                                //                                   Html_TagCloseName
+                                //                                   Html_TagCloseName   ||
+                                //                                   Html_AttributeName  ||
+                                //                                   Html_AttributeValue
                                 //                                => Html_Text
 /*/n*/  HtmlToHtmlTextEnd,
 
@@ -79,7 +81,7 @@ public:
 
         Html_AttributeAssignmentReady,  //. mark for read = in attribute   | <= (Html_AttributeName || Html_AttributeAssignmentReady) && sp
         Html_AttributeReady,            //. mark for read attribute        | <= (Html_TagName || Html_AttributeReady) && sp ||
-                                        //                                      Html_AttributeValue && sp
+                                        //                                      (Html_AttributeName || Html_AttributeValue) && sp
 
 /*q*/   HtmlContentBegin,
         Html_AttributeName,             //+ height in <table height="5">   | <= Html_AttributeReady      ||
@@ -108,9 +110,13 @@ public:
 
 /*b*/   SrtStartJsBegin,
         Srt_AttributeConditionalPrintStart,    //. ?{ in attribute value        | <= Html_AttributeValue
+        Srt_AttributeSingleConditionalPrintStart, //. ?{ in attribute value     | <= Html_AttributeValue
+        Srt_AttributeDoubleConditionalPrintStart, //. ?{ in attribute value     | <= Html_AttributeValue
         Srt_InlineConditionalPrintStart,       //. ?{                           | <= Html_Text
         Srt_InlineConditionalScriptStart,      //. <!--?                        | <= Html_Text
         Srt_AttributePrintStart,               //. ${ in attribute value        | <= Html_AttributeValue
+        Srt_AttributeSinglePrintStart,         //. ${ in attribute value        | <= Html_AttributeValue
+        Srt_AttributeDoublePrintStart,         //. ${ in attribute value        | <= Html_AttributeValue
         Srt_InlinePrintStart,                  //. ${                           | <= Html_Text
         Srt_InlineScriptStart,                 //. <!--$                        | <= Html_Text
         Srt_ScriptStart,                       //. <!--@                        | <= Html_Text
@@ -123,21 +129,35 @@ public:
 
 /*g*/   SrtCondionalElseBegin,
         Srt_AttributeConditionalPrintElse,     //. :: in attribute ?{js::text}  | <= Js_AttributeConditionalPrintScript
+        Srt_AttributeSingleConditionalPrintElse,//. :: in attribute ?{js::text} | <= Js_AttributeSingleConditionalPrintScript
+        Srt_AttributeDoubleConditionalPrintElse,//. :: in attribute ?{js::text} | <= Js_AttributeDoubleConditionalPrintScript
         Srt_ConditionalPrintElse,              //. :: in ?{ js :: text }        | <= Js_InlineConditionalPrintScript
         Srt_ConditionalElse,                   //. :: in <!--?js::text -->      | <= Js_InlineConditionalScript
 /*/g*/  SrtConditionalElseEnd,
 /*h*/   SrtConditionalTextBegin,
-        Srt_AttributeConditionalPrintElseText, //+ text in attribute ${js::text}| <= Srt_AttributeConditionalPrintElse
-        Srt_ConditionalPrintElseText,          //+ text in ${ js :: text }      | <= Srt_ConditionalPrintElse
+        Srt_AttributeConditionalPrintElseText, //+ text in attribute ?{js::text}| <= Srt_AttributeConditionalPrintElse
+        Srt_AttributeSingleConditionalPrintElseText,//+ text in attribute ?{js::text}| <= Srt_AttributeSingleConditionalPrintElse
+        Srt_AttributeDoubleConditionalPrintElseText,//+ text in attribute ?{js::text}| <= Srt_AttributeDoubleConditionalPrintElse
+        Srt_ConditionalPrintElseText,          //+ text in ?{ js :: text }      | <= Srt_ConditionalPrintElse
         Srt_ConditionalElseText,               //+ text in <!--?js::text -->    | <= Srt_ConditionalElse
 /*/h*/  SrtConditionalTextEnd,
 
 /*d*/   SrtEndJsBegin,
         Srt_AttributePrintEnd,                 //. } in attribute value         | <= Js_AttributePrintScript
                                                //                                 => Html_AttributeValue
+        Srt_AttributeSinglePrintEnd,           //. } in attribute value         | <= Js_AttributeSinglePrintScript
+                                               //                                 => Html_AttributeSingleQuoteValue
+        Srt_AttributeDoublePrintEnd,           //. } in attribute value         | <= Js_AttributeDoublePrintScript
+                                               //                                 => Html_AttributeDoubleQuoteValue
         Srt_AttributeConditionalPrintEnd,      //. } in attribute value         | <= Js_AttributeConditionalPrintScript ||
                                                //                                    Srt_AttributeConditionalPrintElseText
                                                //                                 => Html_AttributeValue
+        Srt_AttributeSingleConditionalPrintEnd,//. } in attribute value         | <= Js_AttributeSingleConditionalPrintScript ||
+                                               //                                    Srt_AttributeSingleConditionalPrintElseText
+                                               //                                 => Html_AttributeSingleQuoteValue
+        Srt_AttributeDoubleConditionalPrintEnd,//. } in attribute value         | <= Js_AttributeDoubleConditionalPrintScript ||
+                                               //                                    Srt_AttributeDoubleConditionalPrintElseText
+                                               //                                 => Html_AttributeDoubleQuoteValue
 /*d'*/  SrtEndJsBegin_NoAttribute,
         Srt_InlinePrintEnd,                    //. }                            | <= Js_InlinePrintScript
                                                //                                 => Html_Text
@@ -159,9 +179,13 @@ public:
 
         JsBegin,
  /*1*/  Js_AttributeConditionalPrintScript, //+ js in ?{ js } as attribute value| <= Srt_AttributeConditionalPrintStart
+ /*8*/  Js_AttributeSingleConditionalPrintScript, //+ js in ?{ js } as attribute value| <= Srt_AttributeSinglrConditionalPrintStart
+ /*9*/  Js_AttributeDoubleConditionalPrintScript, //+ js in ?{ js } as attribute value| <= Srt_AttributeDoubleConditionalPrintStart
  /*2*/  Js_InlineConditionalPrintScript,    //+ js in ?{ js }                   | <= Srt_InlineConditionalPrintStart
  /*3*/  Js_InlineConditionalScript,         //+ js in <!--? js -->              | <= Srt_InlineConditionalScriptStart
  /*4*/  Js_AttributePrintScript,            //+ js in ${ js } as attribute value| <= Srt_AttributePrintStart
+ /*10*/ Js_AttributeSinglePrintScript,      //+ js in ${ js } as attribute value| <= Srt_AttributeSinglePrintStart
+ /*11*/ Js_AttributeDoublePrintScript,      //+ js in ${ js } as attribute value| <= Srt_AttributeDoublePrintStart
  /*5*/  Js_InlinePrintScript,               //+ js in ${ js }                   | <= Srt_InlinePrintStart
  /*6*/  Js_InlineScript,                    //+ js in <!--$ js -->              | <= Srt_InlineScriptStart
  /*7*/  Js_Script,                          //+ js in <!--@ js -->              | <= Srt_ScriptStart
@@ -171,27 +195,43 @@ public:
 
 /*e*/   JsCCommentBegin,
         JsCC_Begin1,    //. /* in /* commnet */ for /*1*/      | <= Js_AttributeConditionalPrintScript
+        JsCC_Begin8,    //. /* in /* commnet */ for /*8*/      | <= Js_AttributeSingleConditionalPrintScript
+        JsCC_Begin9,    //. /* in /* commnet */ for /*9*/      | <= Js_AttributeDoubleConditionalPrintScript
         JsCC_Begin2,    //. /* in /* commnet */ for /*2*/      | <= Js_InlineConditionalPrintScript
         JsCC_Begin3,    //. /* in /* commnet */ for /*3*/      | <= Js_InlineConditionalScript
         JsCC_Begin4,    //. /* in /* commnet */ for /*4*/      | <= Js_AttributePrintScript
+        JsCC_Begin10,   //. /* in /* commnet */ for /*10*/     | <= Js_AttributeSinglePrintScript
+        JsCC_Begin11,   //. /* in /* commnet */ for /*11*/     | <= Js_AttributeDoublePrintScript
         JsCC_Begin5,    //. /* in /* commnet */ for /*5*/      | <= Js_InlinePrintScript
         JsCC_Begin6,    //. /* in /* commnet */ for /*6*/      | <= Js_InlineScript
         JsCC_Begin7,    //. /* in /* commnet */ for /*7*/      | <= Js_Script
         JsCC_Commnent1, //+ comment in /* comment */ for /*1*/ | <= JsCC_Begin1
+        JsCC_Commnent8, //+ comment in /* comment */ for /*8*/ | <= JsCC_Begin8
+        JsCC_Commnent9, //+ comment in /* comment */ for /*9*/ | <= JsCC_Begin9
         JsCC_Commnent2, //+ comment in /* comment */ for /*2*/ | <= JsCC_Begin2
         JsCC_Commnent3, //+ comment in /* comment */ for /*3*/ | <= JsCC_Begin3
         JsCC_Commnent4, //+ comment in /* comment */ for /*4*/ | <= JsCC_Begin4
+        JsCC_Commnent10,//+ comment in /* comment */ for /*10*/ | <= JsCC_Begin10
+        JsCC_Commnent11,//+ comment in /* comment */ for /*11*/ | <= JsCC_Begin11
         JsCC_Commnent5, //+ comment in /* comment */ for /*5*/ | <= JsCC_Begin5
         JsCC_Commnent6, //+ comment in /* comment */ for /*6*/ | <= JsCC_Begin6
         JsCC_Commnent7, //+ comment in /* comment */ for /*7*/ | <= JsCC_Begin7
         JsCC_End1,      //. */ in /* comment */ for /*1*/      | <= JsCC_Commnent1
                         //                                       => Js_AttributeConditionalPrintScript
+        JsCC_End8,      //. */ in /* comment */ for /*8*/      | <= JsCC_Commnent8
+                        //                                       => Js_AttributeSingleConditionalPrintScript
+        JsCC_End9,      //. */ in /* comment */ for /*9*/      | <= JsCC_Commnent9
+                        //                                       => Js_AttributeDoubleConditionalPrintScript
         JsCC_End2,      //. */ in /* comment */ for /*2*/      | <= JsCC_Commnent2
                         //                                       => Js_InlineConditionalPrintScript
         JsCC_End3,      //. */ in /* comment */ for /*3*/      | <= JsCC_Commnent3
                         //                                       => Js_InlineConditionalScript
         JsCC_End4,      //. */ in /* comment */ for /*4*/      | <= JsCC_Commnent4
                         //                                       => Js_AttributePrintScript
+        JsCC_End10,     //. */ in /* comment */ for /*10*/     | <= JsCC_Commnent10
+                        //                                       => Js_AttributeSinglePrintScript
+        JsCC_End11,     //. */ in /* comment */ for /*11*/     | <= JsCC_Commnent11
+                        //                                       => Js_AttributeDoublePrintScript
         JsCC_End5,      //. */ in /* comment */ for /*5*/      | <= JsCC_Commnent5
                         //                                       => Js_InlinePrintScript
         JsCC_End6,      //. */ in /* comment */ for /*6*/      | <= JsCC_Commnent6
@@ -204,27 +244,43 @@ public:
 
 /*f*/   JsCommentBegin,
         JsC_Begin1,    //. // in // commnet for /*1*/            | <= Js_AttributeConditionalPrintScript
+        JsC_Begin8,    //. // in // commnet for /*8*/            | <= Js_AttributeSingleConditionalPrintScript
+        JsC_Begin9,    //. // in // commnet for /*9*/            | <= Js_AttributeDoubleConditionalPrintScript
         JsC_Begin2,    //. // in // commnet for /*2*/            | <= Js_InlineConditionalPrintScript
         JsC_Begin3,    //. // in // commnet for /*3*/            | <= Js_InlineConditionalScript
         JsC_Begin4,    //. // in // commnet for /*4*/            | <= Js_AttributePrintScript
+        JsC_Begin10,   //. // in // commnet for /*10*/           | <= Js_AttributeSinglePrintScript
+        JsC_Begin11,   //. // in // commnet for /*11*/           | <= Js_AttributeDoublePrintScript
         JsC_Begin5,    //. // in // commnet for /*5*/            | <= Js_InlinePrintScript
         JsC_Begin6,    //. // in // commnet for /*6*/            | <= Js_InlineScript
         JsC_Begin7,    //. // in // commnet for /*7*/            | <= Js_Script
         JsC_Commnent1, //+ comment in // comment for /*1*/       | <= JsC_Begin1
+        JsC_Commnent8, //+ comment in // comment for /*8*/       | <= JsC_Begin8
+        JsC_Commnent9, //+ comment in // comment for /*9*/       | <= JsC_Begin9
         JsC_Commnent2, //+ comment in // comment for /*2*/       | <= JsC_Begin2
         JsC_Commnent3, //+ comment in // comment for /*3*/       | <= JsC_Begin3
         JsC_Commnent4, //+ comment in // comment for /*4*/       | <= JsC_Begin4
+        JsC_Commnent10,//+ comment in // comment for /*10*/      | <= JsC_Begin10
+        JsC_Commnent11,//+ comment in // comment for /*11*/      | <= JsC_Begin11
         JsC_Commnent5, //+ comment in // comment for /*5*/       | <= JsC_Begin5
         JsC_Commnent6, //+ comment in // comment for /*6*/       | <= JsC_Begin6
         JsC_Commnent7, //+ comment in // comment for /*7*/       | <= JsC_Begin7
         JsC_End1,      //. end line or } in // comment for /*1*/ | <= JsC_Commnent1
                        //                                          => Js_AttributeConditionalPrintScript
+        JsC_End8,      //. end line or } in // comment for /*8*/ | <= JsC_Commnent8
+                       //                                          => Js_AttributeSingleConditionalPrintScript
+        JsC_End9,      //. end line or } in // comment for /*9*/ | <= JsC_Commnent9
+                       //                                          => Js_AttributeDoubleConditionalPrintScript
         JsC_End2,      //. end line or } in // comment for /*2*/ | <= JsC_Commnent2
                        //                       i                   => Js_InlineConditionalPrintScript
         JsC_End3,      //. end line in // comment for /*3*/      | <= JsC_Commnent3
                        //                                          => Js_InlineConditionalScript
         JsC_End4,      //. end line or } in // comment for /*4*/ | <= JsC_Commnent4
                        //                                          => Js_AttributePrintScript
+        JsC_End10,     //. end line or } in // comment for /*10*/| <= JsC_Commnent10
+                       //                                          => Js_AttributeSinglePrintScript
+        JsC_End11,     //. end line or } in // comment for /*11*/| <= JsC_Commnent11
+                       //                                          => Js_AttributeDoublePrintScript
         JsC_End5,      //. end line or } in // comment for /*5*/ | <= JsC_Commnent5
                        //                                          => Js_InlinePrintScript
         JsC_End6,      //. end line in // comment for /*6*/      | <= JsC_Commnent6
