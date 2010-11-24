@@ -26,7 +26,7 @@ public:
     bool autoThrow() const;
     void setAutoThrow(bool autoThrow);
 
-    Q_INVOKABLE bool contains(const QString &connectionName = QString());
+    Q_INVOKABLE bool contains(const QString &connectionName = QLatin1String(defaultConnection));
     Q_INVOKABLE bool isDriverAvailable(const QString &name);
     Q_INVOKABLE void removeDatabase(const QString &connectionName);
 

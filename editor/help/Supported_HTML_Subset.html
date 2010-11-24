@@ -11,7 +11,8 @@
 <b>QTextDocument</b>, such as <b>QLabel</b> and <b>QTextEdit</b>, are able to display rich text specified in this way.</p>
 
 <ul><li><a href="#using-html-markup-in-text-widgets">Using HTML Markup in Text Widgets</a></li>
-<li><a href="#supported-tags">Supported Tags</a></li>
+<li><a href="#sr-tags">Script Report Tags</a></li>
+<li><a href="#supported-tags">Supported HTML Tags</a></li>
 <li><a href="#block-attributes">Block Attributes</a></li>
 <li><a href="#list-attributes">List Attributes</a></li>
 <li><a href="#table-cell-attributes">Table Cell Attributes</a></li>
@@ -33,9 +34,63 @@ with the string <tt>"&lt;b&gt;Hello&lt;/b&gt; &lt;i&gt;Qt!&lt;/i&gt;"</tt> will 
 properties for text layout, such as the direction of the text flow (left-to-right) which can be changed by applying the 
 <a href="#block-attributes"><tt>dir</tt></a> attribute to blocks of text.</p>
 
+<a name="sr-tags"></a>
+
+<h3>Script Report Tags</h3>
+
+<p>The following table lists the tags supported by <b>Script Report</b>:</p>
+<table style="border-color:#bbb; border-style:solid; font-size: 160%;" border="0" cellpadding="2" cellspacing="1">
+<thead>
+   <tr style="background: #96E066;">
+      <th align="center">Syntax</th>
+      <th align="center">Description</th>
+   </tr>
+</thead>
+<tbody>
+    <tr style="background: #f0f0f0;"><td><tt>&lt;!--$</tt>&nbsp;<i>variableName</i>&nbsp;<tt>--&gt;</tt></td><td>Print a javascript variable. E.g.: <tt>&lt;!--$name--&gt;</tt></td></tr>
+    <tr style="background: #e4e4e4;"><td><tt>&lt;!--?</tt>&nbsp;<i>variableName</i>&nbsp;[<tt>::</tt>&nbsp;<i>text</i>]&nbsp;<tt>--&gt;</tt></td><td>Print a javascript variable only if running in final mode, otherwise print the text (if it is present). This is usefull with the Script Report Editor (it shows the text). E.g.: <tt>&lt;!--?name--&gt;</tt><tt>&lt;!--?name::no name--&gt;</tt></td></tr>
+    <tr style="background: #f0f0f0;"><td><tt>&lt;!--:</tt>&nbsp;<i>sectionName</i>&nbsp;<tt>--&gt;</tt></td><td>Set the current section. E.g.: <tt>&lt;!--:content--&gt;</tt></td></tr>
+    <tr style="background: #e4e4e4;"><td><tt>&lt;!--@</tt>&nbsp;<i>javascript</i>&nbsp;<tt>--&gt;</tt></td><td>Run javascript. E.g.: <tt>&lt;!--@var x=5;--&gt;</tt></td></tr>
+</tbody>
+</table>
+
+<p>The following table lists the short tags supported by <b>Script Report</b>:</p>
+<table style="border-color:#bbb; border-style:solid; font-size: 160%;" border="0" cellpadding="2" cellspacing="1">
+<thead>
+   <tr style="background: #96E066;">
+      <th align="center">Syntax</th>
+      <th align="center">Description</th>
+   </tr>
+</thead>
+<tbody>
+    <tr style="background: #f0f0f0;"><td><tt>&#36;{</tt>&nbsp;<i>variableName</i>&nbsp;<tt>}</tt></td><td>Print a javascript variable. E.g.: <tt>&#36;{name}</tt></td></tr>
+    <tr style="background: #e4e4e4;"><td><tt>&#63;{</tt>&nbsp;<i>variableName</i>&nbsp;[<tt>::</tt>&nbsp;<i>text</i>]&nbsp;<tt>}</tt></td><td>Print a javascript variable only if running in final mode, otherwise print the text (if it is present). This is usefull with the Script Report Editor (it shows the text). E.g.: <tt>&#63;{name}</tt><tt>&#63;{name::no name}</tt></td></tr>
+</tbody>
+</table>
+
+<p>The following table lists the sections supported by <b>Script Report</b>:</p>
+<table style="border-color:#bbb; border-style:solid; font-size: 160%;" border="0" cellpadding="2" cellspacing="1">
+<thead>
+   <tr style="background: #96E066;">
+      <th align="center">Section name</th>
+      <th align="center">Description</th>
+   </tr>
+</thead>
+<tbody>
+    <tr style="background: #f0f0f0;"><td><tt>content</tt></td><td>Set the current section to content, the following html is part of the content (this is the default section). E.g.: <tt>&lt;!--:content--&gt;</tt></td></tr>
+    <tr style="background: #e4e4e4;"><td><tt>footer</tt></td><td>Set the current section to footer, the following html is part of the footer. E.g.: <tt>&lt;!--:footer--&gt;</tt></td></tr>
+    <tr style="background: #f0f0f0;"><td><tt>footerFirst</tt></td><td>Set the current section to footer in the fist page, the following html is part of the first page footer. If this section is not present, the first page footer will be the same as the <tt>footer</tt> section. E.g.: <tt>&lt;!--:footerFirst--&gt;</tt></td></tr>
+    <tr style="background: #e4e4e4;"><td><tt>footerLast</tt></td><td>Set the current section to footer in the last page, the following html is part of the last page footer. If this section is not present, the last page footer will be the same as the <tt>footer</tt> section. E.g.: <tt>&lt;!--:footerLast--&gt;</tt></td></tr>
+    <tr style="background: #f0f0f0;"><td><tt>header</tt></td><td>Set the current section to header, the following html is part of the header. E.g.: <tt>&lt;!--:header--&gt;</tt></td></tr>
+    <tr style="background: #e4e4e4;"><td><tt>headerFirst</tt></td><td>Set the current section to header in the fist page, the following html is part of the first page header. If this section is not present, the first page header will be the same as the <tt>header</tt> section. E.g.: <tt>&lt;!--:headerFirst--&gt;</tt></td></tr>
+    <tr style="background: #f0f0f0;"><td><tt>headerLast</tt></td><td>Set the current section to header in the last page, the following html is part of the last page header. If this section is not present, the last page header will be the same as the <tt>header</tt> section. E.g.: <tt>&lt;!--:headerLast--&gt;</tt></td></tr>
+</tbody>
+</table>
+
+
 <a name="supported-tags"></a>
 
-<h3>Supported Tags</h3>
+<h3>Supported HTML Tags</h3>
 
 <p>The following table lists the HTML tags supported by Qt's <b>rich text</b> engine:</p>
 

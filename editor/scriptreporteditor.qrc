@@ -43,5 +43,6 @@
         <file>images/validate.png</file>
         <file>images/configure.png</file>
         <file>help/Supported_HTML_Subset.html</file>
+        <file>help/javascript_functions.html</file>
     </qresource>
 </RCC>
