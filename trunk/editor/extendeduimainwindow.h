@@ -272,6 +272,7 @@ public:
         sourceCodeSyntaxHighlighter = new TextDocumentSyntaxHighlighter(sourcePlainTextEdit->document());
 
         htmlSubsetTextBrowser->setSource(QUrl(QString::fromLatin1("qrc:/help/Supported_HTML_Subset.html")));
+        jsFunctionsTextBrowser->setSource(QUrl(QString::fromLatin1("qrc:/help/javascript_functions.html")));
 
     } // setupUi
 

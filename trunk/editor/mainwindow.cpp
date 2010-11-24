@@ -4,6 +4,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QFileDialog>
 #include <QtGui/QMessageBox>
+#include <QtGui/QScrollBar>
 
 #include <QtCore/QTextStream>
 
@@ -195,7 +196,11 @@ void MainWindow::validate() {
 }
 
 bool MainWindow::validate(QString &generatedCode) {
+    int hscroll = ui->generatedCodeTextEdit->horizontalScrollBar()->value();
+    int vscroll = ui->generatedCodeTextEdit->verticalScrollBar()->value();
     ui->generatedCodeTextEdit->setPlainText(generatedCode);
+    ui->generatedCodeTextEdit->horizontalScrollBar()->setValue(hscroll);
+    ui->generatedCodeTextEdit->verticalScrollBar()->setValue(vscroll);
 
     QScriptSyntaxCheckResult result = QScriptEngine::checkSyntax(generatedCode);
     QScriptSyntaxCheckResult::State state = result.state();
@@ -236,7 +241,6 @@ void MainWindow::run() {
 
     scriptReport->updateIntermediateCode();
     QString generatedCode = scriptReport->intermediateCode();
-    ui->generatedCodeTextEdit->setPlainText(generatedCode);
 
     validate(generatedCode);
 //    evit run the report when is not valid
@@ -308,7 +312,11 @@ void MainWindow::run() {
         printSource.append(QString::fromLatin1("<!-- footerLast -->\n%1\n").arg(footerLast));
     }
 
+    int hscroll = ui->printSourceTextEdit->horizontalScrollBar()->value();
+    int vscroll = ui->printSourceTextEdit->verticalScrollBar()->value();
     ui->printSourceTextEdit->setPlainText(printSource);
+    ui->printSourceTextEdit->horizontalScrollBar()->setValue(hscroll);
+    ui->printSourceTextEdit->verticalScrollBar()->setValue(vscroll);
 
     isRunRequired = false;
     isPrintPreviewUpdateRequired = true;
@@ -603,7 +611,11 @@ void MainWindow::sourcePreviewTabSelected() {
     previewHandler->updatePageLayoutActions(false);
     previewHandler->updatePrintActions(false);
     QString source = getSourcePreviewCode();
+    int hscroll = ui->sourcePreviewTextEdit->horizontalScrollBar()->value();
+    int vscroll = ui->sourcePreviewTextEdit->verticalScrollBar()->value();
     ui->sourcePreviewTextEdit->setText(source);
+    ui->sourcePreviewTextEdit->horizontalScrollBar()->setValue(hscroll);
+    ui->sourcePreviewTextEdit->verticalScrollBar()->setValue(vscroll);
     editHandler->updateLineAndColumn();
 }
 
