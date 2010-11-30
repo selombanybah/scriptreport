@@ -10,26 +10,61 @@
 #include "textstreamobject.h"
 
 class ScriptReportEnginePrivate {
-    // Nothing here at this momment;
+    // Nothing here at this momment
 };
 
+/*!
+    \class ScriptReportEngine
+    \brief Class for render the resultant HTML of a Script Report.
+
+    The ScriptReportEngine class is the engine of Script Report, this class render and print the resultant HTML of
+    a report. This class exists for add more backends (not supported at this momment) that \bold QTextDocument.
+
+    \warning Use \l ScriptReport for run a Script Report.
+*/
+
+/*!
+    \fn ScriptReportEngine::ScriptReportEngine()
+     Constructs a Script Report Engine.
+*/
 ScriptReportEngine::ScriptReportEngine()
     : d(new ScriptReportEnginePrivate())
 {
 }
 
+/*!
+    \fn ScriptReportEngine::~ScriptReportEngine()
+    Destroy the Script Report Engine.
+*/
 ScriptReportEngine::~ScriptReportEngine() {
     delete d;
 }
 
+/*!
+    \fn void ScriptReportEngine::initEngine(ScriptReport *scriptReport, QScriptEngine *engine)
+    \brief Initialize the Script Report Engine.
+
+    Initialize the render backend, the script report taht use this backend is \a scriptReport and
+    the engine for run the javascript is \a engine.
+*/
 void ScriptReportEngine::initEngine(ScriptReport */*scriptReport*/, QScriptEngine */*engine*/) {
 
 }
 
+/*!
+    \fn void ScriptReportEngine::loadPrintConfiguration(ScriptReport *scriptReport, QPrinter *printer)
+    \brief Load the print configuration from \a printer for the script report \a scriptReport.
+
+    This method is called when the script report load the print configuration.
+*/
 void ScriptReportEngine::loadPrintConfiguration(ScriptReport */*scriptReport*/, QPrinter */*printer*/) {
 
 }
 
+/*!
+    \fn ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer)
+    \brief Print the script report \a scriptReport with the \a printer.
+*/
 void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
     // Based on the code published by "Prashant Shah" on October 29, 2008 in the KDE mailing list
     // See: http://lists.kde.org/?l=kde-devel&m=122529598606039&w=2
@@ -51,7 +86,7 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
     QString headerLastTemplate = scriptReport->outputHeaderLast()->text();
     bool headerHasPage = headerTemplate.contains(pageName);
     bool headerHasPageCount = headerTemplate.contains(pageCountName);
-    QString contentTemplate = scriptReport->output()->text();
+    QString contentTemplate = scriptReport->outputContent()->text();
     bool contentHasPage = contentTemplate.contains(pageName);
     bool contentHasPageCount = contentTemplate.contains(pageCountName);
     QString footerTemplate = scriptReport->outputFooter()->text();

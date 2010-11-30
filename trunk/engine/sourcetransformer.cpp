@@ -42,31 +42,72 @@ public:
 
 };
 
+/*!
+    \class SourceTransformer
+    \brief Class for transform a Script Report to a javascript.
+
+    The SourceTransformer class allow to transform a Script Report to javascript representation,
+    the generated javascript can be runned by the Qt Script module.
+*/
+
+/*!
+    \fn SourceTransformer::SourceTransformer(QTextStream *inputStream, QTextStream *outputStream)
+    Constructs a Source Transformer and set the input stream to \a inputStream and the output stream
+    to \a outputStream.
+*/
 SourceTransformer::SourceTransformer(QTextStream *inputStream, QTextStream *outputStream) :
         d(new SourceTransformerPrivate(inputStream, outputStream))
 {
 }
 
+/*!
+    \fn SourceTransformer::~SourceTransformer()
+    Destroy the Source Transformer.
+*/
 SourceTransformer::~SourceTransformer() {
     delete d;
 }
 
+/*!
+    \fn QTextStream* SourceTransformer::inputStream() const
+    Get the input stream.
+*/
 QTextStream* SourceTransformer::inputStream() const {
     return d->in;
 }
 
+/*!
+    \fn void SourceTransformer::setInputStream(QTextStream *inputStream)
+    Set the input stream to \a inputStream.
+*/
 void SourceTransformer::setInputStream(QTextStream *inputStream) {
     d->in = inputStream;
 }
 
+/*!
+    \fn QTextStream* SourceTransformer::outputStream() const
+    Get the output stream.
+*/
 QTextStream* SourceTransformer::outputStream() const {
     return d->out;
 }
 
+/*!
+    \fn void SourceTransformer::setOutputStream(QTextStream *outputStream)
+    Set the output stream to \a outputStream.
+*/
 void SourceTransformer::setOutputStream(QTextStream *outputStream) {
     d->out = outputStream;
 }
 
+/*!
+    \fn bool SourceTransformer::transform()
+    \brief Transform the Script Report to javascript, return true if the transformation was successful,
+    false if the input stream if empty.
+
+    Read the Script Report from the input stream, transform it, and write the result in the
+    output stream.
+*/
 bool SourceTransformer::transform() {
     return d->transform();
 }

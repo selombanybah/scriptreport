@@ -23,7 +23,7 @@ class SCRIPTREPORTENGINE_EXPORT ScriptReport : public QObject
     Q_PROPERTY(bool isPrintErrorEnabled READ isPrintErrorEnabled WRITE setPrintErrorEnabled)
     Q_PROPERTY(QStringList arguments READ arguments WRITE setArguments)
     Q_PROPERTY(QString previousScript READ previousScript WRITE setPreviousScript)
-    Q_PROPERTY(QString scriptName READ scriptName WRITE setScriptName)
+    Q_PROPERTY(QString reportName READ reportName WRITE setReportName)
     Q_PROPERTY(bool isWriteWithPrintFunctionTooEnabled READ isWriteWithPrintFunctionTooEnabled WRITE setWriteWithPrintFunctionTooEnabled)
 
     Q_PROPERTY(QString intermediateCode READ intermediateCode)
@@ -31,9 +31,10 @@ class SCRIPTREPORTENGINE_EXPORT ScriptReport : public QObject
     Q_PROPERTY(QString errorMessage READ errorMessage)
 
 public:
-    explicit ScriptReport(QString scriptName = QString(), QObject *parent = 0);
-    explicit ScriptReport(QTextStream *inputStream, QString scriptName = QString(), QObject *parent = 0);
-    explicit ScriptReport(QString input, QString scriptName = QString(), QObject *parent = 0);
+    explicit ScriptReport(QObject *parent = 0);
+    explicit ScriptReport(QString reportName, QObject *parent = 0);
+    ScriptReport(QTextStream *inputStream, QString reportName, QObject *parent = 0);
+    ScriptReport(QString input, QString reportName, QObject *parent = 0);
     ~ScriptReport();
 
     bool isEditing() const;
@@ -50,8 +51,8 @@ public:
     QString previousScript() const;
     void setPreviousScript(QString previousScript);
 
-    QString scriptName() const;
-    void setScriptName(QString scriptName);
+    QString reportName() const;
+    void setReportName(QString reportName);
 
     bool isWriteWithPrintFunctionTooEnabled() const;
     void setWriteWithPrintFunctionTooEnabled(bool isWriteWithPrintFunctionTooEnabled);
@@ -60,7 +61,7 @@ public:
     const TextStreamObject* outputHeader() const;
     const TextStreamObject* outputHeaderFirst() const;
     const TextStreamObject* outputHeaderLast() const;
-    const TextStreamObject* output() const;
+    const TextStreamObject* outputContent() const;
     const TextStreamObject* outputFooter() const;
     const TextStreamObject* outputFooterFirst() const;
     const TextStreamObject* outputFooterLast() const;
