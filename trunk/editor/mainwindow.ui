@@ -796,6 +796,9 @@
    <property name="statusTip">
     <string>Find text</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionReplace">
    <property name="text">
@@ -803,6 +806,9 @@
    </property>
    <property name="statusTip">
     <string>Replace text</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionAbout">

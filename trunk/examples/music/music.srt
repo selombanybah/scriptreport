@@ -50,7 +50,7 @@ if(sr.report.isDebbuging) {
 var query = db.query("SELECT * FROM songs order by artist, title");
 -->
 
-<h1><center>${qsTr("Music Report")}</center></h1>
+<h1><center><img src="?{":/"}book.png">&nbsp;${qsTr("Music Report")}</center></h1>
 <br>
 <!--@
 var artist = query.record().indexOf("artist");
