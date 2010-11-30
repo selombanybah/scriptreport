@@ -286,7 +286,7 @@ void MainWindow::run() {
     QString header = scriptReport->outputHeader()->text();
     QString headerFirst = scriptReport->outputHeaderFirst()->text();
     QString headerLast = scriptReport->outputHeaderLast()->text();
-    QString content = scriptReport->output()->text();
+    QString content = scriptReport->outputContent()->text();
     QString footer = scriptReport->outputFooter()->text();
     QString footerFirst = scriptReport->outputFooterFirst()->text();
     QString footerLast = scriptReport->outputFooterLast()->text();
