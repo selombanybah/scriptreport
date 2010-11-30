@@ -15,7 +15,7 @@ public:
     TextStreamObject(QString name, QIODevice::OpenMode defaultStreamMode, QObject* parent = 0);
     ~TextStreamObject();
 
-    void reset();
+//    void reset();
 
     QTextStream* stream() const;
     void setStream(QTextStream* textStream, bool forDelete = false);

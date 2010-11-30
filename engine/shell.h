@@ -31,7 +31,7 @@ public:
     virtual QString readSentence(int &finalLineNumber) = 0;
 
     virtual void printForReadCommand(const QScriptValue &message, bool last = true) = 0;
-    virtual void printOut(const QScriptValue &result, bool last = true) = 0;
+    virtual void printOut(const QScriptValue &message, bool last = true) = 0;
     virtual void printErr(const QScriptValue &error, bool last = true) = 0;
 
     virtual void printResult(const QScriptValue &result);

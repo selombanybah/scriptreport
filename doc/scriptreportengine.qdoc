@@ -1,0 +1,70 @@
+/*!
+    \page index.html
+    \title Script Report
+
+    Script Report is a script report engine for create print report using
+    html and javascript.
+
+    The Script Report Engine uses QtScript module for run a javascript for
+    generate HTML, one HTML document per document sections (header, footer,
+    content, etc.), and render these HTML using the Qt QTextDocument, in 
+    consequence all Qt HTML subset is supported.
+
+    \section1 Main classes
+
+    \table
+    \header
+    \o Class Name
+    \o Description
+
+    \row
+    \o \l{ScriptReport}
+    \o Class for run reports.
+
+    \row
+    \o \l{Shell}
+    \o Class for create a javascript shell.
+
+    \endtable
+*/
+
+/*!
+    \page classes.html
+    \title Script Report Classes
+
+    \generatelist classes
+*/
+
+/*
+    \page namespaces.html
+    \title Script Report Namespaces
+
+    \generatelist namespaces
+*/
+
+/*!
+    \page mainclasses.html
+    \title Script Report Main Classes
+
+    \generatelist mainclasses
+
+*/
+
+/*!
+    \page functions.html
+    \title Script Report Functions
+
+    \generatelist functionindex
+*/
+
+/*
+    \page modules.html
+    \title All Script Report Modules
+
+    \brief Script Report modules.
+    library.
+
+    \table 80%
+    \row \o \l{AModule} \o A module
+    \endtable
+*/

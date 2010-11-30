@@ -51,6 +51,18 @@ static QScriptValue print(QScriptContext *context, QScriptEngine *engine) {
  * Class
  */
 
+/*!
+    \class Shell
+    \mainclass
+    \brief Class for create a javascript shell.
+
+    The Shell class allow to create javascript shell in console or with GUI.
+*/
+
+/*!
+    \fn Shell::Shell(QObject *parent)
+    Constructs a Shell with parent object \a parent.
+*/
 Shell::Shell(QObject *parent) :
     QObject(parent),
     d(new ShellPrivate())
@@ -58,18 +70,39 @@ Shell::Shell(QObject *parent) :
     d->engine = new QScriptEngine(this);
 }
 
+/*!
+    \fn Shell::~Shell()
+    Destroy the Shell.
+*/
 Shell::~Shell() {
     delete d;
 }
 
+/*!
+    \fn void Shell::printResult(const QScriptValue &result)
+    Print an evaluation \a result.
+
+    \bold Note: The default implementation call \l printOut().
+*/
 void Shell::printResult(const QScriptValue &result) {
     printOut(result);
 }
 
+/*!
+    \fn void Shell::printUncaughtException(const QScriptValue &exception)
+    Print an uncaught \a exception.
+
+    \bold Note: The default implementation call \l printErr().
+*/
 void Shell::printUncaughtException(const QScriptValue &exception) {
     printErr(exception);
 }
 
+/*!
+    \fn void Shell::initEngine(QScriptEngine &engine)
+    Initialize the script \a engine.
+    \sa isEngineInitialized
+*/
 void Shell::initEngine(QScriptEngine &engine) {
     if (!d->scriptableEngine) {
         d->scriptableEngine = new ScriptableShellEngine(this, this);
@@ -104,6 +137,11 @@ void Shell::initEngine(QScriptEngine &engine) {
     sr.setProperty(QString::fromLatin1("engine"), eng, QScriptValue::Undeletable);
 }
 
+/*!
+    \fn void Shell::runInteractive()
+    Run the shell as interactive mode, when the shell run all available text, sentence by sentence,
+    and write the result.
+*/
 void Shell::runInteractive() {
     if (!d->isInitialized) {
         d->isInitialized = true; // after for prevent an indirect recursive call
@@ -132,6 +170,11 @@ void Shell::runInteractive() {
     }
 }
 
+/*!
+    \fn void Shell::runQuiet()
+    Run the shell as interactive quiet mode, when the shell run all available text, sentence by sentence,
+    and not write the result.
+*/
 void Shell::runQuiet() {
     if (!d->isInitialized) {
         d->isInitialized = true; // after for prevent an indirect recursive call
@@ -158,6 +201,10 @@ void Shell::runQuiet() {
     }
 }
 
+/*!
+    \fn void Shell::runBatch()
+    Run the shell as batch mode, when the shell run all available text and not write the result.
+*/
 void Shell::runBatch() {
     if (!d->isInitialized) {
         d->isInitialized = true; // after for prevent an indirect recursive call
@@ -179,6 +226,10 @@ void Shell::runBatch() {
     }
 }
 
+/*!
+    \fn void Shell::runOneSentence()
+    Run one sentence in the shell, when the shell read a sentence and not write the result.
+*/
 void Shell::runOneSentence() {
     if (!d->isInitialized) {
         d->isInitialized = true; // after for prevent an indirect recursive call
@@ -196,6 +247,10 @@ void Shell::runOneSentence() {
     }
 }
 
+/*!
+    \fn void Shell::runOneSentenceInteractive()
+    Run one sentence in the shell, when the shell read a sentence and write the result.
+*/
 void Shell::runOneSentenceInteractive() {
     if (!d->isInitialized) {
         d->isInitialized = true; // after for prevent an indirect recursive call
@@ -215,21 +270,39 @@ void Shell::runOneSentenceInteractive() {
     }
 }
 
+/*!
+    \fn bool Shell::isCompleteSententence(QString sentence)
+    Return if \a sentence is a complete sentence.
+*/
 bool Shell::isCompleteSententence(QString sentence) {
     QScriptSyntaxCheckResult check = QScriptEngine::checkSyntax(sentence);
     return check.state() != QScriptSyntaxCheckResult::Intermediate;
 }
 
+/*!
+    \fn void Shell::exit(int exitCode)
+    Exit the shell with exit code \a exitCode.
+    \sa exitCode isExitCalled
+*/
 void Shell::exit(int exitCode) {
     d->exit = true;
     d->exitCode = exitCode;
     emit finished(exitCode);
 }
 
+/*!
+    \property Shell::exitCode
+    This property specifies the exit code with the shell exit.
+    \sa exit() isExitCalled
+*/
 int Shell::exitCode() const {
     return d->exitCode;
 }
 
+/*!
+    \fn QString Shell::helpMessage()
+    Return the default help message.
+*/
 QString Shell::helpMessage() {
     QString message = QString::fromLatin1(
             "List of basics commands:\n"
@@ -298,6 +371,10 @@ QString Shell::helpMessage() {
     return message;
 }
 
+/*!
+    \property Shell::useGlobalEngine
+    Specifies if put all members of the \c sr.engine object in the global space.
+*/
 bool Shell::useGlobalEngine() const {
     return d->useGlobalEngine;
 }
@@ -306,6 +383,12 @@ void Shell::setUseGlobalEngine(bool useGlobalEngine) {
     d->useGlobalEngine = useGlobalEngine;
 }
 
+/*!
+    \property Shell::arguments
+    \brief Specifies the script arguments.
+
+    This is avaiable in the script with \c sr.engine.arguments
+*/
 QStringList Shell::arguments() const {
     if (!d->scriptableEngine) {
         return d->scriptableEngine->arguments();
@@ -321,6 +404,11 @@ void Shell::setArguments(QStringList arguments) {
     d->scriptableEngine->setArguments(arguments);
 }
 
+
+/*!
+    \property Shell::fileName
+    Specifies the script file name.
+*/
 QString Shell::fileName() const {
     return d->fileName;
 }
@@ -329,6 +417,10 @@ void Shell::setFileName(QString fileName) {
     d->fileName = fileName;
 }
 
+/*!
+    \property Shell::currentLineNumber
+    Specifies the line number of the next sentence.
+*/
 int Shell::currentLineNumber() const {
     return d->lineNumber;
 }
@@ -337,6 +429,11 @@ void Shell::setCurrentLineNumber(int currentLineNumber) {
     d->lineNumber = currentLineNumber;
 }
 
+/*!
+    \property Shell::processEventsInterval
+    Specifies the script engine process interval. See \bold QScriptEngine::processEventsInterval()
+    for more information.
+*/
 int Shell::processEventsInterval() const {
     return d->engine->processEventsInterval();
 }
@@ -345,14 +442,28 @@ void Shell::setProcessEventsInterval(int interval) {
     d->engine->setProcessEventsInterval(interval);
 }
 
+/*!
+    \property Shell::isExitCalled
+    Return if \l exit() method is called.
+    \sa exit() exitCode
+*/
 bool Shell::isExitCalled() const {
     return d->exit;
 }
 
+/*!
+    \property Shell::isEngineInitialized
+    Return if the script engine is initialized.
+    \sa initEngine()
+*/
 bool Shell::isEngineInitialized() const {
     return d->isInitialized;
 }
 
+/*!
+    \fn QScriptEngine* Shell::engine()
+    Return the script engine used for run the sentences.
+*/
 QScriptEngine* Shell::engine() {
     if (!d->isInitialized) {
         d->isInitialized = true; // after for prevent an indirect recursive call
@@ -361,6 +472,10 @@ QScriptEngine* Shell::engine() {
     return d->engine;
 }
 
+/*!
+    \fn void Shell::reset()
+    Reset the shell.
+*/
 void Shell::reset() {
     d->lineNumber = 1;
     int interval = d->engine->processEventsInterval();
@@ -454,6 +569,13 @@ static QStringList findCompletions(QScriptContext *context, QStringList path, QS
     return result;
 }
 
+/*!
+    \fn QStringList Shell::completeScriptExpression(QString expression, int &completitionStartAt, QString &commonName)
+    \brief Find completitions of a javascript \a expression.
+    Find and return all posible completitions of a javascript \a expression. As output arguments
+    \a completitionStartAt contains the positions at the \a expression when the completion posibilities start and
+    \a commonName contains the common text between all posibilities of completition.
+*/
 QStringList Shell::completeScriptExpression(QString expression, int &completitionStartAt, QString &commonName) {
     if (!d->isInitialized) {
         d->isInitialized = true; // after for prevent an indirect recursive call
@@ -494,6 +616,58 @@ QStringList Shell::completeScriptExpression(QString expression, int &completitio
     return findCompletions(d->engine->currentContext(), path, name, commonName);
 }
 
+/*!
+    \property Shell::version
+    Specifies the current shell version
+*/
 QString Shell::version() const {
     return QString::fromLatin1(APP_VERSION);
 }
+
+/*!
+   \fn void Shell::finished(int exitCode)
+   Signal emmited when \l exit() method is called with \a exitCode.
+   \sa exit() exitCode isExitCalled
+*/
+
+/*!
+    \fn void Shell::helpCommand()
+    Show the help. This is called by \c sr.engine.help().
+*/
+
+/*!
+    \fn QString Shell::readCommand()
+    Read a text required by the script. This is called by \c sr.engine.read().
+    \sa printForReadCommand()
+*/
+
+/*!
+    \fn QString Shell::readAll(int &finalLineNumber)
+    Read all available text for run as script. As output argument \a finalLineNumber contains
+    the line of the next sentence.
+*/
+
+/*!
+    \fn QString Shell::readSentence(int &finalLineNumber)
+    Read one sentence for run as script. As output argument \a finalLineNumber contains
+    the line of the next sentence.
+*/
+
+/*!
+    \fn void Shell::printForReadCommand(const QScriptValue &message, bool last)
+    Print a \a message previous to read a text required by the script, the argument \a last indicate
+    if it is the last menssage to print previous to read the text. This is called by \c sr.engine.read().
+    \sa readCommand()
+*/
+
+/*!
+    \fn void Shell::printOut(const QScriptValue &message, bool last)
+    Print a \a message as output required by the script, the argument \a last indicate
+    if is the last message to print. This is called by \c sr.engine.print().
+*/
+
+/*!
+    \fn void Shell::printErr(const QScriptValue &error, bool last)
+    Print a \a error as output required by the script, the argument \a last indicate
+    if is the last error to print. This is called by \c sr.engine.error().
+*/

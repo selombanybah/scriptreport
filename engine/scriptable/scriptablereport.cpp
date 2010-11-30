@@ -52,7 +52,7 @@ ScriptableReport::ScriptableReport(ScriptReport *scriptReport, QObject *parent) 
 {
     m_sre = scriptReport;
     m_scriptablePaper = new ScriptablePaper(this);
-    m_title = scriptReport->scriptName();
+    m_title = scriptReport->reportName();
 }
 
 QString ScriptableReport::title() const {
@@ -113,9 +113,9 @@ void ScriptableReport::writeHeaderLast() {
 
 void ScriptableReport::writeContent() {
     if (m_sre->isWriteWithPrintFunctionTooEnabled()) {
-        printAndWriteResult(m_sre->output());
+        printAndWriteResult(m_sre->outputContent());
     } else {
-        writeResult(m_sre->output());
+        writeResult(m_sre->outputContent());
     }
 }
 
@@ -146,7 +146,7 @@ void ScriptableReport::writeFooterLast() {
 void ScriptableReport::loadConfigurationFrom(QPrinter &printer) {
     QString title = printer.docName();
     if (title.isEmpty()) {
-        title = m_sre->scriptName();
+        title = m_sre->reportName();
     }
     m_title = title;
     m_scriptablePaper->loadConfigurationFrom(printer);

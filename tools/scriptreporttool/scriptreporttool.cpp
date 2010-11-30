@@ -3,6 +3,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QDir>
 #include <QtCore/QTimer>
 #include <QtCore/QTextStream>
 
@@ -182,6 +183,9 @@ bool ScriptReportTool::init(int &retunrCode) {
             m_inFile = new QFile(m_fileName);
             if (m_inFile->open( QIODevice::ReadOnly)) {
                 m_in  = new QTextStream(m_inFile);
+
+                QFileInfo fileInfo(m_fileName);
+                QDir::setCurrent(fileInfo.absolutePath());
             } else {
                 *m_err << QString::fromLatin1("Unable to read the file '%1'.\n").arg(m_fileName);
                 retunrCode = 2;
