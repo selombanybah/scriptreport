@@ -1,0 +1,101 @@
+<tt>
+
+<font color=red>&lt;!--@</font><br>
+<font color=red>/*<br>
+&nbsp;* For update translations:<br>
+&nbsp;* $&gt; scriptreporttool -c music.srt<br>
+&nbsp;* $&gt; lupdate music.srt.js -ts music_es.ts<br>
+&nbsp;* $&gt; rm music.srt.js<br>
+&nbsp;* $&gt; cp music.srt music.srt.js<br>
+&nbsp;* Update translations<br>
+&nbsp;* $&gt; lrelease music_es.ts<br>
+&nbsp;*/</font><br>
+sr.report.paper.margins.setMargins(<font color=blue>1.5</font>,<font color=blue>2</font>,<font color=blue>1.5</font>,<font color=blue>2</font>,<font color=green>"cm"</font>);<br>
+<br>
+sr.engine.importExtension(<font color=green>"sri18n"</font>);<br>
+sr.i18n.installTranslator(<font color=green>"music_es.qs"</font>);<br>
+sr.i18n.installTranslatorFunctions();<br>
+<br>
+sr.engine.importExtension(<font color=green>"srsql"</font>);<br>
+<font color=olive><b>var</b></font> db;<br>
+<font color=olive><b>if</b></font> (sr.report.isEditing) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;db = sr.sql.addDatabase(<font color=green>"QSQLITE"</font>, <font color=green>"music"</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;db.databaseName = <font color=green>"music.db"</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;db.open();<br>
+} <font color=olive><b>else</b></font> {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;db = sr.sql.database(<font color=green>"music"</font>);<br>
+}<br>
+<font color=red>/*<br>
+&nbsp;* Test<br>
+&nbsp;* something else<br>
+&nbsp;*/</font><br>
+<font color=olive><b>if</b></font>(sr.report.isDebbuging) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(db.tables(<font color=green>"AllTables"</font>));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>var</b></font> record = db.record(<font color=green>"songs"</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>for</b></font> (<font color=olive><b>var</b></font> i = <font color=blue>0</font>; i &lt; record.count; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(record.fieldName(i));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<font color=red>--&gt;</font><br>
+<br>
+<br>
+<font color=aqua>&lt;!--:<b>headerFirst</b>--&gt;</font><br>
+<br>
+<font color=aqua>&lt;!--:<b>header</b>--&gt;</font><br>
+<font color=purple>&lt;<b>center</b>&gt;</font><font color=purple>&lt;<b>b</b>&gt;</font><font color=blue>&#36;{</font>qsTr(<font color=green>"Music Report"</font>)<font color=blue>}</font><font color=purple>&lt;/<b>b</b>&gt;</font><font color=purple>&lt;/<b>center</b>&gt;</font><br>
+<br>
+<font color=aqua>&lt;!--:<b>footer</b>--&gt;</font><br>
+<font color=purple>&lt;<b>center</b>&gt;</font><font color=blue>&#36;{</font>sr.report.page<font color=blue>}</font>/<font color=blue>&#36;{</font>sr.report.pageCount<font color=blue>}</font><font color=purple>&lt;/<b>center</b>&gt;</font><br>
+<br>
+<font color=aqua>&lt;!--:<b>content</b>--&gt;</font><br>
+<br>
+<br>
+<font color=red>&lt;!--@</font><br>
+<font color=olive><b>var</b></font> query = db.query(<font color=green>SELECT * FROM songs order by artist, title"</font>);<br>
+<font color=red>--&gt;</font><br>
+<br>
+<font color=purple>&lt;<b>h1</b>&gt;</font><font color=purple>&lt;<b>center</b>&gt;</font><font color=purple>&lt;<b>img</b></font> <font color=brown><b>src</b></font>="<font color=blue>&#63;{</font><font color=green>":/"</font><font color=blue>}book.png</font>"<font color=purple>&gt;</font>&amp;nbsp;<font color=blue>&#36;{</font>qsTr(<font color=green>"Music Report"</font>)<font color=blue>}</font><font color=purple>&lt;/<b>center</b>&gt;</font><font color=purple>&lt;/<b>h1</b>&gt;</font><br>
+<font color=purple>&lt;<b>br</b>&gt;</font><br>
+<font color=red>&lt;!--@</font><br>
+<font color=olive><b>var</b></font> artist = query.record().indexOf(<font color=green>"artist"</font>);<br>
+<font color=olive><b>var</b></font> title = query.record().indexOf(<font color=green>"title"</font>);<br>
+<font color=olive><b>var</b></font> length = query.record().indexOf(<font color=green>"length"</font>);<br>
+<font color=olive><b>var</b></font> year = query.record().indexOf(<font color=green>"year"</font>);<br>
+<font color=red>--&gt;</font><br>
+<br>
+<br>
+<font color=purple>&lt;<b>table</b></font> <font color=brown><b>width</b></font>="<font color=blue>100%</font>" <font color=brown><b>cellspacing</b></font>="<font color=blue>-1</font>" <font color=brown><b>cellpadding</b></font>="<font color=blue>2</font>" <font color=brown><b>border</b></font>="<font color=blue>1</font>" <font color=brown><b>style</b></font>="<font color=blue><b>border-style</b>:solid;<b>border-color</b>:black;</font>"<font color=purple>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>thead</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>tr</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>td</b>&gt;</font><font color=blue>&#36;{</font>qsTr(<font color=green>"Artist"</font>)<font color=blue>}</font><font color=purple>&lt;/<b>b</b>&gt;</font><font color=purple>&lt;/<b>td</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>td</b>&gt;</font><font color=blue>&#36;{</font>qsTr(<font color=green>"Title"</font>)<font color=blue>}</font><font color=purple>&lt;/<b>b</b>&gt;</font><font color=purple>&lt;/<b>td</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>td</b>&gt;</font><font color=blue>&#36;{</font>qsTr(<font color=green>"Lenght"</font>)<font color=blue>}</font><font color=purple>&lt;/<b>b</b>&gt;</font><font color=purple>&lt;/<b>td</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>td</b>&gt;</font><font color=blue>&#36;{</font>qsTr(<font color=green>"Year"</font>)<font color=blue>}</font><font color=purple>&lt;/<b>b</b>&gt;</font><font color=purple>&lt;/<b>td</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;/<b>tr</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;/<b>thead</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>tbody</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>&lt;!--@</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>for</b></font> (<font color=olive><b>var</b></font> n=<font color=blue>0</font>; n &lt; <font color=blue>10</font>; n++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>while</b></font> (query.next()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>--&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>tr</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>td</b>&gt;</font><font color=blue>&#36;{</font>query.value(artist)<font color=blue>}</font><font color=purple>&lt;/<b>td</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>td</b>&gt;</font><font color=blue>&#36;{</font>query.value(title)<font color=blue>}</font><font color=purple>&lt;/<b>td</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>td</b>&gt;</font><font color=blue>&#36;{</font>query.value(length)<font color=blue>}</font><font color=purple>&lt;/<b>td</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;<b>td</b>&gt;</font><font color=blue>&#36;{</font>query.value(year)<font color=blue>}</font><font color=purple>&lt;/<b>td</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;/<b>tr</b>&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>&lt;!--@</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query.first();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>--&gt;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=purple>&lt;/<b>tbody</b>&gt;</font><br>
+<font color=purple>&lt;/<b>table</b>&gt;</font><br>
+<br>
+<br>
+<font color=red>&lt;!--@</font><br>
+<font color=olive><b>if</b></font> (sr.report.isDebbuging) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(<font color=green>"end"</font>);<br>
+}<br>
+<font color=red>--&gt;</font>
+</tt>
