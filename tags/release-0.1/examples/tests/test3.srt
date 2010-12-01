@@ -1,0 +1,109 @@
+<!--@
+print(sr.report.paper.size.size);
+//report.paper.size.size = "Letter";
+//report.paper.margins.setMargins(4, 4, 4, 4, "cm");
+-->
+<!--:header-->
+header ${sr.report.page} / ${sr.report.pageCount}
+<!--:content-->
+<h1>Hello</h1>
+<!--@ print ("foo"); -->
+<!--@ if ( 1 < 2 ) { -->
+is greater
+<!--@ } else { -->
+is less
+<!--@ } -->
+a<br>${sr.report.page} / ${sr.report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${sr.report.page} / ${sr.report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${sr.report.page} / ${sr.report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${sr.report.page} / ${sr.report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${sr.report.page} / ${sr.report.pageCount}
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>${sr.report.page} / ${sr.report.pageCount}
+<!--:footer-->
+footer ${sr.report.page} / ${sr.report.pageCount}

@@ -1,0 +1,13 @@
+<!--:header-->
+header
+<!--:content-->
+<h1>Hello</h1>
+<!--@ print ("foo"); -->
+<!--@ if ( 1 < 2 ) { -->
+is greater
+<!--@ } else { -->
+is less
+<!--@ } -->
+<img src="book.png">
+<!--:footer-->
+footer
