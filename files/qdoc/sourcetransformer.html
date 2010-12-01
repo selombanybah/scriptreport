@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- sourcetransformer.cpp -->
+<head>
+  <title>SourceTransformer Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; <a href="classes.html"><font color="#004faf">All&nbsp;Classes</font></a>&nbsp;&middot; <a href="mainclasses.html"><font color="#004faf">Main&nbsp;Classes</font></a>&nbsp;&middot; <a href="functions.html"><font color="#004faf">Functions</font></a></td>
+<td align="right" valign="top" width="230"></td></tr></table><h1 class="title">SourceTransformer Class Reference</h1>
+<p>Class for transform a Script Report to a javascript. <a href="#details">More...</a></p>
+<pre> #include &lt;SourceTransformer&gt;</pre><ul>
+<li><a href="sourcetransformer-members.html">List of all members, including inherited members</a></li>
+</ul>
+<hr />
+<a name="public-functions"></a>
+<h2>Public Functions</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="sourcetransformer.html#SourceTransformer">SourceTransformer</a></b> ( QTextStream * <i>inputStream</i> = 0, QTextStream * <i>outputStream</i> = 0 )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="sourcetransformer.html#dtor.SourceTransformer">~SourceTransformer</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QTextStream * </td><td class="memItemRight" valign="bottom"><b><a href="sourcetransformer.html#inputStream">inputStream</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QTextStream * </td><td class="memItemRight" valign="bottom"><b><a href="sourcetransformer.html#outputStream">outputStream</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="sourcetransformer.html#setInputStream">setInputStream</a></b> ( QTextStream * <i>inputStream</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="sourcetransformer.html#setOutputStream">setOutputStream</a></b> ( QTextStream * <i>outputStream</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="sourcetransformer.html#transform">transform</a></b> ()</td></tr>
+</table>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>Class for transform a Script Report to a javascript.</p>
+<p>The SourceTransformer class allow to transform a Script Report to javascript representation, the generated javascript can be runned by the Qt Script module.</p>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="SourceTransformer"></a>SourceTransformer::SourceTransformer ( QTextStream * <i>inputStream</i> = 0, QTextStream * <i>outputStream</i> = 0 )</h3>
+<p>Constructs a Source Transformer and set the input stream to <i>inputStream</i> and the output stream to <i>outputStream</i>.</p>
+<h3 class="fn"><a name="dtor.SourceTransformer"></a>SourceTransformer::~SourceTransformer ()</h3>
+<p>Destroy the Source Transformer.</p>
+<h3 class="fn"><a name="inputStream"></a>QTextStream * SourceTransformer::inputStream () const</h3>
+<p>Get the input stream.</p>
+<p>See also <a href="sourcetransformer.html#setInputStream">setInputStream</a>().</p>
+<h3 class="fn"><a name="outputStream"></a>QTextStream * SourceTransformer::outputStream () const</h3>
+<p>Get the output stream.</p>
+<p>See also <a href="sourcetransformer.html#setOutputStream">setOutputStream</a>().</p>
+<h3 class="fn"><a name="setInputStream"></a>void SourceTransformer::setInputStream ( QTextStream * <i>inputStream</i> )</h3>
+<p>Set the input stream to <i>inputStream</i>.</p>
+<p>See also <a href="sourcetransformer.html#inputStream">inputStream</a>().</p>
+<h3 class="fn"><a name="setOutputStream"></a>void SourceTransformer::setOutputStream ( QTextStream * <i>outputStream</i> )</h3>
+<p>Set the output stream to <i>outputStream</i>.</p>
+<p>See also <a href="sourcetransformer.html#outputStream">outputStream</a>().</p>
+<h3 class="fn"><a name="transform"></a>bool SourceTransformer::transform ()</h3>
+<p>Transform the Script Report to javascript, return true if the transformation was successful, false if the input stream if empty.</p>
+<p>Read the Script Report from the input stream, transform it, and write the result in the output stream.</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left"><!--Copyright &copy; %THISYEAR% Nokia Corporation and/or its subsidiary(-ies)--></td>
+<td width="40%" align="center"><a href="trademarks.html"><!--Trademarks--></a></td>
+<td width="30%" align="right"><div align="right">Plugigins</div></td>
+</tr></table></div></address></body>
+</html>

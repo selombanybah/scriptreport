@@ -1,0 +1,126 @@
+<!DOCTYPE DCF>
+<DCF ref="index.html" icon="scriptreportengine.png" imagedir="../../gif" title="Script Report Documentation">
+<section ref="classes.html" title="Classes">
+    <section ref="scriptreport.html" title="ScriptReport Class Reference">
+        <keyword ref="scriptreport.html">ScriptReport</keyword>
+        <keyword ref="scriptreport.html#arguments-prop">arguments</keyword>
+        <keyword ref="scriptreport.html#arguments-prop">setArguments</keyword>
+        <keyword ref="scriptreport.html#errorMessage-prop">errorMessage</keyword>
+        <keyword ref="scriptreport.html#hasUncaughtException-prop">hasUncaughtException</keyword>
+        <keyword ref="scriptreport.html#intermediateCode-prop">intermediateCode</keyword>
+        <keyword ref="scriptreport.html#isDebugging-prop">isDebugging</keyword>
+        <keyword ref="scriptreport.html#isDebugging-prop">setDebugging</keyword>
+        <keyword ref="scriptreport.html#isEditing-prop">isEditing</keyword>
+        <keyword ref="scriptreport.html#isEditing-prop">setEditing</keyword>
+        <keyword ref="scriptreport.html#isFinal-prop">isFinal</keyword>
+        <keyword ref="scriptreport.html#isFinal-prop">setFinal</keyword>
+        <keyword ref="scriptreport.html#isPrintErrorEnabled-prop">isPrintErrorEnabled</keyword>
+        <keyword ref="scriptreport.html#isPrintErrorEnabled-prop">setPrintErrorEnabled</keyword>
+        <keyword ref="scriptreport.html#isWriteWithPrintFunctionTooEnabled-prop">isWriteWithPrintFunctionTooEnabled</keyword>
+        <keyword ref="scriptreport.html#isWriteWithPrintFunctionTooEnabled-prop">setWriteWithPrintFunctionTooEnabled</keyword>
+        <keyword ref="scriptreport.html#previousScript-prop">previousScript</keyword>
+        <keyword ref="scriptreport.html#previousScript-prop">setPreviousScript</keyword>
+        <keyword ref="scriptreport.html#reportName-prop">reportName</keyword>
+        <keyword ref="scriptreport.html#reportName-prop">setReportName</keyword>
+        <keyword ref="scriptreport.html#initEngine">initEngine</keyword>
+        <keyword ref="scriptreport.html#input">input</keyword>
+        <keyword ref="scriptreport.html#loadPrintConfiguration">loadPrintConfiguration</keyword>
+        <keyword ref="scriptreport.html#outputContent">outputContent</keyword>
+        <keyword ref="scriptreport.html#outputFooter">outputFooter</keyword>
+        <keyword ref="scriptreport.html#outputFooterFirst">outputFooterFirst</keyword>
+        <keyword ref="scriptreport.html#outputFooterLast">outputFooterLast</keyword>
+        <keyword ref="scriptreport.html#outputHeader">outputHeader</keyword>
+        <keyword ref="scriptreport.html#outputHeaderFirst">outputHeaderFirst</keyword>
+        <keyword ref="scriptreport.html#outputHeaderLast">outputHeaderLast</keyword>
+        <keyword ref="scriptreport.html#print">print</keyword>
+        <keyword ref="scriptreport.html#printOutput">printOutput</keyword>
+        <keyword ref="scriptreport.html#run">run</keyword>
+        <keyword ref="scriptreport.html#scriptEngine">scriptEngine</keyword>
+        <keyword ref="scriptreport.html#scriptReportEngine">scriptReportEngine</keyword>
+        <keyword ref="scriptreport.html#updateIntermediateCode">updateIntermediateCode</keyword>
+        <section ref="scriptreport-members.html" title="List of all members"/>
+    </section>
+    <section ref="scriptreportengine.html" title="ScriptReportEngine Class Reference">
+        <keyword ref="scriptreportengine.html">ScriptReportEngine</keyword>
+        <keyword ref="scriptreportengine.html#initEngine">initEngine</keyword>
+        <keyword ref="scriptreportengine.html#loadPrintConfiguration">loadPrintConfiguration</keyword>
+        <keyword ref="scriptreportengine.html#print">print</keyword>
+        <section ref="scriptreportengine-members.html" title="List of all members"/>
+    </section>
+    <section ref="shell.html" title="Shell Class Reference">
+        <keyword ref="shell.html">Shell</keyword>
+        <keyword ref="shell.html#arguments-prop">arguments</keyword>
+        <keyword ref="shell.html#arguments-prop">setArguments</keyword>
+        <keyword ref="shell.html#currentLineNumber-prop">currentLineNumber</keyword>
+        <keyword ref="shell.html#currentLineNumber-prop">setCurrentLineNumber</keyword>
+        <keyword ref="shell.html#exitCode-prop">exitCode</keyword>
+        <keyword ref="shell.html#fileName-prop">fileName</keyword>
+        <keyword ref="shell.html#fileName-prop">setFileName</keyword>
+        <keyword ref="shell.html#isEngineInitialized-prop">isEngineInitialized</keyword>
+        <keyword ref="shell.html#isExitCalled-prop">isExitCalled</keyword>
+        <keyword ref="shell.html#processEventsInterval-prop">processEventsInterval</keyword>
+        <keyword ref="shell.html#processEventsInterval-prop">setProcessEventsInterval</keyword>
+        <keyword ref="shell.html#useGlobalEngine-prop">useGlobalEngine</keyword>
+        <keyword ref="shell.html#useGlobalEngine-prop">setUseGlobalEngine</keyword>
+        <keyword ref="shell.html#version-prop">version</keyword>
+        <keyword ref="shell.html#completeScriptExpression">completeScriptExpression</keyword>
+        <keyword ref="shell.html#engine">engine</keyword>
+        <keyword ref="shell.html#exit">exit</keyword>
+        <keyword ref="shell.html#finished">finished</keyword>
+        <keyword ref="shell.html#helpCommand">helpCommand</keyword>
+        <keyword ref="shell.html#helpMessage">helpMessage</keyword>
+        <keyword ref="shell.html#initEngine">initEngine</keyword>
+        <keyword ref="shell.html#isCompleteSententence">isCompleteSententence</keyword>
+        <keyword ref="shell.html#printErr">printErr</keyword>
+        <keyword ref="shell.html#printForReadCommand">printForReadCommand</keyword>
+        <keyword ref="shell.html#printOut">printOut</keyword>
+        <keyword ref="shell.html#printResult">printResult</keyword>
+        <keyword ref="shell.html#printUncaughtException">printUncaughtException</keyword>
+        <keyword ref="shell.html#readAll">readAll</keyword>
+        <keyword ref="shell.html#readCommand">readCommand</keyword>
+        <keyword ref="shell.html#readSentence">readSentence</keyword>
+        <keyword ref="shell.html#reset">reset</keyword>
+        <keyword ref="shell.html#runBatch">runBatch</keyword>
+        <keyword ref="shell.html#runInteractive">runInteractive</keyword>
+        <keyword ref="shell.html#runOneSentence">runOneSentence</keyword>
+        <keyword ref="shell.html#runOneSentenceInteractive">runOneSentenceInteractive</keyword>
+        <keyword ref="shell.html#runQuiet">runQuiet</keyword>
+        <section ref="shell-members.html" title="List of all members"/>
+    </section>
+    <section ref="sourcetransformer.html" title="SourceTransformer Class Reference">
+        <keyword ref="sourcetransformer.html">SourceTransformer</keyword>
+        <keyword ref="sourcetransformer.html#inputStream">inputStream</keyword>
+        <keyword ref="sourcetransformer.html#outputStream">outputStream</keyword>
+        <keyword ref="sourcetransformer.html#setInputStream">setInputStream</keyword>
+        <keyword ref="sourcetransformer.html#setOutputStream">setOutputStream</keyword>
+        <keyword ref="sourcetransformer.html#transform">transform</keyword>
+        <section ref="sourcetransformer-members.html" title="List of all members"/>
+    </section>
+    <section ref="textstreamobject.html" title="TextStreamObject Class Reference">
+        <keyword ref="textstreamobject.html">TextStreamObject</keyword>
+        <keyword ref="textstreamobject.html#defaultStreamMode">defaultStreamMode</keyword>
+        <keyword ref="textstreamobject.html#isDeleteStreamEmabled">isDeleteStreamEmabled</keyword>
+        <keyword ref="textstreamobject.html#name">name</keyword>
+        <keyword ref="textstreamobject.html#setStream">setStream</keyword>
+        <keyword ref="textstreamobject.html#setText">setText</keyword>
+        <keyword ref="textstreamobject.html#stream">stream</keyword>
+        <keyword ref="textstreamobject.html#text">text</keyword>
+        <section ref="textstreamobject-members.html" title="List of all members"/>
+    </section>
+</section>
+<section ref="overviews.html" title="Overviews">
+    <section ref="index.html" title="Script Report">
+        <keyword ref="index.html">Script Report</keyword>
+    </section>
+    <section ref="classes.html" title="Script Report Classes">
+        <keyword ref="classes.html">Script Report Classes</keyword>
+    </section>
+    <section ref="functions.html" title="Script Report Functions">
+        <keyword ref="functions.html">Script Report Functions</keyword>
+    </section>
+    <section ref="mainclasses.html" title="Script Report Main Classes">
+        <keyword ref="mainclasses.html">Script Report Main Classes</keyword>
+    </section>
+</section>
+<section ref="examples.html" title="Tutorial &amp; Examples"/>
+</DCF>

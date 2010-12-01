@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- textstreamobject.cpp -->
+<head>
+  <title>TextStreamObject Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; <a href="classes.html"><font color="#004faf">All&nbsp;Classes</font></a>&nbsp;&middot; <a href="mainclasses.html"><font color="#004faf">Main&nbsp;Classes</font></a>&nbsp;&middot; <a href="functions.html"><font color="#004faf">Functions</font></a></td>
+<td align="right" valign="top" width="230"></td></tr></table><h1 class="title">TextStreamObject Class Reference</h1>
+<p><b>QObject</b> class for encapsulate a <b>QTextStream</b>. <a href="#details">More...</a></p>
+<pre> #include &lt;TextStreamObject&gt;</pre><ul>
+<li><a href="textstreamobject-members.html">List of all members, including inherited members</a></li>
+</ul>
+<hr />
+<a name="public-functions"></a>
+<h2>Public Functions</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#TextStreamObject">TextStreamObject</a></b> ( QString <i>name</i>, QIODevice::OpenMode <i>defaultStreamMode</i>, QObject * <i>parent</i> = 0 )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#dtor.TextStreamObject">~TextStreamObject</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QIODevice::OpenMode </td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#defaultStreamMode">defaultStreamMode</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#isDeleteStreamEmabled">isDeleteStreamEmabled</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#name">name</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#setStream">setStream</a></b> ( QTextStream * <i>textStream</i>, bool <i>forDelete</i> = false )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#setText">setText</a></b> ( QString <i>text</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QTextStream * </td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#stream">stream</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="textstreamobject.html#text">text</a></b> () const</td></tr>
+</table>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p><b>QObject</b> class for encapsulate a <b>QTextStream</b>.</p>
+<p>The TextStreamObject class is an object for encapsulate and manipulate a text stream. This class allow by default to have a text stream to a string, and permit change the stream to another one.</p>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="TextStreamObject"></a>TextStreamObject::TextStreamObject ( QString <i>name</i>, QIODevice::OpenMode <i>defaultStreamMode</i>, QObject * <i>parent</i> = 0 )</h3>
+<p>Constructs a Text Stream Object with <i>name</i>, stream open mode <i>defaultStreamMode</i> and parent object <i>parent</i>.</p>
+<h3 class="fn"><a name="dtor.TextStreamObject"></a>TextStreamObject::~TextStreamObject ()</h3>
+<p>Destroy the Text Stream Object.</p>
+<h3 class="fn"><a name="defaultStreamMode"></a>QIODevice::OpenMode TextStreamObject::defaultStreamMode () const</h3>
+<p>Get the default stream open mode.</p>
+<h3 class="fn"><a name="isDeleteStreamEmabled"></a>bool TextStreamObject::isDeleteStreamEmabled () const</h3>
+<p>Return if the stream object must be deleted by this object.</p>
+<h3 class="fn"><a name="name"></a>QString TextStreamObject::name () const</h3>
+<p>Get the stream name.</p>
+<h3 class="fn"><a name="setStream"></a>void TextStreamObject::setStream ( QTextStream * <i>textStream</i>, bool <i>forDelete</i> = false )</h3>
+<p>Set the stream object to <i>textStream</i>, and <i>forDelete</i> idicate if the stream must be delete by this object.</p>
+<p>See also <a href="textstreamobject.html#stream">stream</a>().</p>
+<h3 class="fn"><a name="setText"></a>void TextStreamObject::setText ( QString <i>text</i> )</h3>
+<p>Set the <i>text</i> used by the default stream.</p>
+<p>See also <a href="textstreamobject.html#text">text</a>().</p>
+<h3 class="fn"><a name="stream"></a>QTextStream * TextStreamObject::stream () const</h3>
+<p>Get the stream object.</p>
+<p>See also <a href="textstreamobject.html#setStream">setStream</a>().</p>
+<h3 class="fn"><a name="text"></a>QString TextStreamObject::text () const</h3>
+<p>Get the text used by the default stream.</p>
+<p>See also <a href="textstreamobject.html#setText">setText</a>().</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left"><!--Copyright &copy; %THISYEAR% Nokia Corporation and/or its subsidiary(-ies)--></td>
+<td width="40%" align="center"><a href="trademarks.html"><!--Trademarks--></a></td>
+<td width="30%" align="right"><div align="right">Plugigins</div></td>
+</tr></table></div></address></body>
+</html>

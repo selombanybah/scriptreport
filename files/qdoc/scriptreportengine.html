@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- scriptreportengine.cpp -->
+<head>
+  <title>ScriptReportEngine Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; <a href="classes.html"><font color="#004faf">All&nbsp;Classes</font></a>&nbsp;&middot; <a href="mainclasses.html"><font color="#004faf">Main&nbsp;Classes</font></a>&nbsp;&middot; <a href="functions.html"><font color="#004faf">Functions</font></a></td>
+<td align="right" valign="top" width="230"></td></tr></table><h1 class="title">ScriptReportEngine Class Reference</h1>
+<p>Class for render the resultant HTML of a Script Report. <a href="#details">More...</a></p>
+<pre> #include &lt;ScriptReportEngine&gt;</pre><ul>
+<li><a href="scriptreportengine-members.html">List of all members, including inherited members</a></li>
+</ul>
+<hr />
+<a name="public-functions"></a>
+<h2>Public Functions</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="scriptreportengine.html#ScriptReportEnginex">ScriptReportEngine</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual </td><td class="memItemRight" valign="bottom"><b><a href="scriptreportengine.html#dtor.ScriptReportEngine">~ScriptReportEngine</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreportengine.html#initEngine">initEngine</a></b> ( ScriptReport * <i>scriptReport</i>, QScriptEngine * <i>engine</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreportengine.html#loadPrintConfiguration">loadPrintConfiguration</a></b> ( ScriptReport * <i>scriptReport</i>, QPrinter * <i>printer</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreportengine.html#print">print</a></b> ( ScriptReport * <i>scriptReport</i>, QPrinter * <i>printer</i> )</td></tr>
+</table>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>Class for render the resultant HTML of a Script Report.</p>
+<p>The ScriptReportEngine class is the engine of Script Report, this class render and print the resultant HTML of a report. This class exists for add more backends (not supported at this momment) that <b>QTextDocument</b>.</p>
+<p><b>Warning:</b> Use <a href="scriptreport.html">ScriptReport</a> for run a Script Report.</p>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="ScriptReportEnginex"></a>ScriptReportEngine::ScriptReportEngine ()</h3>
+<p>Constructs a Script Report Engine.</p>
+<h3 class="fn"><a name="dtor.ScriptReportEngine"></a>ScriptReportEngine::~ScriptReportEngine ()&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Destroy the Script Report Engine.</p>
+<h3 class="fn"><a name="initEngine"></a>void ScriptReportEngine::initEngine ( <a href="scriptreport.html">ScriptReport</a> * <i>scriptReport</i>, QScriptEngine * <i>engine</i> )&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Initialize the Script Report Engine.</p>
+<p>Initialize the render backend, the script report taht use this backend is <i>scriptReport</i> and the engine for run the javascript is <i>engine</i>.</p>
+<h3 class="fn"><a name="loadPrintConfiguration"></a>void ScriptReportEngine::loadPrintConfiguration ( <a href="scriptreport.html">ScriptReport</a> * <i>scriptReport</i>, QPrinter * <i>printer</i> )&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Load the print configuration from <i>printer</i> for the script report <i>scriptReport</i>.</p>
+<p>This method is called when the script report load the print configuration.</p>
+<h3 class="fn"><a name="print"></a>void ScriptReportEngine::print ( <a href="scriptreport.html">ScriptReport</a> * <i>scriptReport</i>, QPrinter * <i>printer</i> )&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Print the script report <i>scriptReport</i> with the <i>printer</i>.</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left"><!--Copyright &copy; %THISYEAR% Nokia Corporation and/or its subsidiary(-ies)--></td>
+<td width="40%" align="center"><a href="trademarks.html"><!--Trademarks--></a></td>
+<td width="30%" align="right"><div align="right">Plugigins</div></td>
+</tr></table></div></address></body>
+</html>

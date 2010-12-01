@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QDOCINDEX>
+<INDEX url="" title="Script Report Documentation" version="">
+    <namespace access="public" threadsafety="unspecified" status="commendable" name="" href="" location="" module="">
+        <class access="public" threadsafety="unspecified" status="main" name="Shell" href="shell.html" location="shell.h" bases="" module="">
+            <property access="public" threadsafety="unspecified" status="commendable" name="useGlobalEngine" fullname="Shell::useGlobalEngine" href="shell.html#useGlobalEngine-prop" location="shell.h" type="bool">
+                <getter name="useGlobalEngine"/>
+                <setter name="setUseGlobalEngine"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="arguments" fullname="Shell::arguments" href="shell.html#arguments-prop" location="shell.h" type="QStringList">
+                <getter name="arguments"/>
+                <setter name="setArguments"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="fileName" fullname="Shell::fileName" href="shell.html#fileName-prop" location="shell.h" type="QString">
+                <getter name="fileName"/>
+                <setter name="setFileName"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="currentLineNumber" fullname="Shell::currentLineNumber" href="shell.html#currentLineNumber-prop" location="shell.h" type="int">
+                <getter name="currentLineNumber"/>
+                <setter name="setCurrentLineNumber"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="processEventsInterval" fullname="Shell::processEventsInterval" href="shell.html#processEventsInterval-prop" location="shell.h" type="int">
+                <getter name="processEventsInterval"/>
+                <setter name="setProcessEventsInterval"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="isExitCalled" fullname="Shell::isExitCalled" href="shell.html#isExitCalled-prop" location="shell.h" type="bool">
+                <getter name="isExitCalled"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="isEngineInitialized" fullname="Shell::isEngineInitialized" href="shell.html#isEngineInitialized-prop" location="shell.h" type="bool">
+                <getter name="isEngineInitialized"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="exitCode" fullname="Shell::exitCode" href="shell.html#exitCode-prop" location="shell.h" type="int">
+                <getter name="exitCode"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="version" fullname="Shell::version" href="shell.html#version-prop" location="shell.h" type="QString">
+                <getter name="version"/>
+            </property>
+            <function access="public" threadsafety="unspecified" status="commendable" name="Shell" fullname="Shell::Shell" href="shell.html#Shell" location="shell.cpp" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="Shell(QObject * parent)">
+                <parameter left="QObject *" right="" name="parent" default="0"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~Shell" fullname="Shell::~Shell" href="shell.html#dtor.Shell" location="shell.cpp" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~Shell()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="readCommand" fullname="Shell::readCommand" href="shell.html#readCommand" location="shell.h" virtual="pure" meta="plain" const="false" static="false" overload="false" type="QString" signature="readCommand()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="readAll" fullname="Shell::readAll" href="shell.html#readAll" location="shell.h" virtual="pure" meta="plain" const="false" static="false" overload="false" type="QString" signature="readAll(int &amp; finalLineNumber)">
+                <parameter left="int &amp;" right="" name="finalLineNumber" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="readSentence" fullname="Shell::readSentence" href="shell.html#readSentence" location="shell.h" virtual="pure" meta="plain" const="false" static="false" overload="false" type="QString" signature="readSentence(int &amp; finalLineNumber)">
+                <parameter left="int &amp;" right="" name="finalLineNumber" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="printForReadCommand" fullname="Shell::printForReadCommand" href="shell.html#printForReadCommand" location="shell.h" virtual="pure" meta="plain" const="false" static="false" overload="false" type="void" signature="printForReadCommand(const QScriptValue &amp; message, bool last)">
+                <parameter left="const QScriptValue &amp;" right="" name="message" default=""/>
+                <parameter left="bool" right="" name="last" default="true"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="printOut" fullname="Shell::printOut" href="shell.html#printOut" location="shell.h" virtual="pure" meta="plain" const="false" static="false" overload="false" type="void" signature="printOut(const QScriptValue &amp; message, bool last)">
+                <parameter left="const QScriptValue &amp;" right="" name="message" default=""/>
+                <parameter left="bool" right="" name="last" default="true"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="printErr" fullname="Shell::printErr" href="shell.html#printErr" location="shell.h" virtual="pure" meta="plain" const="false" static="false" overload="false" type="void" signature="printErr(const QScriptValue &amp; error, bool last)">
+                <parameter left="const QScriptValue &amp;" right="" name="error" default=""/>
+                <parameter left="bool" right="" name="last" default="true"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="printResult" fullname="Shell::printResult" href="shell.html#printResult" location="shell.cpp" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="printResult(const QScriptValue &amp; result)">
+                <parameter left="const QScriptValue &amp;" right="" name="result" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="printUncaughtException" fullname="Shell::printUncaughtException" href="shell.html#printUncaughtException" location="shell.cpp" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="printUncaughtException(const QScriptValue &amp; exception)">
+                <parameter left="const QScriptValue &amp;" right="" name="exception" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isCompleteSententence" fullname="Shell::isCompleteSententence" href="shell.html#isCompleteSententence" location="shell.cpp" virtual="non" meta="plain" const="false" static="true" overload="false" type="bool" signature="isCompleteSententence(QString sentence)">
+                <parameter left="QString" right="" name="sentence" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="helpMessage" fullname="Shell::helpMessage" href="shell.html#helpMessage" location="shell.cpp" virtual="non" meta="plain" const="false" static="true" overload="false" type="QString" signature="helpMessage()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="useGlobalEngine" fullname="Shell::useGlobalEngine" href="shell.html#useGlobalEngine-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="useGlobalEngine" type="bool" signature="useGlobalEngine() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setUseGlobalEngine" fullname="Shell::setUseGlobalEngine" href="shell.html#useGlobalEngine-prop" location="shell.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="useGlobalEngine" type="void" signature="setUseGlobalEngine(bool useGlobalEngine)">
+                <parameter left="bool" right="" name="useGlobalEngine" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="arguments" fullname="Shell::arguments" href="shell.html#arguments-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="arguments" type="QStringList" signature="arguments() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setArguments" fullname="Shell::setArguments" href="shell.html#arguments-prop" location="shell.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="arguments" type="void" signature="setArguments(QStringList arguments)">
+                <parameter left="QStringList" right="" name="arguments" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="fileName" fullname="Shell::fileName" href="shell.html#fileName-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="fileName" type="QString" signature="fileName() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setFileName" fullname="Shell::setFileName" href="shell.html#fileName-prop" location="shell.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="fileName" type="void" signature="setFileName(QString fileName)">
+                <parameter left="QString" right="" name="fileName" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="currentLineNumber" fullname="Shell::currentLineNumber" href="shell.html#currentLineNumber-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="currentLineNumber" type="int" signature="currentLineNumber() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setCurrentLineNumber" fullname="Shell::setCurrentLineNumber" href="shell.html#currentLineNumber-prop" location="shell.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="currentLineNumber" type="void" signature="setCurrentLineNumber(int currentLineNumber)">
+                <parameter left="int" right="" name="currentLineNumber" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="processEventsInterval" fullname="Shell::processEventsInterval" href="shell.html#processEventsInterval-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="processEventsInterval" type="int" signature="processEventsInterval() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setProcessEventsInterval" fullname="Shell::setProcessEventsInterval" href="shell.html#processEventsInterval-prop" location="shell.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="processEventsInterval" type="void" signature="setProcessEventsInterval(int interval)">
+                <parameter left="int" right="" name="interval" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isExitCalled" fullname="Shell::isExitCalled" href="shell.html#isExitCalled-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="isExitCalled" type="bool" signature="isExitCalled() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isEngineInitialized" fullname="Shell::isEngineInitialized" href="shell.html#isEngineInitialized-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="isEngineInitialized" type="bool" signature="isEngineInitialized() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="engine" fullname="Shell::engine" href="shell.html#engine" location="shell.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="QScriptEngine *" signature="engine()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="exitCode" fullname="Shell::exitCode" href="shell.html#exitCode-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="exitCode" type="int" signature="exitCode() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="version" fullname="Shell::version" href="shell.html#version-prop" location="shell.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="version" type="QString" signature="version() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="completeScriptExpression" fullname="Shell::completeScriptExpression" href="shell.html#completeScriptExpression" location="shell.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="QStringList" signature="completeScriptExpression(QString expression, int &amp; completitionStartAt, QString &amp; commonName)">
+                <parameter left="QString" right="" name="expression" default=""/>
+                <parameter left="int &amp;" right="" name="completitionStartAt" default=""/>
+                <parameter left="QString &amp;" right="" name="commonName" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="helpCommand" fullname="Shell::helpCommand" href="shell.html#helpCommand" location="shell.h" virtual="pure" meta="slot" const="false" static="false" overload="false" type="void" signature="helpCommand()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="exit" fullname="Shell::exit" href="shell.html#exit" location="shell.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="exit(int exitCode)">
+                <parameter left="int" right="" name="exitCode" default="0"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="runInteractive" fullname="Shell::runInteractive" href="shell.html#runInteractive" location="shell.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="runInteractive()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="runQuiet" fullname="Shell::runQuiet" href="shell.html#runQuiet" location="shell.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="runQuiet()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="runBatch" fullname="Shell::runBatch" href="shell.html#runBatch" location="shell.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="runBatch()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="runOneSentence" fullname="Shell::runOneSentence" href="shell.html#runOneSentence" location="shell.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="runOneSentence()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="runOneSentenceInteractive" fullname="Shell::runOneSentenceInteractive" href="shell.html#runOneSentenceInteractive" location="shell.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="runOneSentenceInteractive()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="reset" fullname="Shell::reset" href="shell.html#reset" location="shell.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="reset()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="finished" fullname="Shell::finished" href="shell.html#finished" location="shell.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="finished(int exitCode)">
+                <parameter left="int" right="" name="exitCode" default=""/>
+            </function>
+            <function access="protected" threadsafety="unspecified" status="commendable" name="initEngine" fullname="Shell::initEngine" href="shell.html#initEngine" location="shell.cpp" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="initEngine(QScriptEngine &amp; engine)">
+                <parameter left="QScriptEngine &amp;" right="" name="engine" default=""/>
+            </function>
+        </class>
+        <class access="public" threadsafety="unspecified" status="commendable" name="TextStreamObject" href="textstreamobject.html" location="textstreamobject.h" bases="" module="">
+            <function access="public" threadsafety="unspecified" status="commendable" name="TextStreamObject" fullname="TextStreamObject::TextStreamObject" href="textstreamobject.html#TextStreamObject" location="textstreamobject.cpp" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="TextStreamObject(QString name, QIODevice::OpenMode defaultStreamMode, QObject * parent)">
+                <parameter left="QString" right="" name="name" default=""/>
+                <parameter left="QIODevice::OpenMode" right="" name="defaultStreamMode" default=""/>
+                <parameter left="QObject *" right="" name="parent" default="0"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~TextStreamObject" fullname="TextStreamObject::~TextStreamObject" href="textstreamobject.html#dtor.TextStreamObject" location="textstreamobject.cpp" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~TextStreamObject()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="stream" fullname="TextStreamObject::stream" href="textstreamobject.html#stream" location="textstreamobject.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="QTextStream *" signature="stream() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setStream" fullname="TextStreamObject::setStream" href="textstreamobject.html#setStream" location="textstreamobject.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setStream(QTextStream * textStream, bool forDelete)">
+                <parameter left="QTextStream *" right="" name="textStream" default=""/>
+                <parameter left="bool" right="" name="forDelete" default="false"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="text" fullname="TextStreamObject::text" href="textstreamobject.html#text" location="textstreamobject.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="QString" signature="text() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setText" fullname="TextStreamObject::setText" href="textstreamobject.html#setText" location="textstreamobject.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setText(QString text)">
+                <parameter left="QString" right="" name="text" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="name" fullname="TextStreamObject::name" href="textstreamobject.html#name" location="textstreamobject.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="QString" signature="name() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="defaultStreamMode" fullname="TextStreamObject::defaultStreamMode" href="textstreamobject.html#defaultStreamMode" location="textstreamobject.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="QIODevice::OpenMode" signature="defaultStreamMode() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isDeleteStreamEmabled" fullname="TextStreamObject::isDeleteStreamEmabled" href="textstreamobject.html#isDeleteStreamEmabled" location="textstreamobject.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="bool" signature="isDeleteStreamEmabled() const"/>
+        </class>
+        <class access="public" threadsafety="unspecified" status="main" name="ScriptReport" href="scriptreport.html" location="scriptreport.h" bases="" module="">
+            <contents name="report-specification" title="Report Specification" level="1"/>
+            <contents name="runnning-a-report" title="Runnning a report" level="1"/>
+            <contents name="run-a-report" title="Run a report" level="2"/>
+            <contents name="run-a-report-showing-a-print-dialog" title="Run a report showing a print dialog" level="2"/>
+            <contents name="run-a-report-showing-a-print-preview" title="Run a report showing a print preview" level="2"/>
+            <property access="public" threadsafety="unspecified" status="commendable" name="isEditing" fullname="ScriptReport::isEditing" href="scriptreport.html#isEditing-prop" location="scriptreport.h" type="bool">
+                <getter name="isEditing"/>
+                <setter name="setEditing"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="isFinal" fullname="ScriptReport::isFinal" href="scriptreport.html#isFinal-prop" location="scriptreport.h" type="bool">
+                <getter name="isFinal"/>
+                <setter name="setFinal"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="isDebugging" fullname="ScriptReport::isDebugging" href="scriptreport.html#isDebugging-prop" location="scriptreport.h" type="bool">
+                <getter name="isDebugging"/>
+                <setter name="setDebugging"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="isPrintErrorEnabled" fullname="ScriptReport::isPrintErrorEnabled" href="scriptreport.html#isPrintErrorEnabled-prop" location="scriptreport.h" type="bool">
+                <getter name="isPrintErrorEnabled"/>
+                <setter name="setPrintErrorEnabled"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="arguments" fullname="ScriptReport::arguments" href="scriptreport.html#arguments-prop" location="scriptreport.h" type="QStringList">
+                <getter name="arguments"/>
+                <setter name="setArguments"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="previousScript" fullname="ScriptReport::previousScript" href="scriptreport.html#previousScript-prop" location="scriptreport.h" type="QString">
+                <getter name="previousScript"/>
+                <setter name="setPreviousScript"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="reportName" fullname="ScriptReport::reportName" href="scriptreport.html#reportName-prop" location="scriptreport.h" type="QString">
+                <getter name="reportName"/>
+                <setter name="setReportName"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="isWriteWithPrintFunctionTooEnabled" fullname="ScriptReport::isWriteWithPrintFunctionTooEnabled" href="scriptreport.html#isWriteWithPrintFunctionTooEnabled-prop" location="scriptreport.h" type="bool">
+                <getter name="isWriteWithPrintFunctionTooEnabled"/>
+                <setter name="setWriteWithPrintFunctionTooEnabled"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="intermediateCode" fullname="ScriptReport::intermediateCode" href="scriptreport.html#intermediateCode-prop" location="scriptreport.h" type="QString">
+                <getter name="intermediateCode"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="hasUncaughtException" fullname="ScriptReport::hasUncaughtException" href="scriptreport.html#hasUncaughtException-prop" location="scriptreport.h" type="bool">
+                <getter name="hasUncaughtException"/>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="errorMessage" fullname="ScriptReport::errorMessage" href="scriptreport.html#errorMessage-prop" location="scriptreport.h" type="QString">
+                <getter name="errorMessage"/>
+            </property>
+            <function access="public" threadsafety="unspecified" status="commendable" name="ScriptReport" fullname="ScriptReport::ScriptReport" href="scriptreport.html#ScriptReport" location="scriptreport.cpp" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="ScriptReport(QObject * parent)">
+                <parameter left="QObject *" right="" name="parent" default="0"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="ScriptReport" fullname="ScriptReport::ScriptReport" href="scriptreport.html#ScriptReport-2" location="scriptreport.cpp" virtual="non" meta="constructor" const="false" static="false" overload="true" overload-number="2" type="" signature="ScriptReport(QString reportName, QObject * parent)">
+                <parameter left="QString" right="" name="reportName" default=""/>
+                <parameter left="QObject *" right="" name="parent" default="0"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="ScriptReport" fullname="ScriptReport::ScriptReport" href="scriptreport.html#ScriptReport-3" location="scriptreport.cpp" virtual="non" meta="constructor" const="false" static="false" overload="true" overload-number="3" type="" signature="ScriptReport(QTextStream * inputStream, QString reportName, QObject * parent)">
+                <parameter left="QTextStream *" right="" name="inputStream" default=""/>
+                <parameter left="QString" right="" name="reportName" default=""/>
+                <parameter left="QObject *" right="" name="parent" default="0"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="ScriptReport" fullname="ScriptReport::ScriptReport" href="scriptreport.html#ScriptReport-4" location="scriptreport.cpp" virtual="non" meta="constructor" const="false" static="false" overload="true" overload-number="4" type="" signature="ScriptReport(QString input, QString reportName, QObject * parent)">
+                <parameter left="QString" right="" name="input" default=""/>
+                <parameter left="QString" right="" name="reportName" default=""/>
+                <parameter left="QObject *" right="" name="parent" default="0"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~ScriptReport" fullname="ScriptReport::~ScriptReport" href="scriptreport.html#dtor.ScriptReport" location="scriptreport.cpp" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~ScriptReport()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isEditing" fullname="ScriptReport::isEditing" href="scriptreport.html#isEditing-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="isEditing" type="bool" signature="isEditing() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setEditing" fullname="ScriptReport::setEditing" href="scriptreport.html#isEditing-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="isEditing" type="void" signature="setEditing(bool editing)">
+                <parameter left="bool" right="" name="editing" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isFinal" fullname="ScriptReport::isFinal" href="scriptreport.html#isFinal-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="isFinal" type="bool" signature="isFinal() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setFinal" fullname="ScriptReport::setFinal" href="scriptreport.html#isFinal-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="isFinal" type="void" signature="setFinal(bool final)">
+                <parameter left="bool" right="" name="final" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isDebugging" fullname="ScriptReport::isDebugging" href="scriptreport.html#isDebugging-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="isDebugging" type="bool" signature="isDebugging() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setDebugging" fullname="ScriptReport::setDebugging" href="scriptreport.html#isDebugging-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="isDebugging" type="void" signature="setDebugging(bool debugging)">
+                <parameter left="bool" right="" name="debugging" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isPrintErrorEnabled" fullname="ScriptReport::isPrintErrorEnabled" href="scriptreport.html#isPrintErrorEnabled-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="isPrintErrorEnabled" type="bool" signature="isPrintErrorEnabled() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setPrintErrorEnabled" fullname="ScriptReport::setPrintErrorEnabled" href="scriptreport.html#isPrintErrorEnabled-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="isPrintErrorEnabled" type="void" signature="setPrintErrorEnabled(bool isPrintErrorEnabled)">
+                <parameter left="bool" right="" name="isPrintErrorEnabled" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="arguments" fullname="ScriptReport::arguments" href="scriptreport.html#arguments-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="arguments" type="QStringList" signature="arguments() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setArguments" fullname="ScriptReport::setArguments" href="scriptreport.html#arguments-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="arguments" type="void" signature="setArguments(QStringList arguments)">
+                <parameter left="QStringList" right="" name="arguments" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="previousScript" fullname="ScriptReport::previousScript" href="scriptreport.html#previousScript-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="previousScript" type="QString" signature="previousScript() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setPreviousScript" fullname="ScriptReport::setPreviousScript" href="scriptreport.html#previousScript-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="previousScript" type="void" signature="setPreviousScript(QString previousScript)">
+                <parameter left="QString" right="" name="previousScript" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="reportName" fullname="ScriptReport::reportName" href="scriptreport.html#reportName-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="reportName" type="QString" signature="reportName() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setReportName" fullname="ScriptReport::setReportName" href="scriptreport.html#reportName-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="reportName" type="void" signature="setReportName(QString reportName)">
+                <parameter left="QString" right="" name="reportName" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isWriteWithPrintFunctionTooEnabled" fullname="ScriptReport::isWriteWithPrintFunctionTooEnabled" href="scriptreport.html#isWriteWithPrintFunctionTooEnabled-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="isWriteWithPrintFunctionTooEnabled" type="bool" signature="isWriteWithPrintFunctionTooEnabled() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setWriteWithPrintFunctionTooEnabled" fullname="ScriptReport::setWriteWithPrintFunctionTooEnabled" href="scriptreport.html#isWriteWithPrintFunctionTooEnabled-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="isWriteWithPrintFunctionTooEnabled" type="void" signature="setWriteWithPrintFunctionTooEnabled(bool isWriteWithPrintFunctionTooEnabled)">
+                <parameter left="bool" right="" name="isWriteWithPrintFunctionTooEnabled" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="input" fullname="ScriptReport::input" href="scriptreport.html#input" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="TextStreamObject *" signature="input() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="outputHeader" fullname="ScriptReport::outputHeader" href="scriptreport.html#outputHeader" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="const TextStreamObject *" signature="outputHeader() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="outputHeaderFirst" fullname="ScriptReport::outputHeaderFirst" href="scriptreport.html#outputHeaderFirst" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="const TextStreamObject *" signature="outputHeaderFirst() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="outputHeaderLast" fullname="ScriptReport::outputHeaderLast" href="scriptreport.html#outputHeaderLast" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="const TextStreamObject *" signature="outputHeaderLast() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="outputContent" fullname="ScriptReport::outputContent" href="scriptreport.html#outputContent" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="const TextStreamObject *" signature="outputContent() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="outputFooter" fullname="ScriptReport::outputFooter" href="scriptreport.html#outputFooter" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="const TextStreamObject *" signature="outputFooter() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="outputFooterFirst" fullname="ScriptReport::outputFooterFirst" href="scriptreport.html#outputFooterFirst" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="const TextStreamObject *" signature="outputFooterFirst() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="outputFooterLast" fullname="ScriptReport::outputFooterLast" href="scriptreport.html#outputFooterLast" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="const TextStreamObject *" signature="outputFooterLast() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="printOutput" fullname="ScriptReport::printOutput" href="scriptreport.html#printOutput" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="TextStreamObject *" signature="printOutput() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="scriptEngine" fullname="ScriptReport::scriptEngine" href="scriptreport.html#scriptEngine" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="QScriptEngine *" signature="scriptEngine()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="scriptReportEngine" fullname="ScriptReport::scriptReportEngine" href="scriptreport.html#scriptReportEngine" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="ScriptReportEngine *" signature="scriptReportEngine()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="intermediateCode" fullname="ScriptReport::intermediateCode" href="scriptreport.html#intermediateCode-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="intermediateCode" type="QString" signature="intermediateCode() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="hasUncaughtException" fullname="ScriptReport::hasUncaughtException" href="scriptreport.html#hasUncaughtException-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="hasUncaughtException" type="bool" signature="hasUncaughtException() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="errorMessage" fullname="ScriptReport::errorMessage" href="scriptreport.html#errorMessage-prop" location="scriptreport.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="errorMessage" type="QString" signature="errorMessage() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="loadPrintConfiguration" fullname="ScriptReport::loadPrintConfiguration" href="scriptreport.html#loadPrintConfiguration" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="loadPrintConfiguration(QPrinter * printer)">
+                <parameter left="QPrinter *" right="" name="printer" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="updateIntermediateCode" fullname="ScriptReport::updateIntermediateCode" href="scriptreport.html#updateIntermediateCode" location="scriptreport.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="updateIntermediateCode()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="run" fullname="ScriptReport::run" href="scriptreport.html#run" location="scriptreport.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="run()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="print" fullname="ScriptReport::print" href="scriptreport.html#print" location="scriptreport.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="print(QPrinter * printer)">
+                <parameter left="QPrinter *" right="" name="printer" default=""/>
+            </function>
+            <function access="protected" threadsafety="unspecified" status="commendable" name="initEngine" fullname="ScriptReport::initEngine" href="scriptreport.html#initEngine" location="scriptreport.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="initEngine()"/>
+        </class>
+        <class access="public" threadsafety="unspecified" status="commendable" name="SourceTransformer" href="sourcetransformer.html" location="sourcetransformer.h" bases="" module="">
+            <function access="public" threadsafety="unspecified" status="commendable" name="SourceTransformer" fullname="SourceTransformer::SourceTransformer" href="sourcetransformer.html#SourceTransformer" location="sourcetransformer.cpp" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="SourceTransformer(QTextStream * inputStream, QTextStream * outputStream)">
+                <parameter left="QTextStream *" right="" name="inputStream" default="0"/>
+                <parameter left="QTextStream *" right="" name="outputStream" default="0"/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~SourceTransformer" fullname="SourceTransformer::~SourceTransformer" href="sourcetransformer.html#dtor.SourceTransformer" location="sourcetransformer.cpp" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~SourceTransformer()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="transform" fullname="SourceTransformer::transform" href="sourcetransformer.html#transform" location="sourcetransformer.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="bool" signature="transform()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="inputStream" fullname="SourceTransformer::inputStream" href="sourcetransformer.html#inputStream" location="sourcetransformer.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="QTextStream *" signature="inputStream() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setInputStream" fullname="SourceTransformer::setInputStream" href="sourcetransformer.html#setInputStream" location="sourcetransformer.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setInputStream(QTextStream * inputStream)">
+                <parameter left="QTextStream *" right="" name="inputStream" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="outputStream" fullname="SourceTransformer::outputStream" href="sourcetransformer.html#outputStream" location="sourcetransformer.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" type="QTextStream *" signature="outputStream() const"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setOutputStream" fullname="SourceTransformer::setOutputStream" href="sourcetransformer.html#setOutputStream" location="sourcetransformer.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setOutputStream(QTextStream * outputStream)">
+                <parameter left="QTextStream *" right="" name="outputStream" default=""/>
+            </function>
+        </class>
+        <class access="public" threadsafety="unspecified" status="commendable" name="ScriptReportEngine" href="scriptreportengine.html" location="scriptreportengine.h" bases="" module="">
+            <function access="public" threadsafety="unspecified" status="commendable" name="ScriptReportEngine" fullname="ScriptReportEngine::ScriptReportEngine" href="scriptreportengine.html#ScriptReportEngine" location="scriptreportengine.cpp" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="ScriptReportEngine()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~ScriptReportEngine" fullname="ScriptReportEngine::~ScriptReportEngine" href="scriptreportengine.html#dtor.ScriptReportEngine" location="scriptreportengine.cpp" virtual="impure" meta="destructor" const="false" static="false" overload="false" type="" signature="~ScriptReportEngine()"/>
+            <function access="public" threadsafety="unspecified" status="commendable" name="loadPrintConfiguration" fullname="ScriptReportEngine::loadPrintConfiguration" href="scriptreportengine.html#loadPrintConfiguration" location="scriptreportengine.cpp" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="loadPrintConfiguration(ScriptReport * scriptReport, QPrinter * printer)">
+                <parameter left="ScriptReport *" right="" name="scriptReport" default=""/>
+                <parameter left="QPrinter *" right="" name="printer" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="print" fullname="ScriptReportEngine::print" href="scriptreportengine.html#print" location="scriptreportengine.cpp" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="print(ScriptReport * scriptReport, QPrinter * printer)">
+                <parameter left="ScriptReport *" right="" name="scriptReport" default=""/>
+                <parameter left="QPrinter *" right="" name="printer" default=""/>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="initEngine" fullname="ScriptReportEngine::initEngine" href="scriptreportengine.html#initEngine" location="scriptreportengine.cpp" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="initEngine(ScriptReport * scriptReport, QScriptEngine * engine)">
+                <parameter left="ScriptReport *" right="" name="scriptReport" default=""/>
+                <parameter left="QScriptEngine *" right="" name="engine" default=""/>
+            </function>
+        </class>
+        <page access="public" status="commendable" name="index.html" href="index.html" subtype="page" title="Script Report" fulltitle="Script Report" subtitle="" location="scriptreportengine.qdoc">
+            <contents name="main-classes" title="Main classes" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="classes.html" href="classes.html" subtype="page" title="Script Report Classes" fulltitle="Script Report Classes" subtitle="" location="scriptreportengine.qdoc"/>
+        <page access="public" status="commendable" name="mainclasses.html" href="mainclasses.html" subtype="page" title="Script Report Main Classes" fulltitle="Script Report Main Classes" subtitle="" location="scriptreportengine.qdoc"/>
+        <page access="public" status="commendable" name="functions.html" href="functions.html" subtype="page" title="Script Report Functions" fulltitle="Script Report Functions" subtitle="" location="scriptreportengine.qdoc"/>
+    </namespace>
+</INDEX>

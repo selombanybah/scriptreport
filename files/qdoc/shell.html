@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- shell.cpp -->
+<head>
+  <title>Shell Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; <a href="classes.html"><font color="#004faf">All&nbsp;Classes</font></a>&nbsp;&middot; <a href="mainclasses.html"><font color="#004faf">Main&nbsp;Classes</font></a>&nbsp;&middot; <a href="functions.html"><font color="#004faf">Functions</font></a></td>
+<td align="right" valign="top" width="230"></td></tr></table><h1 class="title">Shell Class Reference</h1>
+<p>Class for create a javascript shell. <a href="#details">More...</a></p>
+<pre> #include &lt;Shell&gt;</pre><ul>
+<li><a href="shell-members.html">List of all members, including inherited members</a></li>
+</ul>
+<hr />
+<a name="properties"></a>
+<h2>Properties</h2>
+<p><table class="propsummary" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr><td width="45%" valign="top"><ul>
+<li><div class="fn"><b><a href="shell.html#arguments-prop">arguments</a></b> : QStringList</div></li>
+<li><div class="fn"><b><a href="shell.html#currentLineNumber-prop">currentLineNumber</a></b> : int</div></li>
+<li><div class="fn"><b><a href="shell.html#exitCode-prop">exitCode</a></b> : const int</div></li>
+<li><div class="fn"><b><a href="shell.html#fileName-prop">fileName</a></b> : QString</div></li>
+<li><div class="fn"><b><a href="shell.html#isEngineInitialized-prop">isEngineInitialized</a></b> : const bool</div></li>
+</ul></td><td valign="top"><ul>
+<li><div class="fn"><b><a href="shell.html#isExitCalled-prop">isExitCalled</a></b> : const bool</div></li>
+<li><div class="fn"><b><a href="shell.html#processEventsInterval-prop">processEventsInterval</a></b> : int</div></li>
+<li><div class="fn"><b><a href="shell.html#useGlobalEngine-prop">useGlobalEngine</a></b> : bool</div></li>
+<li><div class="fn"><b><a href="shell.html#version-prop">version</a></b> : const QString</div></li>
+</ul>
+</td></tr>
+</table></p>
+<hr />
+<a name="public-functions"></a>
+<h2>Public Functions</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="shell.html#Shell">Shell</a></b> ( QObject * <i>parent</i> = 0 )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="shell.html#dtor.Shell">~Shell</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QStringList </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#arguments-prop">arguments</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QStringList </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#completeScriptExpression">completeScriptExpression</a></b> ( QString <i>expression</i>, int &amp; <i>completitionStartAt</i>, QString &amp; <i>commonName</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#currentLineNumber-prop">currentLineNumber</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QScriptEngine * </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#engine">engine</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#exitCode-prop">exitCode</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#fileName-prop">fileName</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#isEngineInitialized-prop">isEngineInitialized</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#isExitCalled-prop">isExitCalled</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#printErr">printErr</a></b> ( const QScriptValue &amp; <i>error</i>, bool <i>last</i> = true ) = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#printForReadCommand">printForReadCommand</a></b> ( const QScriptValue &amp; <i>message</i>, bool <i>last</i> = true ) = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#printOut">printOut</a></b> ( const QScriptValue &amp; <i>message</i>, bool <i>last</i> = true ) = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#printResult">printResult</a></b> ( const QScriptValue &amp; <i>result</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#printUncaughtException">printUncaughtException</a></b> ( const QScriptValue &amp; <i>exception</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#processEventsInterval-prop">processEventsInterval</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual QString </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#readAll">readAll</a></b> ( int &amp; <i>finalLineNumber</i> ) = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual QString </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#readCommand">readCommand</a></b> () = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual QString </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#readSentence">readSentence</a></b> ( int &amp; <i>finalLineNumber</i> ) = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#arguments-prop">setArguments</a></b> ( QStringList <i>arguments</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#currentLineNumber-prop">setCurrentLineNumber</a></b> ( int <i>currentLineNumber</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#fileName-prop">setFileName</a></b> ( QString <i>fileName</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#processEventsInterval-prop">setProcessEventsInterval</a></b> ( int <i>interval</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#useGlobalEngine-prop">setUseGlobalEngine</a></b> ( bool <i>useGlobalEngine</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#useGlobalEngine-prop">useGlobalEngine</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#version-prop">version</a></b> () const</td></tr>
+</table>
+<hr />
+<a name="public-slots"></a>
+<h2>Public Slots</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#exit">exit</a></b> ( int <i>exitCode</i> = 0 )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#helpCommand">helpCommand</a></b> () = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#reset">reset</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#runBatch">runBatch</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#runInteractive">runInteractive</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#runOneSentence">runOneSentence</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#runOneSentenceInteractive">runOneSentenceInteractive</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#runQuiet">runQuiet</a></b> ()</td></tr>
+</table>
+<hr />
+<a name="signals"></a>
+<h2>Signals</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#finished">finished</a></b> ( int <i>exitCode</i> )</td></tr>
+</table>
+<hr />
+<a name="static-public-members"></a>
+<h2>Static Public Members</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#helpMessage">helpMessage</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#isCompleteSententence">isCompleteSententence</a></b> ( QString <i>sentence</i> )</td></tr>
+</table>
+<hr />
+<a name="protected-functions"></a>
+<h2>Protected Functions</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">virtual void </td><td class="memItemRight" valign="bottom"><b><a href="shell.html#initEngine">initEngine</a></b> ( QScriptEngine &amp; <i>engine</i> )</td></tr>
+</table>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>Class for create a javascript shell.</p>
+<p>The Shell class allow to create javascript shell in console or with GUI.</p>
+<hr />
+<h2>Property Documentation</h2>
+<h3 class="fn"><a name="arguments-prop"></a>arguments : QStringList</h3>
+<p>This property specifies the script arguments.</p>
+<p>This is avaiable in the script with <tt>sr.engine.arguments</tt></p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QStringList </td><td class="memItemRight" valign="bottom"><b>arguments</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setArguments</b> ( QStringList <i>arguments</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="currentLineNumber-prop"></a>currentLineNumber : int</h3>
+<p>Specifies the line number of the next sentence.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">int </td><td class="memItemRight" valign="bottom"><b>currentLineNumber</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setCurrentLineNumber</b> ( int <i>currentLineNumber</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="exitCode-prop"></a>exitCode : const int</h3>
+<p>This property specifies the exit code with the shell exit.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">int </td><td class="memItemRight" valign="bottom"><b>exitCode</b> () const</td></tr>
+</table>
+<p>See also <a href="shell.html#exit">exit</a>() and <a href="shell.html#isExitCalled-prop">isExitCalled</a>.</p>
+<h3 class="fn"><a name="fileName-prop"></a>fileName : QString</h3>
+<p>Specifies the script file name.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b>fileName</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setFileName</b> ( QString <i>fileName</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="isEngineInitialized-prop"></a>isEngineInitialized : const bool</h3>
+<p>Return if the script engine is initialized.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>isEngineInitialized</b> () const</td></tr>
+</table>
+<p>See also <a href="shell.html#initEngine">initEngine</a>().</p>
+<h3 class="fn"><a name="isExitCalled-prop"></a>isExitCalled : const bool</h3>
+<p>Return if <a href="shell.html#exit">exit</a>() method is called.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>isExitCalled</b> () const</td></tr>
+</table>
+<p>See also <a href="shell.html#exit">exit</a>() and <a href="shell.html#exitCode-prop">exitCode</a>.</p>
+<h3 class="fn"><a name="processEventsInterval-prop"></a>processEventsInterval : int</h3>
+<p>Specifies the script engine process interval. See <b>QScriptEngine::processEventsInterval()</b> for more information.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">int </td><td class="memItemRight" valign="bottom"><b>processEventsInterval</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setProcessEventsInterval</b> ( int <i>interval</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="useGlobalEngine-prop"></a>useGlobalEngine : bool</h3>
+<p>Specifies if put all members of the <tt>sr.engine</tt> object in the global space.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>useGlobalEngine</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setUseGlobalEngine</b> ( bool <i>useGlobalEngine</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="version-prop"></a>version : const QString</h3>
+<p>Specifies the current shell version</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b>version</b> () const</td></tr>
+</table>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="Shell"></a>Shell::Shell ( QObject * <i>parent</i> = 0 )</h3>
+<p>Constructs a Shell with parent object <i>parent</i>.</p>
+<h3 class="fn"><a name="dtor.Shell"></a>Shell::~Shell ()</h3>
+<p>Destroy the Shell.</p>
+<h3 class="fn"><a name="completeScriptExpression"></a>QStringList Shell::completeScriptExpression ( QString <i>expression</i>, int &amp; <i>completitionStartAt</i>, QString &amp; <i>commonName</i> )</h3>
+<p>Find completitions of a javascript <i>expression</i>. Find and return all posible completitions of a javascript <i>expression</i>. As output arguments <i>completitionStartAt</i> contains the positions at the <i>expression</i> when the completion posibilities start and <i>commonName</i> contains the common text between all posibilities of completition.</p>
+<h3 class="fn"><a name="engine"></a>QScriptEngine * Shell::engine ()</h3>
+<p>Return the script engine used for run the sentences.</p>
+<h3 class="fn"><a name="exit"></a>void Shell::exit ( int <i>exitCode</i> = 0 )&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Exit the shell with exit code <i>exitCode</i>.</p>
+<p>See also <a href="shell.html#exitCode-prop">exitCode</a> and <a href="shell.html#isExitCalled-prop">isExitCalled</a>.</p>
+<h3 class="fn"><a name="finished"></a>void Shell::finished ( int <i>exitCode</i> )&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p>Signal emmited when <a href="shell.html#exit">exit</a>() method is called with <i>exitCode</i>.</p>
+<p>See also <a href="shell.html#exit">exit</a>(), <a href="shell.html#exitCode-prop">exitCode</a>, and <a href="shell.html#isExitCalled-prop">isExitCalled</a>.</p>
+<h3 class="fn"><a name="helpCommand"></a>void Shell::helpCommand ()&nbsp;&nbsp;<tt> [pure virtual slot]</tt></h3>
+<p>Show the help. This is called by <tt>sr.engine.help()</tt>.</p>
+<h3 class="fn"><a name="helpMessage"></a>QString Shell::helpMessage ()&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>Return the default help message.</p>
+<h3 class="fn"><a name="initEngine"></a>void Shell::initEngine ( QScriptEngine &amp; <i>engine</i> )&nbsp;&nbsp;<tt> [virtual protected]</tt></h3>
+<p>Initialize the script <i>engine</i>.</p>
+<p>See also <a href="shell.html#isEngineInitialized-prop">isEngineInitialized</a>.</p>
+<h3 class="fn"><a name="isCompleteSententence"></a>bool Shell::isCompleteSententence ( QString <i>sentence</i> )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>Return if <i>sentence</i> is a complete sentence.</p>
+<h3 class="fn"><a name="printErr"></a>void Shell::printErr ( const QScriptValue &amp; <i>error</i>, bool <i>last</i> = true )&nbsp;&nbsp;<tt> [pure virtual]</tt></h3>
+<p>Print a <i>error</i> as output required by the script, the argument <i>last</i> indicate if is the last error to print. This is called by <tt>sr.engine.error()</tt>.</p>
+<h3 class="fn"><a name="printForReadCommand"></a>void Shell::printForReadCommand ( const QScriptValue &amp; <i>message</i>, bool <i>last</i> = true )&nbsp;&nbsp;<tt> [pure virtual]</tt></h3>
+<p>Print a <i>message</i> previous to read a text required by the script, the argument <i>last</i> indicate if it is the last menssage to print previous to read the text. This is called by <tt>sr.engine.read()</tt>.</p>
+<p>See also <a href="shell.html#readCommand">readCommand</a>().</p>
+<h3 class="fn"><a name="printOut"></a>void Shell::printOut ( const QScriptValue &amp; <i>message</i>, bool <i>last</i> = true )&nbsp;&nbsp;<tt> [pure virtual]</tt></h3>
+<p>Print a <i>message</i> as output required by the script, the argument <i>last</i> indicate if is the last message to print. This is called by <tt>sr.engine.print()</tt>.</p>
+<h3 class="fn"><a name="printResult"></a>void Shell::printResult ( const QScriptValue &amp; <i>result</i> )&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Print an evaluation <i>result</i>.</p>
+<p><b>Note</b>: The default implementation call <a href="shell.html#printOut">printOut</a>().</p>
+<h3 class="fn"><a name="printUncaughtException"></a>void Shell::printUncaughtException ( const QScriptValue &amp; <i>exception</i> )&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Print an uncaught <i>exception</i>.</p>
+<p><b>Note</b>: The default implementation call <a href="shell.html#printErr">printErr</a>().</p>
+<h3 class="fn"><a name="readAll"></a>QString Shell::readAll ( int &amp; <i>finalLineNumber</i> )&nbsp;&nbsp;<tt> [pure virtual]</tt></h3>
+<p>Read all available text for run as script. As output argument <i>finalLineNumber</i> contains the line of the next sentence.</p>
+<h3 class="fn"><a name="readCommand"></a>QString Shell::readCommand ()&nbsp;&nbsp;<tt> [pure virtual]</tt></h3>
+<p>Read a text required by the script. This is called by <tt>sr.engine.read()</tt>.</p>
+<p>See also <a href="shell.html#printForReadCommand">printForReadCommand</a>().</p>
+<h3 class="fn"><a name="readSentence"></a>QString Shell::readSentence ( int &amp; <i>finalLineNumber</i> )&nbsp;&nbsp;<tt> [pure virtual]</tt></h3>
+<p>Read one sentence for run as script. As output argument <i>finalLineNumber</i> contains the line of the next sentence.</p>
+<h3 class="fn"><a name="reset"></a>void Shell::reset ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Reset the shell.</p>
+<h3 class="fn"><a name="runBatch"></a>void Shell::runBatch ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Run the shell as batch mode, when the shell run all available text and not write the result.</p>
+<h3 class="fn"><a name="runInteractive"></a>void Shell::runInteractive ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Run the shell as interactive mode, when the shell run all available text, sentence by sentence, and write the result.</p>
+<h3 class="fn"><a name="runOneSentence"></a>void Shell::runOneSentence ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Run one sentence in the shell, when the shell read a sentence and not write the result.</p>
+<h3 class="fn"><a name="runOneSentenceInteractive"></a>void Shell::runOneSentenceInteractive ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Run one sentence in the shell, when the shell read a sentence and write the result.</p>
+<h3 class="fn"><a name="runQuiet"></a>void Shell::runQuiet ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Run the shell as interactive quiet mode, when the shell run all available text, sentence by sentence, and not write the result.</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left"><!--Copyright &copy; %THISYEAR% Nokia Corporation and/or its subsidiary(-ies)--></td>
+<td width="40%" align="center"><a href="trademarks.html"><!--Trademarks--></a></td>
+<td width="30%" align="right"><div align="right">Plugigins</div></td>
+</tr></table></div></address></body>
+</html>

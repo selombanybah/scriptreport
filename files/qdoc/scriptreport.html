@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- scriptreport.cpp -->
+<head>
+  <title>ScriptReport Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; <a href="classes.html"><font color="#004faf">All&nbsp;Classes</font></a>&nbsp;&middot; <a href="mainclasses.html"><font color="#004faf">Main&nbsp;Classes</font></a>&nbsp;&middot; <a href="functions.html"><font color="#004faf">Functions</font></a></td>
+<td align="right" valign="top" width="230"></td></tr></table><h1 class="title">ScriptReport Class Reference</h1>
+<p>Class for run reports. <a href="#details">More...</a></p>
+<pre> #include &lt;ScriptReport&gt;</pre><ul>
+<li><a href="scriptreport-members.html">List of all members, including inherited members</a></li>
+</ul>
+<hr />
+<a name="properties"></a>
+<h2>Properties</h2>
+<p><table class="propsummary" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr><td width="45%" valign="top"><ul>
+<li><div class="fn"><b><a href="scriptreport.html#arguments-prop">arguments</a></b> : QStringList</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#errorMessage-prop">errorMessage</a></b> : const QString</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#hasUncaughtException-prop">hasUncaughtException</a></b> : const bool</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#intermediateCode-prop">intermediateCode</a></b> : const QString</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#isDebugging-prop">isDebugging</a></b> : bool</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#isEditing-prop">isEditing</a></b> : bool</div></li>
+</ul></td><td valign="top"><ul>
+<li><div class="fn"><b><a href="scriptreport.html#isFinal-prop">isFinal</a></b> : bool</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#isPrintErrorEnabled-prop">isPrintErrorEnabled</a></b> : bool</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#isWriteWithPrintFunctionTooEnabled-prop">isWriteWithPrintFunctionTooEnabled</a></b> : bool</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#previousScript-prop">previousScript</a></b> : QString</div></li>
+<li><div class="fn"><b><a href="scriptreport.html#reportName-prop">reportName</a></b> : QString</div></li>
+</ul>
+</td></tr>
+</table></p>
+<hr />
+<a name="public-functions"></a>
+<h2>Public Functions</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#ScriptReport">ScriptReport</a></b> ( QObject * <i>parent</i> = 0 )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#ScriptReport-2">ScriptReport</a></b> ( QString <i>reportName</i>, QObject * <i>parent</i> = 0 )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#ScriptReport-3">ScriptReport</a></b> ( QTextStream * <i>inputStream</i>, QString <i>reportName</i>, QObject * <i>parent</i> = 0 )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#ScriptReport-4">ScriptReport</a></b> ( QString <i>input</i>, QString <i>reportName</i>, QObject * <i>parent</i> = 0 )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"></td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#dtor.ScriptReport">~ScriptReport</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QStringList </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#arguments-prop">arguments</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#errorMessage-prop">errorMessage</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#hasUncaughtException-prop">hasUncaughtException</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#input">input</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#intermediateCode-prop">intermediateCode</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isDebugging-prop">isDebugging</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isEditing-prop">isEditing</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isFinal-prop">isFinal</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isPrintErrorEnabled-prop">isPrintErrorEnabled</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isWriteWithPrintFunctionTooEnabled-prop">isWriteWithPrintFunctionTooEnabled</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#loadPrintConfiguration">loadPrintConfiguration</a></b> ( QPrinter * <i>printer</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#outputContent">outputContent</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#outputFooter">outputFooter</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#outputFooterFirst">outputFooterFirst</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#outputFooterLast">outputFooterLast</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#outputHeader">outputHeader</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#outputHeaderFirst">outputHeaderFirst</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#outputHeaderLast">outputHeaderLast</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#previousScript-prop">previousScript</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">TextStreamObject * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#printOutput">printOutput</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#reportName-prop">reportName</a></b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QScriptEngine * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#scriptEngine">scriptEngine</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">ScriptReportEngine * </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#scriptReportEngine">scriptReportEngine</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#arguments-prop">setArguments</a></b> ( QStringList <i>arguments</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isDebugging-prop">setDebugging</a></b> ( bool <i>debugging</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isEditing-prop">setEditing</a></b> ( bool <i>editing</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isFinal-prop">setFinal</a></b> ( bool <i>final</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#previousScript-prop">setPreviousScript</a></b> ( QString <i>previousScript</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isPrintErrorEnabled-prop">setPrintErrorEnabled</a></b> ( bool <i>isPrintErrorEnabled</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#reportName-prop">setReportName</a></b> ( QString <i>reportName</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#isWriteWithPrintFunctionTooEnabled-prop">setWriteWithPrintFunctionTooEnabled</a></b> ( bool <i>isWriteWithPrintFunctionTooEnabled</i> )</td></tr>
+</table>
+<hr />
+<a name="public-slots"></a>
+<h2>Public Slots</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#print">print</a></b> ( QPrinter * <i>printer</i> )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#run">run</a></b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#updateIntermediateCode">updateIntermediateCode</a></b> ()</td></tr>
+</table>
+<hr />
+<a name="protected-functions"></a>
+<h2>Protected Functions</h2>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b><a href="scriptreport.html#initEngine">initEngine</a></b> ()</td></tr>
+</table>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>Class for run reports.</p>
+<p>The ScriptReport class allow to run reports created for the Script Report System.</p>
+<ul><li><a href="#report-specification">Report Specification</a></li>
+<li><a href="#runnning-a-report">Runnning a report</a></li>
+<ul><li><a href="#run-a-report">Run a report</a></li>
+<li><a href="#run-a-report-showing-a-print-dialog">Run a report showing a print dialog</a></li>
+<li><a href="#run-a-report-showing-a-print-preview">Run a report showing a print preview</a></li>
+</ul>
+</ul>
+<a name="report-specification"></a>
+<h3>Report Specification</h3>
+<p>All html tags supported by Qt are supported by the Script Report System, see Html Subset tab in the Script Report Editor for more information, and for see the Script Report specific tags. See JavaScript functions tab in the Script Report Editor for more information about JavaScript objects.</p>
+<a name="runnning-a-report"></a>
+<h3>Runnning a report</h3>
+<a name="run-a-report"></a>
+<h4>Run a report</h4>
+<pre> QPrinter printer;
+ ScriptReport sr(&quot;myReport.srt&quot;);
+ sr.print(&amp;printer);</pre>
+<a name="run-a-report-showing-a-print-dialog"></a>
+<h4>Run a report showing a print dialog</h4>
+<pre> QPrinter printer;
+ QPrintDialog printDialog(&amp;printer);
+ if (printDialog.exec() == QDialog::Accepted) {
+     ScriptReport sr(&quot;myReport.srt&quot;);
+     sr.print(&amp;printer);
+ }</pre>
+<a name="run-a-report-showing-a-print-preview"></a>
+<h4>Run a report showing a print preview</h4>
+<pre> ScriptReport *sr = new ScriptReport(&quot;myReport.srt&quot;);
+ QPrintPreviewDialog *p = new QPrintPreviewDialog();
+ connect(p, SIGNAL(paintRequested(QPrinter*)), sr, SLOT(print(QPrinter*)));
+ p-&gt;exec();
+ delete p;
+ delete sr;</pre>
+<hr />
+<h2>Property Documentation</h2>
+<h3 class="fn"><a name="arguments-prop"></a>arguments : QStringList</h3>
+<p>This property specifies the script arguments.</p>
+<p>This is avaiable in the script with <tt>sr.engine.arguments</tt></p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QStringList </td><td class="memItemRight" valign="bottom"><b>arguments</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setArguments</b> ( QStringList <i>arguments</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="errorMessage-prop"></a>errorMessage : const QString</h3>
+<p>Contains the last uncaught exception menssage, resulted of the las script evaluation (report run).</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b>errorMessage</b> () const</td></tr>
+</table>
+<p>See also <a href="scriptreport.html#hasUncaughtException-prop">ScriptReport::hasUncaughtException</a> and <a href="scriptreport.html#run">ScriptReport::run</a>().</p>
+<h3 class="fn"><a name="hasUncaughtException-prop"></a>hasUncaughtException : const bool</h3>
+<p>Specifies if the last script evaluation (report run) resulted in an uncaught exception.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>hasUncaughtException</b> () const</td></tr>
+</table>
+<p>See also <a href="scriptreport.html#errorMessage-prop">ScriptReport::errorMessage</a> and <a href="scriptreport.html#run">ScriptReport::run</a>().</p>
+<h3 class="fn"><a name="intermediateCode-prop"></a>intermediateCode : const QString</h3>
+<p>Contains the report transformed to javascript (when it is generated).</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b>intermediateCode</b> () const</td></tr>
+</table>
+<p>See also <a href="scriptreport.html#updateIntermediateCode">ScriptReport::updateIntermediateCode</a>().</p>
+<h3 class="fn"><a name="isDebugging-prop"></a>isDebugging : bool</h3>
+<p>This property specifies if the report is running in debugging mode.</p>
+<p>This property's default is false.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>isDebugging</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setDebugging</b> ( bool <i>debugging</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="isEditing-prop"></a>isEditing : bool</h3>
+<p>This property specifies if the report is running in editing mode.</p>
+<p>This property's default is false.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>isEditing</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setEditing</b> ( bool <i>editing</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="isFinal-prop"></a>isFinal : bool</h3>
+<p>This property specifies if the report is not running in editing mode.</p>
+<p>This property's default is true.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>isFinal</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setFinal</b> ( bool <i>final</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="isPrintErrorEnabled-prop"></a>isPrintErrorEnabled : bool</h3>
+<p>This property specifies if an error occurs it will be printed.</p>
+<p>This property's default is true.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>isPrintErrorEnabled</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setPrintErrorEnabled</b> ( bool <i>isPrintErrorEnabled</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="isWriteWithPrintFunctionTooEnabled-prop"></a>isWriteWithPrintFunctionTooEnabled : bool</h3>
+<p>This property specifies if use the  function to write the sections. This is usefull for the debugger.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">bool </td><td class="memItemRight" valign="bottom"><b>isWriteWithPrintFunctionTooEnabled</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setWriteWithPrintFunctionTooEnabled</b> ( bool <i>isWriteWithPrintFunctionTooEnabled</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="previousScript-prop"></a>previousScript : QString</h3>
+<p>This property specifies the script that will be run before run the report.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b>previousScript</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setPreviousScript</b> ( QString <i>previousScript</i> )</td></tr>
+</table>
+<h3 class="fn"><a name="reportName-prop"></a>reportName : QString</h3>
+<p>This property specifies the report file name.</p>
+<p><b>Access functions:</b></p>
+<table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="memItemLeft" align="right" valign="top">QString </td><td class="memItemRight" valign="bottom"><b>reportName</b> () const</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void </td><td class="memItemRight" valign="bottom"><b>setReportName</b> ( QString <i>reportName</i> )</td></tr>
+</table>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="ScriptReport"></a>ScriptReport::ScriptReport ( QObject * <i>parent</i> = 0 )</h3>
+<p>Constructs a Script Report with parent object <i>parent</i>.</p>
+<h3 class="fn"><a name="ScriptReport-2"></a>ScriptReport::ScriptReport ( QString <i>reportName</i>, QObject * <i>parent</i> = 0 )</h3>
+<p>Constructs a Script Report with parent object <i>parent</i> and load the report with name <i>reportName</i>.</p>
+<h3 class="fn"><a name="ScriptReport-3"></a>ScriptReport::ScriptReport ( QTextStream * <i>inputStream</i>, QString <i>reportName</i>, QObject * <i>parent</i> = 0 )</h3>
+<p>Constructs a Script Report with parent object <i>parent</i> and set the input stream to <i>inputStream</i> and the report name to <i>reportName</i>.</p>
+<h3 class="fn"><a name="ScriptReport-4"></a>ScriptReport::ScriptReport ( QString <i>input</i>, QString <i>reportName</i>, QObject * <i>parent</i> = 0 )</h3>
+<p>Constructs a Script Report with parent object <i>parent</i>, read the script from <i>input</i> and set the report name to <i>reportName</i>.</p>
+<h3 class="fn"><a name="dtor.ScriptReport"></a>ScriptReport::~ScriptReport ()</h3>
+<p>Destroy the Script Report.</p>
+<h3 class="fn"><a name="initEngine"></a>void ScriptReport::initEngine ()&nbsp;&nbsp;<tt> [protected]</tt></h3>
+<p>Initialize the Qt Script Engine for run the script</p>
+<h3 class="fn"><a name="input"></a><a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::input () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the input stream.</p>
+<h3 class="fn"><a name="loadPrintConfiguration"></a>void ScriptReport::loadPrintConfiguration ( QPrinter * <i>printer</i> )</h3>
+<p>Load the print configuration from <i>printer</i>, this configurations will be available in the <tt>sr.report</tt> javascript objects.</p>
+<h3 class="fn"><a name="outputContent"></a>const <a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::outputContent () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the output stream of the <tt>content</tt> section.</p>
+<h3 class="fn"><a name="outputFooter"></a>const <a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::outputFooter () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the output stream of the <tt>footer</tt> section.</p>
+<h3 class="fn"><a name="outputFooterFirst"></a>const <a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::outputFooterFirst () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the output stream of the <tt>footerFirst</tt> section (the footer of the first page).</p>
+<h3 class="fn"><a name="outputFooterLast"></a>const <a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::outputFooterLast () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the output stream of the <tt>footerFirst</tt> section (the footer of the last page).</p>
+<h3 class="fn"><a name="outputHeader"></a>const <a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::outputHeader () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the output stream of the <tt>header</tt> section.</p>
+<h3 class="fn"><a name="outputHeaderFirst"></a>const <a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::outputHeaderFirst () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the output stream of the <tt>headerFirst</tt> section (the header of the first page).</p>
+<h3 class="fn"><a name="outputHeaderLast"></a>const <a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::outputHeaderLast () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the output stream of the <tt>headerLast</tt> section (the header of the last page).</p>
+<h3 class="fn"><a name="print"></a>void ScriptReport::print ( QPrinter * <i>printer</i> )&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Print the report with the <i>printer</i>.</p>
+<p><b>Note</b>: If <tt>run()</tt> is not runned it will be run; if <tt>run()</tt> and <tt>loadPrintConfiguration(QPrinter*)</tt> both is not runned they will be runned.</p>
+<h3 class="fn"><a name="printOutput"></a><a href="textstreamobject.html">TextStreamObject</a> * ScriptReport::printOutput () const</h3>
+<p>Return the <tt>TextStreamObject</tt> that handle the output stream of the <tt>print</tt> function.</p>
+<h3 class="fn"><a name="run"></a>void ScriptReport::run ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Run the intermedial javascript for generate HTML sections code.</p>
+<p><b>Note</b>: If <tt>updateIntermediateCode()</tt> or <tt>initEngine()</tt> is not runned they will be run.</p>
+<h3 class="fn"><a name="scriptEngine"></a>QScriptEngine * ScriptReport::scriptEngine ()</h3>
+<p>Return the script engine of the javascript run enviroment.</p>
+<h3 class="fn"><a name="scriptReportEngine"></a><a href="scriptreportengine.html">ScriptReportEngine</a> * ScriptReport::scriptReportEngine ()</h3>
+<p>Return the script report engine use for render the resultant HTML.</p>
+<h3 class="fn"><a name="updateIntermediateCode"></a>void ScriptReport::updateIntermediateCode ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Transform the report to javascript.</p>
+<p>See also <a href="scriptreport.html#intermediateCode-prop">ScriptReport::intermediateCode</a>.</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left"><!--Copyright &copy; %THISYEAR% Nokia Corporation and/or its subsidiary(-ies)--></td>
+<td width="40%" align="center"><a href="trademarks.html"><!--Trademarks--></a></td>
+<td width="30%" align="right"><div align="right">Plugigins</div></td>
+</tr></table></div></address></body>
+</html>
