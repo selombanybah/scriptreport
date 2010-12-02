@@ -91,6 +91,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->shellDockWidget->setVisible(false);
     updateNoFile();
+
+    QStringList arguments = QCoreApplication::arguments();
+    if (arguments.length() > 1) {
+        load(arguments[1]);
+    }
 }
 
 MainWindow::~MainWindow()
