@@ -48,6 +48,15 @@ The compiled files will be generated in the compiled folder, the exactly name de
   * *scriptreporteditor*: executable with the script report editor.
   * *srshqg*: executable with a javascript console shell with support to *Qt Gui module*.
 
+= How build it =
+
+For compile the application run:
+
+{{{
+$> qmake -recursive scriptreport.pro
+$> make
+}}}
+
 = How use it =
 
 *Warning*: don't forget add the `scriptreportengine` library to your project folder and add the QScript plugins if you want to use them.
