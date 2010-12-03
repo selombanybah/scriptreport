@@ -14,6 +14,23 @@ This product uses software developed by:
 
 For source availability and license information see copying.txt.
 
+How build it:
+
+For compile the application run:
+
+$> qmake -recursive scriptreport.pro
+$> make
+
+The compilation result will be in the compiled folder.
+
+How build the documentation:
+
+For generate the documentation open the doc folder and run:
+
+$> qdoc3 scriptreportengine.qdocconf
+
+The generated documentation will be in the doc/html folder, for see it open the index.html file. 
+
 Authors:
 * Juan Luis Paz, juanluispaz@gmail.com
 
