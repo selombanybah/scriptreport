@@ -57,6 +57,18 @@ $> qmake -recursive scriptreport.pro
 $> make
 }}}
 
+The compilation result will be in the `compiled` folder.
+
+= How build the documentation =
+
+For generate the documentation open the `doc` folder and run:
+
+{{{
+$> qdoc3 scriptreportengine.qdocconf
+}}}
+
+The generated documentation will be in the `doc/html` folder, for see it open the `index.html` file.
+
 = How use it =
 
 *Warning*: don't forget add the `scriptreportengine` library to your project folder and add the QScript plugins if you want to use them.
