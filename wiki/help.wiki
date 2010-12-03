@@ -1,4 +1,5 @@
 #summary Help
+#labels Featured
 
 = Content =
 
