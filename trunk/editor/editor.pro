@@ -52,3 +52,25 @@ HEADERS += mainwindow.h \
 FORMS += mainwindow.ui \
     shellform.ui
 RESOURCES += scriptreporteditor.qrc
+TRANSLATIONS = translations/scriptreporteditor_es.ts \
+    translations/scriptreporteditor_ru.ts
+
+#release translations
+isEmpty(QMAKE_LRELEASE) {
+    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
+    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+    unix {
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease-qt4 }
+    } else {
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease }
+    }
+}
+
+lrelease.input = TRANSLATIONS
+lrelease.output = ../compiled/translations/${QMAKE_FILE_BASE}.qm
+lrelease.commands = $$QMAKE_LRELEASE -silent ${QMAKE_FILE_IN} -qm ../compiled/translations/${QMAKE_FILE_BASE}.qm
+lrelease.CONFIG += no_link target_predeps
+QMAKE_EXTRA_COMPILERS += updateqm
+
+#for add a dependency
+#lrelease.depends = lupdate

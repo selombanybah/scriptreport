@@ -17,6 +17,9 @@
  * along with Script Report.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QtCore/QTranslator>
+#include <QtCore/QLibraryInfo>
+#include <QtCore/QLocale>
 #include <QtGui/QApplication>
 #include "mainwindow.h"
 
@@ -25,6 +28,16 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setApplicationName(MainWindow::tr("Script Report Editor"));
     a.setApplicationVersion(QString::fromLatin1(APP_VERSION));
+
+    QTranslator qtTranslator;
+    qtTranslator.load(QString::fromLatin1("qt_") + QLocale::system().name(),
+            QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    a.installTranslator(&qtTranslator);
+
+    QTranslator sreTranslator;
+    sreTranslator.load(QString::fromLatin1("translations/scriptreporteditor_") + QLocale::system().name());
+    a.installTranslator(&sreTranslator);
+
     MainWindow w;
     w.show();
     return a.exec();

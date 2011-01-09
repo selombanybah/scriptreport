@@ -22,7 +22,7 @@ DEFINES += QT_NO_CAST_FROM_ASCII \
 
 # The application version
 VERSION_MAJOR = 0
-VERSION = $${VERSION_MAJOR}.1
+VERSION = $${VERSION_MAJOR}.2
 
 # Define the preprocessor macro to get the application version in our application.
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"

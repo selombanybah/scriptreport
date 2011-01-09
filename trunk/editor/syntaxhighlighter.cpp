@@ -89,8 +89,8 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             bool reprocessFutureToken = false;
             process(text, tokens, customState, reprocessFutureToken);
             if (reprocessFutureToken) {
-             token = previousToken;
-             pos = token.end + 1;
+                token = previousToken;
+                pos = token.end + 1;
             } else {
                 previousToken = token;
             }

@@ -694,6 +694,24 @@ void TextDocumentSyntaxHighlighter::process(const QString &text, Token tokens[],
             index = doubleQuotation.indexIn(tokenText, index + length);
         }
 
+        // Prevent start comment with simbols // or /* inside a string
+        TokenType futureTokenType = tokens[FutureToken].type;
+        if ((futureTokenType > JsCCommentBegin && futureTokenType < JsCCommentEnd) ||
+            (futureTokenType > JsCommentBegin && futureTokenType < JsCommentEnd)) {
+
+            QRegExp openedQuotation(QString::fromLatin1("^[^\\']*(\\'([^\\']|\\\\')*\\'[^\\']*)*\\'[^\\']*$"));
+            if (openedQuotation.exactMatch(tokenText)) {
+                reprocessFutureToken = true;
+                tokens[CurrentToken].end = tokens[FutureToken].end;
+            }
+
+            QRegExp openedDoubleQuotation(QString::fromLatin1("^[^\\\"]*(\\\"([^\\\"]|\\\\\")*\\\"[^\\\"]*)*\\\"[^\\\"]*$"));
+            if (openedDoubleQuotation.exactMatch(tokenText)) {
+                reprocessFutureToken = true;
+                tokens[CurrentToken].end = tokens[FutureToken].end;
+            }
+        }
+
     } else if (tokens[LastAttributeNameToken].custom == 0) {
         if (token.type == Html_AttributeValue || token.type == Html_AttributeSingleQuoteValue ||
                 token.type == Html_AttributeDoubleQuoteValue) {

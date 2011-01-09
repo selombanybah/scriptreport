@@ -31,6 +31,7 @@ $> qdoc3 scriptreportengine.qdocconf
 
 The generated documentation will be in the doc/html folder, for see it open the index.html file. 
 
-Authors:
-* Juan Luis Paz, juanluispaz@gmail.com
+For extract translatable text from the source code open the editor folder and run:
+
+$> lupdate editor.pro
 
