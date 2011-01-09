@@ -128,14 +128,24 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
         footerLastTemplate = footerTemplate;
     }
 
-    // Setting up the header and calculating the header size
     QTextDocument documentHeader;
+    QTextDocument documentFooter;
+    QTextDocument mainDocument;
+
+    QMapIterator<QUrl, QPair<int, QVariant> > resourcesIterator(scriptReport->resources());
+    while (resourcesIterator.hasNext()) {
+         resourcesIterator.next();
+         documentHeader.addResource(resourcesIterator.value().first, resourcesIterator.key(), resourcesIterator.value().second);
+         documentFooter.addResource(resourcesIterator.value().first, resourcesIterator.key(), resourcesIterator.value().second);
+         mainDocument.addResource(resourcesIterator.value().first, resourcesIterator.key(), resourcesIterator.value().second);
+     }
+
+    // Setting up the header and calculating the header size
     documentHeader.setPageSize(printerRect.size());
     documentHeader.setHtml(headerTemplate);
     QSizeF headerSize = documentHeader.size();
 
     // Setting up the footer and calculating the footer size
-    QTextDocument documentFooter;
     documentFooter.setPageSize(printerRect.size());
     documentFooter.setHtml(footerTemplate);
     QSizeF footerSize = documentFooter.size();
@@ -147,7 +157,6 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
                          footerSize.toSize().height());
 
     // Setting up the center page
-    QTextDocument mainDocument;
     mainDocument.setHtml(contentTemplate);
     mainDocument.setPageSize(centerSize);
 

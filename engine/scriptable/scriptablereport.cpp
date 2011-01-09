@@ -21,6 +21,10 @@
 
 #include <QtCore/QTextStream>
 #include <QtGui/QPrinter>
+#include <QtGui/QWidget>
+#include <QtGui/QPainter>
+#include <QtGui/QPicture>
+#include <QtGui/QTextDocument>
 #include <QtScript/QScriptEngine>
 
 #include "scriptreport.h"
@@ -191,7 +195,7 @@ void ScriptableReport::writeResult(const TextStreamObject* outputObject)
     QTextStream *stream = outputObject->stream();
 
     for (int i = 0; i < argumentCount(); ++i) {
-        QString value = argument(i).toString();
+        QString value = toString(argument(i));
         *stream << value;
     }
 }
@@ -224,7 +228,93 @@ void ScriptableReport::printAndWriteResult(const TextStreamObject* outputObject)
     printFunction.call(context()->thisObject(), endArgs);
 
     for (int i = 0; i < argumentCount(); ++i) {
-        QString value = argument(i).toString();
+        QString value = toString(argument(i));
         *stream << value;
     }
+}
+
+QString ScriptableReport::toString(QScriptValue value, QString url) {
+    QString result = addImageResource(value, url);
+    if (result.isNull()) {
+        return value.toString();
+    } else {
+        return result;
+    }
+}
+
+QString ScriptableReport::addImageResource(QScriptValue value, QString url) {
+    QString result = insertImageResource(value, url);
+    if (result.isNull()) {
+        QString file = value.toString();
+        if (file.isNull()) {
+            return result;
+        }
+        QPixmap pixmap;
+        if (pixmap.load(file)) {
+            result = m_sre->addResource(QTextDocument::ImageResource, QVariant(pixmap), url);
+            return result;
+        }
+        if (file.endsWith(QString::fromLatin1(".pic")) || file.endsWith(QString::fromLatin1(".PIC"))) {
+            QPicture picture;
+            if (picture.load(file)) {
+                QPixmap image(picture.width(), picture.height());
+                QPainter p;
+                p.begin(&image);
+                picture.play(&p);
+                p.end();
+                result = m_sre->addResource(QTextDocument::ImageResource, QVariant(image), url);
+                return result;
+            }
+        }
+    }
+
+    return result;
+}
+
+Q_DECLARE_METATYPE(QPicture);
+
+QString ScriptableReport::insertImageResource(QScriptValue value, QString url) {
+    if (value.isQObject()) {
+        QObject *object = value.toQObject();
+        if (QWidget *w = qobject_cast<QWidget*>(object)) {
+            { // fixme: need a previous render for get the real image size
+                QPixmap image(w->size());
+                QPainter p;
+                p.begin(&image);
+                w->render(&p);
+                p.end();
+            }
+            QPixmap image(w->size());
+            image.fill(QColor(0,0,0,0));
+            QPainter p;
+            p.begin(&image);
+            w->render(&p);
+            p.end();
+
+            QString fileName = m_sre->addResource(QTextDocument::ImageResource, QVariant(image), url);
+            return fileName;
+        }
+    } else if(value.isVariant()) {
+        QVariant variant = value.toVariant();
+        if (variant.canConvert<QPixmap>()) {
+            QString fileName = m_sre->addResource(QTextDocument::ImageResource, variant, url);
+            return fileName;
+        } else if (variant.canConvert<QImage>()) {
+            QString fileName = m_sre->addResource(QTextDocument::ImageResource, variant, url);
+            return fileName;
+        } else if (variant.canConvert<QByteArray>()) {
+            QString fileName = m_sre->addResource(QTextDocument::ImageResource, variant, url);
+            return fileName;
+        } else if (variant.canConvert<QPicture>()) {
+            QPicture picture = variant.value<QPicture>();
+            QPixmap image(picture.width(), picture.height());
+            QPainter p;
+            p.begin(&image);
+            picture.play(&p);
+            p.end();
+            QString fileName = m_sre->addResource(QTextDocument::ImageResource, QVariant(image), url);
+            return fileName;
+        }
+    }
+    return QString();
 }

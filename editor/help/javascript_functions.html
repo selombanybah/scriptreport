@@ -165,6 +165,25 @@ The <tt>isEditing</tt> property tells if the editing mode is enable (e.g. inside
 if the editing mode is not enabled; the <tt>isDebbuging</tt> tells if the debbuging mode is enabled (e.g. running the debbuger
 inside the Script Report Editor).</p>
 
+<p>The method <tt>addImageResource</tt> try to add a image as a resource (if the image object is supported or can be transformed to a image),
+if the <tt>url</tt> is null an unique url will be generated for the image otherwise the <tt>url</tt> value is used. Return the url asigned
+to the image or null if fail getting or transforming the image. The supported <tt>image</tt> object are <tt>QImage</tt>, <tt>QPicture</tt>
+(automatically transformed to <tt>QPixmap</tt>), <tt>QPixmap</tt> and <tt>QWidget</tt> (automatically transformed to <tt>QPixmap</tt>), also
+<tt>image</tt> can be the url to the image file, all image format supported by <tt>QPixmap</tt> are supported, additionally, <tt>QPicture</tt>
+file format are supported (with extension <tt>.pic</tt> or <tt>.PIC</tt>).</p>
+
+<p>Example of <tt>addImageResource</tt> usage:</p>
+<blockquote><tt>
+    <b>var</b> src = sr.report.addImageResource(<b>new</b> QPushButton("Hello!"));<br>
+    ...<br>
+    &lt;<b>img</b> <b>src</b>="${src}" /&gt;
+</tt></blockquote>
+
+<p><b>Note:</b> You can just print the image object inside the report (only print image object, not load from the image url), example:</p>
+<blockquote><tt>
+    &lt;<b>img</b> <b>src</b>="${<b>new</b> QPushButton("Hello!")}" /&gt;
+</tt></blockquote>
+
 <p><b>Properties:</b></p>
 
 <blockquote>
@@ -186,7 +205,8 @@ inside the Script Report Editor).</p>
     void <b>writeFooterLast</b>([html, ...]);<br>
     void <b>writeHeader</b>([html, ...]);<br>
     void <b>writeHeaderFirst</b>([html, ...]);<br>
-    void <b>writeHeaderLast</b>([html, ...]);
+    void <b>writeHeaderLast</b>([html, ...]);<br>
+    QString <b>addImageResource</b>(image, QString url = null);
 </tt></blockquote>
 
 <a name="sr_report_paper"></a>

@@ -48,7 +48,8 @@ public:
             scriptableReport(0),
             scriptableEngine(0),
             scriptReportEngine(0),
-            inFile(0)
+            inFile(0),
+            lastResourceIndex(0)
     {
         construct();
     }
@@ -138,6 +139,9 @@ public:
     ScriptReportEngine *scriptReportEngine;
 
     QFile *inFile;
+
+    QMap<QUrl, QPair<int, QVariant> > resources;
+    int lastResourceIndex;
 };
 
 /*!
@@ -631,4 +635,69 @@ void ScriptReport::initEngine() {
     sr.setProperty(QString::fromLatin1("engine"), engine, QScriptValue::Undeletable);
 
     d->scriptReportEngine->initEngine(this, d->engine);
+}
+
+/*!
+    \fn void ScriptReport::addResource(int type, const QVariant & resource, const QUrl & url)
+
+    Adds the resource \a resource to the resource cache, using \a type and \a url as identifiers.
+    \a type should be a value from \c QTextDocument::ResourceType.
+
+    For example, you can add an image as a resource in order to reference it from within the document:
+
+    \code
+    report->addResource(QTextDocument::ImageResource, QVariant(image), QUrl("mydata://image.png"));
+    \endcode
+
+    The image can be inserted into the document using the HTML \c img tag:
+
+    \code
+    <img src="mydata://image.png" />
+    \endcode
+
+    \sa resources()
+*/
+void ScriptReport::addResource(int type, const QVariant & resource, const QUrl & url) {
+    d->resources.insert(url, QPair<int,QVariant>(type, resource));
+}
+
+/*!
+    \fn QString ScriptReport::addResource(int type, const QVariant &resource, QString url)
+    \overload addResource()
+
+    Adds the resource \a resource to the resource cache, using \a type and \a url as identifiers.
+    \a type should be a value from \c QTextDocument::ResourceType. If the \a url is null an url will
+    be generated automatically, return the resource's url.
+
+    For example, you can add an image as a resource in order to reference it from within the document:
+
+    \code
+    report->addResource(QTextDocument::ImageResource, QVariant(image), "mydata://image.png");
+    \endcode
+
+    The image can be inserted into the document using the HTML \c img tag:
+
+    \code
+    <img src="mydata://image.png" />
+    \endcode
+
+    \sa resources()
+*/
+QString ScriptReport::addResource(int type, const QVariant &resource, QString url) {
+    QString name = url;
+    if (name.isNull()) {
+        ++d->lastResourceIndex;
+        name = QString::fromLatin1("scriptreport://%1").arg(d->lastResourceIndex);
+    }
+    d->resources.insert(QUrl(name), QPair<int,QVariant>(type,resource));
+    return name;
+}
+/*!
+    \fn QMap<QUrl, QPair<int, QVariant> > ScriptReport::resources() const
+    Returns the resource cache.
+
+    \sa addResource()
+*/
+QMap<QUrl, QPair<int, QVariant> > ScriptReport::resources() const {
+    return d->resources;
 }

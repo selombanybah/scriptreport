@@ -1,0 +1,11 @@
+Authors:
+* Juan Luis Paz, juanluispaz@gmail.com
+
+Translations:
+
+* Spanish:
+  - Juan Luis Paz, juanluispaz@gmail.com
+
+* Russian:
+  - Михаил Филоненко, filonenko.mikhail@gmail.com
+

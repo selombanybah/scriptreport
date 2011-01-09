@@ -43,7 +43,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="sourceTab">
        <attribute name="icon">
@@ -303,7 +303,7 @@
          <normaloff>:/images/print-source.png</normaloff>:/images/print-source.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Print Source</string>
+        <string>Print source</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <property name="margin">
@@ -1149,7 +1149,7 @@
      <normaloff>:/images/print-source.png</normaloff>:/images/print-source.png</iconset>
    </property>
    <property name="text">
-    <string>Print source</string>
+    <string>Print so&amp;urce</string>
    </property>
    <property name="statusTip">
     <string>Show the generated print source</string>
@@ -1292,7 +1292,7 @@
   </action>
   <action name="actionShowShell">
    <property name="text">
-    <string>Show shell</string>
+    <string>Show &amp;shell</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Return</string>

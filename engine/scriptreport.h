@@ -24,6 +24,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
+#include <QtCore/QUrl>
 
 class QPrinter;
 class QScriptEngine;
@@ -31,6 +32,8 @@ class QTextStream;
 
 class TextStreamObject;
 class ScriptReportEngine;
+
+class QPixmap;
 
 class ScriptReportPrivate;
 class SCRIPTREPORTENGINE_EXPORT ScriptReport : public QObject
@@ -96,6 +99,10 @@ public:
     QString errorMessage() const;
 
     void loadPrintConfiguration(QPrinter *printer);
+
+    QString addResource(int type, const QVariant &resource, QString url = QString());
+    void addResource(int type, const QVariant & resource, const QUrl & url);
+    QMap<QUrl, QPair<int, QVariant> > resources() const;
 
 public slots:
     void updateIntermediateCode();

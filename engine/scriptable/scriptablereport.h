@@ -23,6 +23,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 #include <QtScript/QScriptable>
+#include <QtScript/QScriptValue>
 
 #include "scriptablepaper.h"
 
@@ -68,9 +69,13 @@ public:
     void applyConfigurationTo(QPrinter &printer);
     void initEngine(QScriptEngine &engine);
 
+    Q_INVOKABLE QString addImageResource(QScriptValue value, QString url = QString());
+
 private:
     void writeResult(const TextStreamObject *outputObject);
     void printAndWriteResult(const TextStreamObject *outputObject);
+    QString toString(QScriptValue value, QString url = QString());
+    QString insertImageResource(QScriptValue value, QString url = QString());
 
 private:
     ScriptReport *m_sre;
