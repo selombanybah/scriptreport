@@ -308,6 +308,7 @@ QString ScriptableReport::insertImageResource(QScriptValue value, QString url) {
         } else if (variant.canConvert<QPicture>()) {
             QPicture picture = variant.value<QPicture>();
             QPixmap image(picture.width(), picture.height());
+            image.fill(QColor(0,0,0,0));
             QPainter p;
             p.begin(&image);
             picture.play(&p);

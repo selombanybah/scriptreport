@@ -140,7 +140,7 @@ public:
 
     QFile *inFile;
 
-    QMap<QUrl, QPair<int, QVariant> > resources;
+    ScriptReportResources resources;
     int lastResourceIndex;
 };
 
@@ -658,7 +658,7 @@ void ScriptReport::initEngine() {
     \sa resources()
 */
 void ScriptReport::addResource(int type, const QVariant & resource, const QUrl & url) {
-    d->resources.insert(url, QPair<int,QVariant>(type, resource));
+    d->resources.insert(url, ScriptReportResourcePair(type, resource));
 }
 
 /*!
@@ -689,7 +689,7 @@ QString ScriptReport::addResource(int type, const QVariant &resource, QString ur
         ++d->lastResourceIndex;
         name = QString::fromLatin1("scriptreport://%1").arg(d->lastResourceIndex);
     }
-    d->resources.insert(QUrl(name), QPair<int,QVariant>(type,resource));
+    d->resources.insert(QUrl(name), ScriptReportResourcePair(type,resource));
     return name;
 }
 /*!
@@ -698,6 +698,6 @@ QString ScriptReport::addResource(int type, const QVariant &resource, QString ur
 
     \sa addResource()
 */
-QMap<QUrl, QPair<int, QVariant> > ScriptReport::resources() const {
+ScriptReportResources ScriptReport::resources() const {
     return d->resources;
 }

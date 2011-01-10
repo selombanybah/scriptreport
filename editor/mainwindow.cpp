@@ -71,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionShowPrevious, SIGNAL(triggered()), SLOT(showPrevious()));
     connect(ui->actionShowNext,     SIGNAL(triggered()), SLOT(showNext()));
     connect(ui->actionValidate,     SIGNAL(triggered()), SLOT(validate()));
-    connect(ui->actionRun,          SIGNAL(triggered()), SLOT(run()));
+    connect(ui->actionRun,          SIGNAL(triggered()), SLOT(doRunAction()));
     connect(ui->actionShowShell,    SIGNAL(triggered()), SLOT(showShell()));
     connect(ui->actionShowValidationResult, SIGNAL(triggered()), SLOT(showValidationResult()));
     connect(ui->actionShowReportResult,     SIGNAL(triggered()), SLOT(showReportResult()));
@@ -344,6 +344,11 @@ void MainWindow::run() {
 
     isRunRequired = false;
     isPrintPreviewUpdateRequired = true;
+}
+
+void MainWindow::doRunAction() {
+    run();
+    currentTabChanged();
 }
 
 void MainWindow::debug() {

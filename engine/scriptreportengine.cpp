@@ -132,7 +132,7 @@ void ScriptReportEngine::print(ScriptReport *scriptReport, QPrinter *printer) {
     QTextDocument documentFooter;
     QTextDocument mainDocument;
 
-    QMapIterator<QUrl, QPair<int, QVariant> > resourcesIterator(scriptReport->resources());
+    QMapIterator<QUrl, ScriptReportResourcePair> resourcesIterator(scriptReport->resources());
     while (resourcesIterator.hasNext()) {
          resourcesIterator.next();
          documentHeader.addResource(resourcesIterator.value().first, resourcesIterator.key(), resourcesIterator.value().second);

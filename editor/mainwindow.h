@@ -50,6 +50,7 @@ private slots:
     void closeFile();
     void exit();
     void validate();
+    void doRunAction();
     void run();
     void showShell();
     void showValidationResult();
