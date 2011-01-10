@@ -25,6 +25,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
+#include <QtCore/QMetaType>
+#include <QtCore/QVariant>
 
 class QPrinter;
 class QScriptEngine;
@@ -36,6 +38,13 @@ class ScriptReportEngine;
 class QPixmap;
 
 class ScriptReportPrivate;
+
+typedef QPair<int, QVariant> ScriptReportResourcePair;
+Q_DECLARE_METATYPE(ScriptReportResourcePair);
+
+typedef QMap<QUrl, ScriptReportResourcePair > ScriptReportResources;
+Q_DECLARE_METATYPE(ScriptReportResources);
+
 class SCRIPTREPORTENGINE_EXPORT ScriptReport : public QObject
 {
     Q_OBJECT
@@ -51,6 +60,8 @@ class SCRIPTREPORTENGINE_EXPORT ScriptReport : public QObject
     Q_PROPERTY(QString intermediateCode READ intermediateCode)
     Q_PROPERTY(bool hasUncaughtException READ hasUncaughtException)
     Q_PROPERTY(QString errorMessage READ errorMessage)
+
+    Q_PROPERTY(ScriptReportResources resources READ resources)
 
 public:
     explicit ScriptReport(QObject *parent = 0);
@@ -102,7 +113,7 @@ public:
 
     QString addResource(int type, const QVariant &resource, QString url = QString());
     void addResource(int type, const QVariant & resource, const QUrl & url);
-    QMap<QUrl, QPair<int, QVariant> > resources() const;
+    ScriptReportResources resources() const;
 
 public slots:
     void updateIntermediateCode();
