@@ -537,7 +537,8 @@ void TextDocumentSyntaxHighlighter::init() {
                         << QRegExp(QString::fromLatin1("\\bpackage\\b"))
                         << QRegExp(QString::fromLatin1("\\bprotected\\b"))
                         << QRegExp(QString::fromLatin1("\\bstatic\\b"))
-                        << QRegExp(QString::fromLatin1("\\byield\\b"));
+                        << QRegExp(QString::fromLatin1("\\byield\\b"))
+                        << QRegExp(QString::fromLatin1("\\bprototype\\b"));
 
     m_jsKeywordFormat.setForeground(Qt::darkYellow);
     m_jsKeywordFormat.setFontWeight(QFont::Bold);
