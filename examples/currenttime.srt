@@ -71,11 +71,53 @@ AnalogClock.hourHand = new QPolygon([new QPoint(7, 8),
 AnalogClock.minuteHand = new QPolygon([new QPoint(7, 8),
                                        new QPoint(-7, 8),
                                        new QPoint(0, -70)]);
+-->
 
+<!--@ // Create the AnalogClockWidget
+var analogClock = new AnalogClock();
+analogClock.setAttribute(Qt.WA_NoSystemBackground);
 -->
 <h1><center>Current time</center></h1>
 <p>
 <center>
-<img src="${new AnalogClock()}" />
+<img src="${analogClock}" /> <!-- Note that analogClock is a QWidget -->
+</center>
+</p>
+
+<!--@ // Draw a polygon
+var points = new QPolygon();
+points.append(new QPoint(10, 80));
+points.append(new QPoint(20, 10));
+points.append(new QPoint(80, 30));
+points.append(new QPoint(90, 70));
+
+var linearGradient = new QLinearGradient(0, 0, 100, 100);
+linearGradient.setColorAt(0.0, new QColor(Qt.white));
+linearGradient.setColorAt(0.2, new QColor(Qt.green));
+linearGradient.setColorAt(1.0, new QColor(Qt.black));
+
+var pixmap = new QPixmap(100,100);
+pixmap.fill(new QColor(0,0,0,0));
+
+var painter = new QPainter();
+painter.begin(pixmap);
+
+painter.setRenderHint(QPainter.Antialiasing, true);
+painter.setPen(Qt.DashLine);
+painter.setBrush(new QBrush(linearGradient));
+
+painter.drawPolygon(points);
+
+painter.end();
+
+var src = sr.report.addImageResource(pixmap); // Register the pixmap as an image, 
+                                              // return the generated url of the image
+-->
+<p>
+<center>
+<!-- Display the drawn image three times -->
+<img src="${src}" />
+<img src="${src}" />
+<img src="${src}" />
 </center>
 </p>
