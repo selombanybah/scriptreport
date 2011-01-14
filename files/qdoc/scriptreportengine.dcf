@@ -22,6 +22,8 @@
         <keyword ref="scriptreport.html#previousScript-prop">setPreviousScript</keyword>
         <keyword ref="scriptreport.html#reportName-prop">reportName</keyword>
         <keyword ref="scriptreport.html#reportName-prop">setReportName</keyword>
+        <keyword ref="scriptreport.html#resources-prop">resources</keyword>
+        <keyword ref="scriptreport.html#addResource">addResource</keyword>
         <keyword ref="scriptreport.html#initEngine">initEngine</keyword>
         <keyword ref="scriptreport.html#input">input</keyword>
         <keyword ref="scriptreport.html#loadPrintConfiguration">loadPrintConfiguration</keyword>
@@ -38,6 +40,8 @@
         <keyword ref="scriptreport.html#scriptEngine">scriptEngine</keyword>
         <keyword ref="scriptreport.html#scriptReportEngine">scriptReportEngine</keyword>
         <keyword ref="scriptreport.html#updateIntermediateCode">updateIntermediateCode</keyword>
+        <keyword ref="scriptreport.html#ScriptReportResourcePair-typedef">ScriptReportResourcePair</keyword>
+        <keyword ref="scriptreport.html#ScriptReportResources-typedef">ScriptReportResources</keyword>
         <section ref="scriptreport-members.html" title="List of all members"/>
     </section>
     <section ref="scriptreportengine.html" title="ScriptReportEngine Class Reference">

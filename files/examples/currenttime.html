@@ -1,0 +1,126 @@
+<tt>
+
+<font color=red>&lt;!--@</font><br>
+sr.engine.importExtension(<font color=green>"qt.core"</font>);<br>
+sr.engine.importExtension(<font color=green>"qt.gui"</font>);<br>
+<font color=red>--&gt;</font><br>
+<br>
+<font color=red>&lt;!--@</font><font color=red> // AnalogClock class</font><br>
+<font color=olive><b>function</b></font> AnalogClock(parent) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;QWidget.call(<font color=olive><b>this</b></font>, parent);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>var</b></font> timer = new QTimer(<font color=olive><b>this</b></font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;timer.timeout.connect(<font color=olive><b>this</b></font>, <font color=green>"update()"</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;timer.start(<font color=blue>1000</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>this</b></font>.setWindowTitle(<font color=green>"Analog Clock"</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>this</b></font>.resize(<font color=blue>200</font>, <font color=blue>200</font>);<br>
+}<br>
+<br>
+AnalogClock.<font color=olive><b>prototype</b></font> = <font color=olive><b>new</b></font> QWidget();<br>
+<br>
+AnalogClock.<font color=olive><b>prototype</b></font>.paintEvent = <font color=olive><b>function</b></font>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>var</b></font> side = Math.min(<font color=olive><b>this</b></font>.width, <font color=olive><b>this</b></font>.height);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>var</b></font> time = <font color=olive><b>new</b></font> Date();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>var</b></font> painter = <font color=olive><b>new</b></font> QPainter();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.begin(<font color=olive><b>this</b></font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.setRenderHint(QPainter.Antialiasing);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.translate(<font color=olive><b>this</b></font>.width / <font color=blue>2</font>, <font color=olive><b>this</b></font>.height / <font color=blue>2</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.scale(side / <font color=blue>200.0</font>, side / <font color=blue>200.0</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.setPen(<font color=olive><b>new</b></font> QPen(Qt.NoPen));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.setBrush(<font color=olive><b>new</b></font> QBrush(AnalogClock.hourColor));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.save();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.rotate(<font color=blue>30.0</font> * ((time.getHours() + time.getMinutes() / <font color=blue>60.0</font>)));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.drawConvexPolygon(AnalogClock.hourHand);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.drawLine(<font color=blue>0</font>, <font color=blue>0</font>, <font color=blue>100</font>, <font color=blue>100</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.restore();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.setPen(AnalogClock.hourColor);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>for</b></font> (<font color=olive><b>var</b></font> i = <font color=blue>0</font>; i &lt; <font color=blue>12</font>; ++i) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;painter.drawLine(<font color=blue>88</font>, <font color=blue>0</font>, <font color=blue>96</font>, <font color=blue>0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;painter.rotate(<font color=blue>30.0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.setPen(<font color=olive><b>new</b></font> QPen(Qt.NoPen));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.setBrush(<font color=olive><b>new</b></font> QBrush(AnalogClock.minuteColor));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.save();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.rotate(<font color=blue>6.0</font> * (time.getMinutes() + time.getSeconds() / <font color=blue>60.0</font>));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.drawConvexPolygon(AnalogClock.minuteHand);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.restore();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.setPen(AnalogClock.minuteColor);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>for</b></font> (<font color=olive><b>var</b></font> j = <font color=blue>0</font>; j &lt; <font color=blue>60</font>; ++j) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>if</b></font> ((j % <font color=blue>5</font>) != 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;painter.drawLine(<font color=blue>92</font>, <font color=blue>0</font>, <font color=blue>96</font>, <font color=blue>0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;painter.rotate(<font color=blue>6.0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;painter.end();<br>
+};<br>
+<br>
+AnalogClock.hourColor = <font color=olive><b>new</b></font> QColor(<font color=blue>127</font>, <font color=blue>0</font>, <font color=blue>127</font>);<br>
+<br>
+AnalogClock.minuteColor = <font color=olive><b>new</b></font> QColor(<font color=blue>0</font>, <font color=blue>127</font>, <font color=blue>127</font>, <font color=blue>191</font>);<br>
+<br>
+AnalogClock.hourHand = <font color=olive><b>new</b></font> QPolygon([<font color=olive><b>new</b></font> QPoint(<font color=blue>7</font>, <font color=blue>8</font>),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>new</b></font> QPoint(<font color=blue>-7</font>, <font color=blue>8</font>),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>new</b></font> QPoint(<font color=blue>0</font>, <font color=blue>-40</font>)]);<br>
+AnalogClock.minuteHand = <font color=olive><b>new</b></font> QPolygon([<font color=olive><b>new</b></font> QPoint(<font color=blue>7</font>, <font color=blue>8</font>),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>new</b></font> QPoint(<font color=blue>-7</font>, <font color=blue>8</font>),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=olive><b>new</b></font> QPoint(<font color=blue>0</font>, <font color=blue>-70</font>)]);<br>
+<br>
+<font color=red>--&gt;</font><br>
+<br>
+<font color=red>&lt;!--@</font><font color=red> // Create the AnalogClockWidget</font><br>
+<font color=olive><b>var</b></font> analogClock = <font color=olive><b>new</b></font> AnalogClock();<br>
+analogClock.setAttribute(Qt.WA_NoSystemBackground);<br>
+<font color=red>--&gt;</font><br>
+<font color=purple>&lt;<b>h1</b>&gt;&lt;<b>center</b>&gt;</font>Current time<font color=purple>&lt;/<b>center</b>&gt;&lt;/<b>h1</b>&gt;</font><br>
+<font color=purple>&lt;<b>p</b>&gt;</font><br>
+<font color=purple>&lt;<b>center</b>&gt;</font><br>
+<font color=purple>&lt;<b>img</b></font> <font color=brown><b>src</b></font>="<font color=blue>&#36;{analogClock}</font>" <font color=purple>/&gt;</font> <font color=red>&lt;!-- Note that analogClock is a QWidget --&gt;</font><br>
+<font color=purple>&lt;/<b>center</b>&gt;</font><br>
+<font color=purple>&lt;/<b>p</b>&gt;</font><br>
+<br>
+<font color=red>&lt;!--@</font><font color=red> // Draw a polygon</font<br>
+<font color=olive><b>var</b></font> points = <font color=olive><b>new</b></font> QPolygon();<br>
+points.append(new QPoint(<font color=blue>10</font>, <font color=blue>80</font>));<br>
+points.append(new QPoint(<font color=blue>20</font>, <font color=blue>10</font>));<br>
+points.append(new QPoint(<font color=blue>80</font>, <font color=blue>30</font>));<br>
+points.append(new QPoint(<font color=blue>90</font>, <font color=blue>70</font>));<br>
+<br>
+<font color=olive><b>var</b></font> linearGradient = <font color=olive><b>new</b></font> QLinearGradient(<font color=blue>0</font>, <font color=blue>0</font>, <font color=blue>100</font>, <font color=blue>100</font>);<br>
+linearGradient.setColorAt(<font color=blue>0.0</font>, new QColor(Qt.white));<br>
+linearGradient.setColorAt(<font color=blue>0.2</font>, new QColor(Qt.green));<br>
+linearGradient.setColorAt(<font color=blue>1.0</font>, new QColor(Qt.black));<br>
+<br>
+<font color=olive><b>var</b></font> pixmap = <font color=olive><b>new</b></font> QPixmap(<font color=blue>100</font>,<font color=blue>100</font>);<br>
+pixmap.fill(new QColor(<font color=blue>0</font>,<font color=blue>0</font>,<font color=blue>0</font>,<font color=blue>0</font>));<br>
+<br>
+<font color=olive><b>var</b></font> painter = <font color=olive><b>new</b></font> QPainter();<br>
+painter.begin(pixmap);<br>
+<br>
+painter.setRenderHint(QPainter.Antialiasing, <font color=olive><b>true</b></font>);<br>
+painter.setPen(Qt.DashLine);<br>
+painter.setBrush(<font color=olive><b>new</b></font> QBrush(linearGradient));<br>
+<br>
+painter.drawPolygon(points);<br>
+<br>
+painter.end();<br>
+<br>
+<font color=olive><b>var</b></font> src = sr.report.addImageResource(pixmap); <font color=red>// Register the pixmap as an image,</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>// return the generated url of the image</font><br>
+<font color=red>--&gt;</font><br>
+<font color=purple>&lt;<b>p</b>&gt;</font><br>
+<font color=purple>&lt;<b>center</b>&gt;</font><br>
+<font color=red>&lt;!-- Display the drawn image three times --&gt;</font><br>
+<font color=purple>&lt;<b>img</b></font> <font color=brown><b>src</b></font>="<font color=blue>&#36;{src}</font>" <font color=purple>/&gt;</font><br>
+<font color=purple>&lt;<b>img</b></font> <font color=brown><b>src</b></font>="<font color=blue>&#36;{src}</font>" <font color=purple>/&gt;</font><br>
+<font color=purple>&lt;<b>img</b></font> <font color=brown><b>src</b></font>="<font color=blue>&#36;{src}</font>" <font color=purple>/&gt;</font><br>
+<font color=purple>&lt;/<b>center</b>&gt;</font><br>
+<font color=purple>&lt;/<b>p</b>&gt;</font>

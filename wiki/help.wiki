@@ -100,11 +100,10 @@ delete p;
 delete sr;
 }}}
 
-== Example ==
+== Examples ==
 
-The folder `example/music` contains a very complete example.
-
-The source code of the music example is music.srt, [http://scriptreport.googlecode.com/svn/files/examples/music/music.html click here for see the source code], and [http://scriptreport.googlecode.com/svn/files/examples/music/music.pdf here for see the print result].
+* *Music report*: contains a very complete example about consult a database, construct the report html and add internationalization suport. The source code of the music example is music.srt (located in the folder `examples/music`), [http://scriptreport.googlecode.com/svn/files/examples/music/music.html click here for see the source code], and [http://scriptreport.googlecode.com/svn/files/examples/music/music.pdf here for see the print result].
+* *Current time*: an example using QWidget and QPixmap for draw images in the report. The source code of the current time example is currenttime.srt (located in the folder `examples`), [http://scriptreport.googlecode.com/svn/files/examples/currenttime.html click here for see the source code], and [http://scriptreport.googlecode.com/svn/files/examples/currenttime.pdf here for see the print result].
 
 == Documentation ==
 
