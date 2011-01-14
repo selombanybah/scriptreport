@@ -1,4 +1,4 @@
-#summary Change log.
+#summary Change log
 #labels Featured
 
 =Change log=
