@@ -1,0 +1,8 @@
+<!--@
+sr.engine.importExtension("srsql");
+var db = sr.sql.addDatabase("QSQLITE", "test")
+db.databaseName = ":memory:";
+var result = db.open();
+print(db);
+print("end");
+-->

@@ -1,0 +1,7 @@
+<!--@
+print(sr.engine.availableExtensions);
+sr.engine.importExtension("foo");
+print(sr.engine.importedExtensions);
+print(foo.add(1,2));
+print("end");
+-->
