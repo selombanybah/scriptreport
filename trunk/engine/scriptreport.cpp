@@ -692,8 +692,31 @@ QString ScriptReport::addResource(int type, const QVariant &resource, QString ur
     d->resources.insert(QUrl(name), ScriptReportResourcePair(type,resource));
     return name;
 }
+
 /*!
-    \fn QMap<QUrl, QPair<int, QVariant> > ScriptReport::resources() const
+    \typedef ScriptReportResourcePair
+    \relates ScriptReport
+
+    Pair of type resource and resource in a \l ScriptReportResources list.
+
+    Synonym for QPair<int, QVariant>.
+
+    \sa ScriptReportResources, ScriptReport::resources()
+*/
+
+/*!
+    \typedef ScriptReportResources
+    \relates ScriptReport
+
+    List of resources in a Script Report.
+
+    Synonym for QMap<QUrl, ScriptReportResourcePair>.
+
+    \sa ScriptReportResourcePair, ScriptReport::resources()
+*/
+
+/*!
+    \property ScriptReport::resources
     Returns the resource cache.
 
     \sa addResource()
